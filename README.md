@@ -1,6 +1,8 @@
-# covid-vaccine-neuro-research
+# OpenSAFELY Protocol: Short-term safety of COVID-19 vaccines in England 2020/21 – neurological events
 
-This is the code and configuration for covid-vaccine-neuro-research.
+This is the code and configuration for our project 'Short-term safety of COVID-19 vaccines in England 2020/21 – neurological events'. 
+
+**This repo is work in progress.**
 
 You can run this project via [Gitpod](https://gitpod.io) in a web browser by clicking on this badge: [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-908a85?logo=gitpod)](https://gitpod.io/#https://github.com/opensafely/covid-vaccine-neuro-research)
 
