@@ -1,3 +1,94 @@
 {
-  "files": {}
+  "files": {
+    "opensafely-ethnicity.csv": {
+      "id": "opensafely/ethnicity/2020-04-27",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/ethnicity/2020-04-27/",
+      "downloaded_at": "2021-08-12 15:26:59.835177Z",
+      "sha": "3d2f3998b71863a80b24d60f6f4282e14191ae13"
+    },
+    "opensafely-bells-palsy.csv": {
+      "id": "opensafely/bells-palsy/2a1a03e9",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/bells-palsy/2a1a03e9/",
+      "downloaded_at": "2021-08-12 15:27:00.087843Z",
+      "sha": "8800156231674dbeb85e50e341bd56e075985047"
+    },
+    "opensafely-bells-palsy-icd-10.csv": {
+      "id": "opensafely/bells-palsy-icd-10/7d609d6a",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/bells-palsy-icd-10/7d609d6a/",
+      "downloaded_at": "2021-08-12 15:27:00.706070Z",
+      "sha": "f1258b4e6c5acef097aaf028756c1208b4d49845"
+    },
+    "opensafely-transverse-myelitis.csv": {
+      "id": "opensafely/transverse-myelitis/3f3497f2",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/transverse-myelitis/3f3497f2/",
+      "downloaded_at": "2021-08-12 15:27:00.966801Z",
+      "sha": "48a02d5fad8c2da5063c197577e64e20e795e011"
+    },
+    "opensafely-acute-transverse-myelitis-icd-10.csv": {
+      "id": "opensafely/acute-transverse-myelitis-icd-10/323243cb",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/acute-transverse-myelitis-icd-10/323243cb/",
+      "downloaded_at": "2021-08-12 15:27:01.251967Z",
+      "sha": "5c5f1a185607e93d2c84a9259a2fa92775e9d4cc"
+    },
+    "opensafely-guillain-barre.csv": {
+      "id": "opensafely/guillain-barre/7aaddd74",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/guillain-barre/7aaddd74/",
+      "downloaded_at": "2021-08-12 15:27:01.495604Z",
+      "sha": "b0ae8229051f38d5d3b76c9c7bf2621c2973bd34"
+    },
+    "opensafely-guillain-barre-syndrome-icd10.csv": {
+      "id": "opensafely/guillain-barre-syndrome-icd10/4b41b700",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/guillain-barre-syndrome-icd10/4b41b700/",
+      "downloaded_at": "2021-08-12 15:27:01.762120Z",
+      "sha": "c5ba370a4a584a06172c98533db62622a9029af7"
+    },
+    "opensafely-diabetes.csv": {
+      "id": "opensafely/diabetes/2020-04-15",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/diabetes/2020-04-15/",
+      "downloaded_at": "2021-08-12 15:27:02.030403Z",
+      "sha": "605104b3e3770b7ab703d12943f5f15fa8eafe77"
+    },
+    "opensafely-hiv.csv": {
+      "id": "opensafely/hiv/2020-07-13",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/hiv/2020-07-13/",
+      "downloaded_at": "2021-08-12 15:27:02.309732Z",
+      "sha": "c36a629c306e57081f702c3f30671364e452a3ee"
+    },
+    "opensafely-lung-cancer.csv": {
+      "id": "opensafely/lung-cancer/2020-04-15",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/lung-cancer/2020-04-15/",
+      "downloaded_at": "2021-08-12 15:27:02.624495Z",
+      "sha": "645584a20f81c4d76187a2c305c904e8b8c63dbb"
+    },
+    "opensafely-cancer-excluding-lung-and-haematological.csv": {
+      "id": "opensafely/cancer-excluding-lung-and-haematological/2020-04-15",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/cancer-excluding-lung-and-haematological/2020-04-15/",
+      "downloaded_at": "2021-08-12 15:27:02.984655Z",
+      "sha": "8fa1164b587028c4bd5903289e0948642d399e56"
+    },
+    "opensafely-haematological-cancer.csv": {
+      "id": "opensafely/haematological-cancer/2020-04-15",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/haematological-cancer/2020-04-15/",
+      "downloaded_at": "2021-08-12 15:27:03.304453Z",
+      "sha": "59d65c613a7b984ba46eca8a74eedcc6320609fe"
+    },
+    "opensafely-systemic-lupus-erythematosus-sle.csv": {
+      "id": "opensafely/systemic-lupus-erythematosus-sle/2020-05-12",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/systemic-lupus-erythematosus-sle/2020-05-12/",
+      "downloaded_at": "2021-08-12 15:27:03.596354Z",
+      "sha": "a7354e610e9ccc2f22f8e8b9b1a7c329a971aa7c"
+    },
+    "opensafely-hypertension.csv": {
+      "id": "opensafely/hypertension/2020-04-28",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/hypertension/2020-04-28/",
+      "downloaded_at": "2021-08-12 15:27:03.916440Z",
+      "sha": "b0d7bbf6ea767366db458bc6f6d37955ae331cc7"
+    },
+    "primis-covid19-vacc-uptake-preg.csv": {
+      "id": "primis-covid19-vacc-uptake/preg/v1",
+      "url": "https://codelists.opensafely.org/codelist/primis-covid19-vacc-uptake/preg/v1/",
+      "downloaded_at": "2021-08-12 15:42:57.146145Z",
+      "sha": "16b9bdf6c37c9f5e802912a98542c5dd5d21183d"
+    }
+  }
 }
