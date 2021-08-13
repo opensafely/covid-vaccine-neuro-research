@@ -16,14 +16,14 @@ def generate_vaccine_variables(index_date):
         return_expectations={
             "date": {
                 "earliest": "2020-12-08",  # first vaccine administered on the 8/12
-                "latest": "2021-05-01",
+                "latest": "2021-05-11",
             }
         },
     ),
     # pfizer (first dose) 
     first_pfizer_date=patients.with_tpp_vaccination_record(
         target_disease_matches="SARS-2 CORONAVIRUS",
-        product_name_matches="COVID-19 mRNA Vac BNT162b2 30mcg/0.3ml conc for susp for inj multidose vials (Pfizer-BioNTech)",
+        product_name_matches="COVID-19 mRNA Vaccine Pfizer-BioNTech BNT162b2 30micrograms/0.3ml dose conc for susp for inj MDV",
         on_or_after="2020-12-07",  
         find_first_match_in_period=True,
         returning="date",
@@ -31,7 +31,7 @@ def generate_vaccine_variables(index_date):
         return_expectations={
             "date": {
                 "earliest": "2020-12-08",  # first vaccine administered on the 8/12
-                "latest": "2021-05-01",
+                "latest": "2021-05-11",
             }
         },
     ),
@@ -46,7 +46,7 @@ def generate_vaccine_variables(index_date):
         return_expectations={
             "date": {
                 "earliest": "2020-12-08",  # first vaccine administered on the 8/12
-                "latest": "2021-05-01",
+                "latest": "2021-05-11",
             }
         },
     ),
@@ -61,7 +61,7 @@ def generate_vaccine_variables(index_date):
         return_expectations={
             "date": {
                 "earliest": "2020-12-08",  
-                "latest": "2021-05-01",
+                "latest": "2021-05-11",
             },
         },
     ),
@@ -76,14 +76,14 @@ def generate_vaccine_variables(index_date):
         return_expectations={
             "date": {
                 "earliest": "2020-12-08",  # first vaccine administered on the 8/12
-                "latest": "2021-05-01",
+                "latest": "2021-05-11",
             }
         },
     ),
     # pfizer (second dose) 
     second_pfizer_date=patients.with_tpp_vaccination_record(
         target_disease_matches="SARS-2 CORONAVIRUS",
-        product_name_matches="COVID-19 mRNA Vac BNT162b2 30mcg/0.3ml conc for susp for inj multidose vials (Pfizer-BioNTech)",
+        product_name_matches="COVID-19 mRNA Vaccine Pfizer-BioNTech BNT162b2 30micrograms/0.3ml dose conc for susp for inj MDV",
         on_or_after="first_any_vaccine_date + 21 days",  
         find_first_match_in_period=True,
         returning="date",
@@ -91,7 +91,7 @@ def generate_vaccine_variables(index_date):
         return_expectations={
             "date": {
                 "earliest": "2020-12-08",  # first vaccine administered on the 8/12
-                "latest": "2021-05-01",
+                "latest": "2021-05-11",
             }
         },
     ),
@@ -106,7 +106,7 @@ def generate_vaccine_variables(index_date):
         return_expectations={
             "date": {
                 "earliest": "2020-12-08",  # first vaccine administered on the 8/12
-                "latest": "2021-05-01",
+                "latest": "2021-05-11",
             }
         },
     ),
@@ -119,7 +119,7 @@ def generate_vaccine_variables(index_date):
         return_expectations={
             "date": {
                 "earliest": "2020-12-08",  
-                "latest": "2021-05-01",
+                "latest": "2021-05-11",
             },
         },
     ),

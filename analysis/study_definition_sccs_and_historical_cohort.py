@@ -15,10 +15,6 @@ from codelists import *
 # These are defined in separate dictionairies (adapted from A Walker: https://github.com/opensafely/post-covid-outcomes-research/blob/master/analysis/common_variables.py)
 # I've mainly used this here to improve readability and for ease of review as there are a lot of different variables extracted 
 
-## PRIMIS variables, used to define the eligible population 
-from primis_variables import generate_primis_variables 
-primis_variables = generate_primis_variables(index_date="index_date")
-
 ## Demographics, clinical comorbidities and comedications, included as they are potential confounders 
 from confounding_variables import generate_confounding_variables
 confounding_variables = generate_confounding_variables(index_date="index_date")
@@ -31,10 +27,6 @@ outcome_variables = generate_outcome_variables(index_date="index_date")
 from vaccine_variables import generate_vaccine_variables
 vaccine_variables = generate_vaccine_variables(index_date="index_date")
 
-## Hospital Admission Variables 
-from hospital_admission_variables import generate_hospital_admission_variables 
-hospital_admission_variables = generate_hospital_admission_variables(index_date="index_date")
-
 # Specify study definition
 
 study = StudyDefinition(
@@ -45,19 +37,20 @@ study = StudyDefinition(
         "incidence" : 0.2
     },
 
-    # index date
+    # index date for sccs and historical cohort 
     index_date="2020-07-01", 
 
      # select the study population
+     # note, exclusions on history of events will be applied in a dofile, as these are relevant only to specific sccs analyses
     population=patients.satisfying(
         """
-        (age >= 16 AND age < 105) AND 
+        (age >= 18 AND age < 105) AND 
         (sex = "M" OR sex = "F") AND 
         has_baseline_time AND
         known_care_home AND NOT 
+        imd > 0 AND NOT 
         has_died AND NOT 
-        pregnancy AND NOT 
-        prior_any_vte 
+        pregnancy 
         """,
     ),
     
@@ -74,7 +67,7 @@ study = StudyDefinition(
             "int": {"distribution": "population_ages"},
         },
     ),
-    ### age group 
+    ### age group (for cohort matching)
     age_grouped= patients.categorised_as(
         {   
             "0": "DEFAULT",
@@ -86,7 +79,7 @@ study = StudyDefinition(
         },
         return_expectations={
             "rate":"universal",
-            "category": {"ratios": {"<65":0.1, "65-69": 0.2,"70-74": 0.2, "75-79": 0.2, "80+":0.3}}
+            "category": {"ratios": {"<65":0.5, "65-69": 0.1,"70-74": 0.1, "75-79": 0.1, "80+":0.2}}
         },
     ),
     ### sex 
@@ -152,26 +145,6 @@ study = StudyDefinition(
         return_expectations={"incidence": 0.01}
     ),
 
-    ## CLINICAL VARIABLES 
-    ### history of VTE
-    prior_any_vte_gp=patients.with_these_clinical_events(
-        vte_codes_primary_care,
-        between=["index_date", "index_date - 1 year"], 
-        returning="binary_flag",
-        return_expectations={"incidence": 0.01},
-    ),
-    prior_any_vte_hospital=patients.admitted_to_hospital(
-        with_these_diagnoses=vte_codes_secondary_care,
-        between=["index_date", "index_date - 1 year"], 
-        returning="binary_flag",
-        return_expectations={"incidence": 0.01},
-    ),
-    prior_any_vte=patients.satisfying("prior_any_vte_gp OR prior_any_vte_hospital"),
-
-    ### primis eligibility for at risk group  
-    ### note, needs to be applied in stata
-    **primis_variables, 
-
     # CENSORING VARIABLES 
     ## deregistration date
     dereg_date=patients.date_deregistered_from_all_supported_practices(
@@ -196,54 +169,10 @@ study = StudyDefinition(
     # OUTCOME (VTE) VARIABLES (occuring after the index date)
     **outcome_variables, 
 
-    # CLINICAL COMORBIDITIES AND COMEDICATIONS 
+    # CLINICAL COMORBIDITIES (note: includes history of some outcomes used as exclusion criteria in individual SCCS cohorts)
     **confounding_variables, 
 
-    # TIME-UPDATED VARIABLES 
-    ## Hospital Admissions 
-    **hospital_admission_variables, 
-
-    ## Anticoagulation in relation to VTE event (within 90 days after first VTE event) 
-
-    ### lmwh
-    lmwh_after_vte=patients.with_these_medications(
-        low_molecular_weight_heparins_dmd,
-        between=["any_vte", "any_vte + 90 days"], 
-        returning="binary_flag",
-        return_expectations={"incidence": 0.05},
-    ),
-    ### doac
-    doac_after_vte=patients.with_these_medications(
-        direct_acting_oral_anticoagulants_doac,
-        between=["any_vte", "any_vte + 90 days"], 
-        returning="binary_flag",
-        return_expectations={"incidence": 0.10},
-    ),
-    ### warfarin
-    warfarin_after_vte=patients.with_these_medications(
-        warfarin,
-        between=["any_vte", "any_vte + 90 days"], 
-        returning="binary_flag",
-        return_expectations={"incidence": 0.20},
-    ),
-
-    ### Death in relation to VTE event (within 28 days after first VTE event) 
-      death_after_vte=patients.died_from_any_cause(
-        returning="binary_flag",
-        between=["any_vte", "any_vte + 28 days"], 
-        return_expectations={"incidence": 0.10},
-    ),  
-
-    ## COVID-19 in individual
-
-    ### within 4 weeks of VTE
-
-    ### within 3 months of VTE
-
-
-    ## COVID-19 in household 
-
-    ## Pregnancy Outcomes 
+    ## Pregnancy Outcomes (TBD coding)
 
 ) 
 

@@ -5,12 +5,10 @@ DATE: 					28 June 2021
 AUTHOR:					A Schultze 
 								
 DESCRIPTION OF FILE:	program 00
-						applies inclusion and exclusion of PRIMIS variables 
-						creates csv of cases and controls for matching
-						creates SCCS cohorts for all outcomes 
+						applies inclusion and exclusion criteria to create individual SCCS 
 						note: the only data management done is that required for
-						population selection. 
-DATASETS USED:			output/input_core.csv
+						population selection. outcome selection is required later on. 
+DATASETS USED:			output/input_sccs_and_historical_cohort.csv
 DATASETS CREATED: 		csvs as per project.yaml, into /tempdata
 OTHER OUTPUT: 			logfile, printed to folder output/logs 
 							
@@ -31,118 +29,35 @@ log using "`c(pwd)'/output/logs/00_apply_exclusion_criteria.log", replace
 
 * IMPORT DATA=================================================================*/ 
 
-import delimited `c(pwd)'/output/input_core.csv, clear
+import delimited `c(pwd)'/output/input_sccs_and_historical_cohort.csv, clear
 
 * DATA CLEANING===============================================================*/ 
 * Create the variables required to apply exclusion criteria 
 
 * convert string variables to date (note: only for those required to select population)
-foreach var of varlist ast_dat ///
-					   astadm_dat ///
-					   astrxm1_dat ///
-					   astrxm2_dat ///
-					   astrxm3_dat ///
-					   resp_cov_dat ///
-					   chd_cov_dat ///
-					   ckd_cov_dat ///
-					   ckd15_dat ///
-					   ckd35_dat ///
-					   cld_dat ///
-					   diab_dat ///
-					   immrx_dat ///
-					   immdx_cov_dat ///
-					   cns_cov_dat ///
-					   spln_cov_dat ///
-					   bmi_dat ///
-					   bmi_stage_dat ///
-					   sev_obesity_dat ///
-					   dmres_dat ///
-					   sev_mental_dat ///
-					   smhres_dat ///
-					   learndis_dat ///
-					   first_any_vaccine_date ///
+foreach var of varlist first_any_vaccine_date ///
 					   first_pfizer_date /// 
 					   first_az_date ///
 					   first_moderna_date ///
-					   any_vte ///
-					   any_pe ///
-					   any_cvt_vte ///
 					   death_date ///
 					   dereg_date { 
 					   	
 						capture confirm string variable `var'
-						rename `var' _tmp
-						gen `var' = date(_tmp, "YMD")
-						drop _tmp
-						format %d `var'
-							
+						if _rc == 0 { 
+							rename `var' _tmp
+							gen `var' = date(_tmp, "YMD")
+							drop _tmp
+							format %d `var'
+						}
 					   }
-/* PRIMIS variables 
-Note, this logic and variable names follows PHE guidance for the creation of PRIMIS
-groups ('SARS-Cov2 (COVID-19) Vaccine Uptake Reporting Specification Collection 2020/2021 version 1')
-*/
-
-* Patients with immunosuppression 
-gen immuno_group = (immrx_dat != .)
-replace immuno_group = 1 if immdx_cov_dat != . 
-
-* Patients with CKD 
-gen ckd_group = (ckd_cov_dat != . ) 
-replace ckd_group = 1 if ckd35_dat >= ckd15_dat & ckd35_dat != . 
-
-* Patients with asthma (admission or several recent prescriptions)
-gen ast_group = (astadm_dat != .)
-replace ast_group = 1 if ( ast_dat != . /// 
-						 & astrxm1_dat ! = . /// 
-						 & astrxm2_dat ! = . /// 
-						 & astrxm3_dat ! = .) 
-
-* Patients with CNS disease 
-gen cns_group = (cns_cov_dat != . )
-
-* Patients with Chronic Respiratory Disease 
-gen resp_group = (ast_group == 1) 
-replace resp_group = 1 if resp_cov_dat != . 
-
-* Patients with Morbid Obesity
-* replace invalid values (0) with missing 
-replace bmi_val = . if bmi_val <= 0  
-
-gen bmi_group = 1 if bmi_val >= 40 & bmi_val != . 
-replace bmi_group = 1 if sev_obesity_dat > bmi_dat & bmi_dat != . 
-replace bmi_group = 0 if bmi_group == . 
-
-* Patients with Diabetes 
-
-gen diab_group = 1 if diab_dat > dmres_dat & dmres_dat != . 
-replace diab_group = 1 if diab_dat != . & dmres_dat == . 
-replace diab_group = 0 if diab_group == . 
-
-* Patients with Severe Mental Health 
-
-gen sevment_group = 1 if sev_mental_dat > smhres_dat & smhres_dat != . 
-replace sevment_group = 1 if sev_mental_dat != . & smhres_dat == . 
-replace sevment_group = 0 if sevment_group == . 
-
-* At Risk Group 
-* (note learning diability not included as added to risk groups later on)
-gen atrisk_group = 1 if immuno_group == 1 
-replace atrisk_group = 1 if ckd_group == 1 
-replace atrisk_group = 1 if resp_group == 1 
-replace atrisk_group = 1 if diab_group == 1 
-replace atrisk_group = 1 if cld_dat != . 
-replace atrisk_group = 1 if cns_group == 1 
-replace atrisk_group = 1 if chd_cov_dat != . 
-replace atrisk_group = 1 if spln_cov_dat != . 
-replace atrisk_group = 1 if sevment_group == 1 
-
-replace atrisk_group = 0 if atrisk_group == . 
 
 /* Censor Date
-This is needed as the outcomes for the SCCS need to occur prior to censoring */ 
+This is needed as the vaccines for the SCCS need to be administrated prior to censoring 
+Censor calendar date is 3 weeks prior to last SUS availability, currently approx 1 June 2021 */ 
 
-gen calendar_censor_date = date("11/03/2021", "DMY")
+gen calendar_censor_date = date("11/05/2021", "DMY")
 gen censor_date = min(calendar_censor_date, death_date, dereg_date)
+format censor_date %d
 
 * APPLY CRITERIA==============================================================*/
 * Check the inclusion and exclusion criteria per protocol, apply those not yet applied 
@@ -152,7 +67,7 @@ gen censor_date = min(calendar_censor_date, death_date, dereg_date)
 datacheck inlist(sex,"M", "F"), nolist
 
 * Adult and known age 
-datacheck age >= 16 & age <= 105, nolist
+datacheck age >= 18 & age <= 105, nolist
 
 * Registration history and alive 
 datacheck has_baseline_time == 1, nolist
@@ -161,29 +76,21 @@ datacheck has_died == 0, nolist
 * Known care home 
 datacheck known_care_home == 1, nolist
 
+* Known IMD
+datacheck imd != . & imd > 0, nolist
+
 * Pregnancy 
 datacheck pregnancy != 1, nolist
-
-* Prior VTE 
-datacheck prior_any_vte != 1, nolist 
 
 * Confirm one row per patient 
 duplicates tag patient_id, generate(dup_check)
 assert dup_check == 0 
 drop dup_check
 
-* Over 65 OR in a PRIMIS group 
-noi di "DROP THOSE NOT ELIGIBLE FOR VACCINE DURING THE PERIOD" 
-count
-drop if age < 65 & atrisk_group == 0
-count
-
-datacheck (age >= 65 | atrisk_group == 1), nolist 
-
 * POTENTIALLY ELIGIBLE CONTROLS 
-export delimited using `c(pwd)'/output/input_controls.csv, replace 
+export delimited using `c(pwd)'/output/input_historical_controls.csv, replace 
 
-* POTENTIALLY ELIGIBLE CASES 
+* POTENTIALLY ELIGIBLE EXPOSED PEOPLE 
 * Apply exposure requirement and export 'cases' for sccs and for matching in the cohort studies 
 
 noi di "DROP IF HAVE NOT RECEIVED A COVID VACCINE"
@@ -191,41 +98,79 @@ count
 drop if first_any_vaccine_date == . 
 count
 
-noi di "DROP IF RECEIVED UNKNOWN OR SOMETHING OTHER THAN PFIZER/AZ"
+noi di "DROP IF RECEIVED UNKNOWN OR SOMETHING OTHER THAN PFIZER/AZ/MODERNA"
 count 
-drop if first_pfizer_date == . & first_az_date == . 
+drop if first_pfizer_date == . & first_az_date == . & first_moderna_date == . 
 count 
 
 noi di "DROP IF PFIZER AND AZ ON SAME DATE"
 count 
-drop if first_pfizer_date == first_az_date 
+drop if first_pfizer_date == first_az_date & first_pfizer_date != . 
 count 
 
-noi di "DROP IF PFIZER AND MODERNA ON SAME DATE"
-count 
-drop if first_pfizer_date == first_moderna_date & first_pfizer_date != . 
+noi di "DROP IF MODERNA AND AZ ON SAME DATE" 
+count
+drop if first_moderna_date == first_az_date & first_moderna_date != . 
 count 
 
-noi di "DROP IF AZ AND MODERNA ON SAME DATE"
-count 
-drop if first_az_date == first_moderna_date & first_az_date != . 
-count 
+noi di "DROP IF MODERNA AND PFIZER ON SAME DATE"
+count
+drop if first_moderna_date == first_pfizer_date & first_moderna_date != . 
+count
 
 * AZ COHORT 
-noi di "AZ FIRST DOSE EXPOSED DURING FU PERIOD"
+preserve
+
+* Drop if earliest vaccine is not AZ
 count 
+gen earliest_vaccine = "AZ" if first_az_date == first_any_vaccine_date & first_az_date != . 
+drop if earliest_vaccine != "AZ"
+count 
+
+* Drop if first AZ not before censoring
 drop if first_az_date == . | first_az_date >= censor_date
 count 
 
+* Export cohort 
 export delimited using `c(pwd)'/output/input_az_cases.csv, replace 
 
+restore
+
 * PFIZER COHORT 
-noi di "PFIZER FIRST DOSE EXPOSED DURING FU PERIOD"
+preserve
+
+* Drop if earliest vaccine is not Pfizer
 count 
+gen earliest_vaccine = "Pfizer" if first_pfizer_date == first_any_vaccine_date & first_pfizer_date != . 
+drop if earliest_vaccine != "Pfizer"
+count 
+
+* Drop if first AZ not before censoring
 drop if first_pfizer_date == . | first_pfizer_date >= censor_date
 count 
 
+* Export cohort 
 export delimited using `c(pwd)'/output/input_pfizer_cases.csv, replace 
+
+restore
+
+* MODERNA COHORT 
+preserve
+
+* Drop if earliest vaccine is not Pfizer
+count 
+gen earliest_vaccine = "Moderna" if first_moderna_date == first_any_vaccine_date & first_moderna_date != . 
+drop if earliest_vaccine != "MOderna"
+count 
+
+* Drop if first AZ not before censoring
+drop if first_moderna_date == . | first_moderna_date >= censor_date
+count 
+
+* Export cohort 
+export delimited using `c(pwd)'/output/input_moderna_cases.csv, replace 
+
+restore
 
 * SCCS case series will be created sepatately in a different Stata program 
 

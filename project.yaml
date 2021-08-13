@@ -5,8 +5,21 @@ expectations:
 
 actions:
 
-  generate_study_population:
-    run: cohortextractor:latest generate_cohort --study-definition study_definition
+  generate_cohort:
+    run: cohortextractor:latest generate_cohort --study-definition study_definition_sccs_and_historical_cohort
     outputs:
       highly_sensitive:
-        cohort: output/input.csv
+        cohort: output/input_sccs_and_historical_cohort.csv
+
+  00_apply_exclusion_criteria:
+    run: stata-mp:latest analysis/00_apply_exclusion_criteria.do 
+    needs: [generate_cohort] 
+    outputs:
+      moderately_sensitive: 
+        log: output/logs/00_apply_exclusion_criteria.log
+      highly_sensitive:
+        cohort_controls: output/input_historical_controls.csv
+        cohort_az_cases: output/input_az_cases.csv
+        cohort_pfizer_cases: output/input_pfizer_cases.csv 
+        cohort_moderna_cases: output/input_moderna_cases.csv 
+
