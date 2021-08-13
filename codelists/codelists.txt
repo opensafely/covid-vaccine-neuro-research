@@ -13,3 +13,10 @@ opensafely/haematological-cancer/2020-04-15
 opensafely/systemic-lupus-erythematosus-sle/2020-05-12
 opensafely/hypertension/2020-04-28
 primis-covid19-vacc-uptake/preg/v1
+opensafely/multiple-sclerosis/2020-05-12
+user/anna-schultze/multiple-sclerosis-icd10/67628f74 
+user/anna-schultze/chronic-inflammatory-demyelinating-polyneuritis/007202aa
+user/anna-schultze/acute-disseminated-encephalitis-and-encephalomyelitis-icd10/198175df
+user/anna-schultze/acute-disseminated-encephalitis-and-encephalomyelitis/3290e914
+user/anna-schultze/neuromyelitis-optica/64afcf7e
+user/anna-schultze/neuromyelitis-optica-icd-10/4ba05c49

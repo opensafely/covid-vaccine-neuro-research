@@ -81,3 +81,39 @@ preg = codelist_from_csv(
     system="snomed",
     column="code",
 )
+ms_primary_care = codelist_from_csv(
+    "codelists/opensafely-multiple-sclerosis.csv",
+    system="ctv3",
+    column="CTV3ID",
+)
+ms_secondary_care = codelist_from_csv(
+    "codelists/user-anna-schultze-multiple-sclerosis-icd10.csv",
+    system="icd10",
+    column="code",
+)
+adem_primary_care = codelist_from_csv(
+    "codelists/user-anna-schultze-acute-disseminated-encephalitis-and-encephalomyelitis.csv",
+    system="ctv3",
+    column="code",
+)
+adem_secondary_care = codelist_from_csv(
+    "codelists/user-anna-schultze-acute-disseminated-encephalitis-and-encephalomyelitis-icd10.csv",
+    system="icd10",
+    column="code",
+)
+neuromyelitis_optica_primary_care = codelist_from_csv(
+    "codelists/user-anna-schultze-neuromyelitis-optica.csv",
+    system="ctv3",
+    column="code",
+)
+neuromyelitis_optica_secondary_care = codelist_from_csv(
+    "codelists/user-anna-schultze-neuromyelitis-optica-icd-10.csv",
+    system="icd10",
+    column="code",
+)
+cidp_primary_care = codelist_from_csv(
+    "codelists/user-anna-schultze-chronic-inflammatory-demyelinating-polyneuritis.csv",
+    system="ctv3",
+    column="code",
+)
+
