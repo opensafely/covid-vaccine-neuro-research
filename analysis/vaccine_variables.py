@@ -16,7 +16,7 @@ def generate_vaccine_variables(index_date):
         return_expectations={
             "date": {
                 "earliest": "2020-12-08",  # first vaccine administered on the 8/12
-                "latest": "2021-06-01",
+                "latest": "2021-05-11",
             }
         },
     ),
@@ -31,7 +31,7 @@ def generate_vaccine_variables(index_date):
         return_expectations={
             "date": {
                 "earliest": "2020-12-08",  # first vaccine administered on the 8/12
-                "latest": "2021-06-01",
+                "latest": "2021-05-11",
             }
         },
     ),
@@ -46,7 +46,7 @@ def generate_vaccine_variables(index_date):
         return_expectations={
             "date": {
                 "earliest": "2020-12-08",  # first vaccine administered on the 8/12
-                "latest": "2021-06-01",
+                "latest": "2021-05-11",
             }
         },
     ),
@@ -61,7 +61,7 @@ def generate_vaccine_variables(index_date):
         return_expectations={
             "date": {
                 "earliest": "2020-12-08",  
-                "latest": "2021-06-01",
+                "latest": "2021-05-11",
             },
         },
     ),
@@ -76,7 +76,7 @@ def generate_vaccine_variables(index_date):
         return_expectations={
             "date": {
                 "earliest": "2020-12-08",  # first vaccine administered on the 8/12
-                "latest": "2021-06-01",
+                "latest": "2021-05-11",
             }
         },
     ),
@@ -91,7 +91,7 @@ def generate_vaccine_variables(index_date):
         return_expectations={
             "date": {
                 "earliest": "2020-12-08",  # first vaccine administered on the 8/12
-                "latest": "2021-06-01",
+                "latest": "2021-05-11",
             }
         },
     ),
@@ -106,7 +106,7 @@ def generate_vaccine_variables(index_date):
         return_expectations={
             "date": {
                 "earliest": "2020-12-08",  # first vaccine administered on the 8/12
-                "latest": "2021-06-01",
+                "latest": "2021-05-11",
             }
         },
     ),
@@ -119,7 +119,7 @@ def generate_vaccine_variables(index_date):
         return_expectations={
             "date": {
                 "earliest": "2020-12-08",  
-                "latest": "2021-06-01",
+                "latest": "2021-05-11",
             },
         },
     ),

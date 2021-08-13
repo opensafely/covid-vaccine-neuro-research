@@ -79,7 +79,7 @@ study = StudyDefinition(
         },
         return_expectations={
             "rate":"universal",
-            "category": {"ratios": {"<65":0.1, "65-69": 0.2,"70-74": 0.2, "75-79": 0.2, "80+":0.3}}
+            "category": {"ratios": {"<65":0.5, "65-69": 0.1,"70-74": 0.1, "75-79": 0.1, "80+":0.2}}
         },
     ),
     ### sex 
