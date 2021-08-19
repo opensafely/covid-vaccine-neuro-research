@@ -17,7 +17,8 @@ def generate_vaccine_variables(index_date):
             "date": {
                 "earliest": "2020-12-08",  # first vaccine administered on the 8/12
                 "latest": "2021-05-11",
-            }
+            }, 
+            "incidence": 0.95
         },
     ),
     # pfizer (first dose) 
@@ -32,7 +33,8 @@ def generate_vaccine_variables(index_date):
             "date": {
                 "earliest": "2020-12-08",  # first vaccine administered on the 8/12
                 "latest": "2021-05-11",
-            }
+            }, 
+            "incidence": 0.95
         },
     ),
     # az (first dose)
@@ -47,7 +49,8 @@ def generate_vaccine_variables(index_date):
             "date": {
                 "earliest": "2020-12-08",  # first vaccine administered on the 8/12
                 "latest": "2021-05-11",
-            }
+            }, 
+            "incidence": 0.95
         },
     ),
 
@@ -63,6 +66,7 @@ def generate_vaccine_variables(index_date):
                 "earliest": "2020-12-08",  
                 "latest": "2021-05-11",
             },
+            "incidence": 0.95
         },
     ),
 
@@ -77,7 +81,8 @@ def generate_vaccine_variables(index_date):
             "date": {
                 "earliest": "2020-12-08",  # first vaccine administered on the 8/12
                 "latest": "2021-05-11",
-            }
+            }, 
+            "incidence": 0.95
         },
     ),
     # pfizer (second dose) 
@@ -92,7 +97,8 @@ def generate_vaccine_variables(index_date):
             "date": {
                 "earliest": "2020-12-08",  # first vaccine administered on the 8/12
                 "latest": "2021-05-11",
-            }
+            }, 
+            "incidence": 0.95
         },
     ),
     # az (second dose)
@@ -107,7 +113,8 @@ def generate_vaccine_variables(index_date):
             "date": {
                 "earliest": "2020-12-08",  # first vaccine administered on the 8/12
                 "latest": "2021-05-11",
-            }
+            }, 
+            "incidence": 0.95
         },
     ),
     second_moderna_date=patients.with_tpp_vaccination_record(
@@ -121,6 +128,7 @@ def generate_vaccine_variables(index_date):
                 "earliest": "2020-12-08",  
                 "latest": "2021-05-11",
             },
+            "incidence": 0.95
         },
     ),
     )
