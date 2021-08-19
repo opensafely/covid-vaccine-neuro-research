@@ -40,7 +40,11 @@ foreach var of varlist first_any_vaccine_date ///
 					   first_az_date ///
 					   first_moderna_date ///
 					   death_date ///
-					   dereg_date { 
+					   dereg_date ///
+					   any_neuromyelitis_optica_fu /// 
+					   any_adem_fu /// 
+					   any_ms_fu /// 
+					   cidp_fu_gp { 
 					   	
 						capture confirm string variable `var'
 						if _rc == 0 { 
@@ -55,9 +59,23 @@ foreach var of varlist first_any_vaccine_date ///
 This is needed as the vaccines for the SCCS need to be administrated prior to censoring 
 Censor calendar date is 3 weeks prior to last SUS availability, currently approx 1 June 2021 */ 
 
+* Overall censor date based on administrative variables 
+
 gen calendar_censor_date = date("11/05/2021", "DMY")
 gen censor_date = min(calendar_censor_date, death_date, dereg_date)
 format censor_date %d
+
+* Censor date BP 
+gen censor_date_bp = censor_date 
+format censor_date_bp %d 
+
+* Censor date TM (NO, ADEM, MS)
+gen censor_date_ms = min(censor_date, any_neuromyelitis_optica_fu, any_adem_fu, any_ms_fu)
+format censor_date_ms %d 
+
+* Censor date GB 
+gen censor_date_gb = min(censor_date, cidp_fu_gp)
+format censor_date_gb %d 
 
 * APPLY CRITERIA==============================================================*/
 * Check the inclusion and exclusion criteria per protocol, apply those not yet applied 

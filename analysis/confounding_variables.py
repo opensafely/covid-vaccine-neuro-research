@@ -136,6 +136,25 @@ def generate_confounding_variables(index_date):
     ),
     any_ms=patients.satisfying("ms_gp OR ms_hospital"), 
 
+    ms_fu_gp=patients.with_these_clinical_events(
+        ms_primary_care,
+        on_or_after="index_date",
+        returning="date", 
+        date_format="YYYY-MM-DD",
+        return_expectations={"date": {"earliest": "index_date"}, 
+                             "incidence":0.01},
+    ),
+    ms_fu_hospital=patients.admitted_to_hospital(
+        with_these_diagnoses=ms_secondary_care,
+        on_or_after="index_date",
+        returning="date_admitted",
+        date_format="YYYY-MM-DD",
+        return_expectations={"date": {"earliest": "index_date"}, 
+                             "incidence":0.01},
+    ),
+
+    any_ms_fu=patients.minimum_of("ms_fu_gp", "ms_fu_hospital"), 
+
     ### ADEM
     adem_gp=patients.with_these_clinical_events(
         adem_primary_care,
@@ -150,6 +169,25 @@ def generate_confounding_variables(index_date):
         return_expectations={"incidence": 0.01},
     ),
     any_adem=patients.satisfying("adem_gp OR adem_hospital"), 
+
+    adem_fu_gp=patients.with_these_clinical_events(
+        adem_primary_care,
+        on_or_after="index_date",
+        returning="date", 
+        date_format="YYYY-MM-DD",
+        return_expectations={"date": {"earliest": "index_date"}, 
+                             "incidence":0.01},
+    ),
+    adem_fu_hospital=patients.admitted_to_hospital(
+        with_these_diagnoses=adem_secondary_care,
+        on_or_after="index_date",
+        returning="date_admitted",
+        date_format="YYYY-MM-DD",
+        return_expectations={"date": {"earliest": "index_date"}, 
+                             "incidence":0.01},
+    ),
+
+    any_adem_fu=patients.minimum_of("adem_fu_gp", "adem_fu_hospital"), 
 
     ### Neuromyelitis Optica
     neuromyelitis_optica_gp=patients.with_these_clinical_events(
@@ -166,6 +204,25 @@ def generate_confounding_variables(index_date):
     ),
     any_neuromyelitis_optica=patients.satisfying("neuromyelitis_optica_gp OR neuromyelitis_optica_hospital"), 
 
+    neuromyelitis_optica_fu_gp=patients.with_these_clinical_events(
+        neuromyelitis_optica_primary_care,
+        on_or_after="index_date",
+        returning="date", 
+        date_format="YYYY-MM-DD",
+        return_expectations={"date": {"earliest": "index_date"}, 
+                             "incidence":0.01},
+    ),
+    neuromyelitis_optica_fu_hospital=patients.admitted_to_hospital(
+        with_these_diagnoses=neuromyelitis_optica_secondary_care,
+        on_or_after="index_date",
+        returning="date_admitted",
+        date_format="YYYY-MM-DD",
+        return_expectations={"date": {"earliest": "index_date"}, 
+                             "incidence":0.01},
+    ),
+
+    any_neuromyelitis_optica_fu=patients.minimum_of("neuromyelitis_optica_fu_gp", "neuromyelitis_optica_fu_hospital"), 
+
     ### CIDP
     cidp_gp=patients.with_these_clinical_events(
         cidp_primary_care,
@@ -173,6 +230,17 @@ def generate_confounding_variables(index_date):
         returning="binary_flag",
         return_expectations={"incidence": 0.01},
     ),
+
+    cidp_fu_gp=patients.with_these_clinical_events(
+        cidp_primary_care,
+        on_or_after="index_date",
+        returning="date", 
+        date_format="YYYY-MM-DD",
+        return_expectations={"date": {"earliest": "index_date"}, 
+                             "incidence":0.01},
+    ),
+
+    # no CIDP secondary care codes 
 
     ## cancer 
     ### haematological 
