@@ -136,12 +136,19 @@ count
 drop if first_moderna_date == first_pfizer_date & first_moderna_date != . 
 count
 
+* create a variable which is the minimum of Pfizer, AZ and moderna dates 
+* this should be equivalent to first_any_vaccine_date in real data, but will use this so that we can run on dummy data 
+gen first_pfizer_az_moderna_date = min(first_az_date, first_pfizer_date, first_moderna_date)
+
+* check equivalence for real data 
+datacheck first_pfizer_az_moderna_date == first_any_vaccine_date, nolist 
+
 * AZ COHORT 
 preserve
 
 * Drop if earliest vaccine is not AZ
 count 
-gen earliest_vaccine = "AZ" if first_az_date <= first_any_vaccine_date & first_az_date != . 
+gen earliest_vaccine = "AZ" if first_az_date == first_pfizer_az_moderna_date & first_az_date != . 
 drop if earliest_vaccine != "AZ"
 count 
 
@@ -159,7 +166,7 @@ preserve
 
 * Drop if earliest vaccine is not Pfizer
 count 
-gen earliest_vaccine = "Pfizer" if first_pfizer_date <= first_any_vaccine_date & first_pfizer_date != . 
+gen earliest_vaccine = "Pfizer" if first_pfizer_date == first_pfizer_az_moderna_date & first_pfizer_date != . 
 drop if earliest_vaccine != "Pfizer"
 count 
 
@@ -177,7 +184,7 @@ preserve
 
 * Drop if earliest vaccine is not Moderna
 count 
-gen earliest_vaccine = "Moderna" if first_moderna_date <= first_any_vaccine_date & first_moderna_date != . 
+gen earliest_vaccine = "Moderna" if first_moderna_date == first_pfizer_az_moderna_date & first_moderna_date != . 
 drop if earliest_vaccine != "Moderna"
 count 
 
