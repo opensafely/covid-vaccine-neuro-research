@@ -141,7 +141,7 @@ preserve
 
 * Drop if earliest vaccine is not AZ
 count 
-gen earliest_vaccine = "AZ" if first_az_date == first_any_vaccine_date & first_az_date != . 
+gen earliest_vaccine = "AZ" if first_az_date <= first_any_vaccine_date & first_az_date != . 
 drop if earliest_vaccine != "AZ"
 count 
 
@@ -159,11 +159,11 @@ preserve
 
 * Drop if earliest vaccine is not Pfizer
 count 
-gen earliest_vaccine = "Pfizer" if first_pfizer_date == first_any_vaccine_date & first_pfizer_date != . 
+gen earliest_vaccine = "Pfizer" if first_pfizer_date <= first_any_vaccine_date & first_pfizer_date != . 
 drop if earliest_vaccine != "Pfizer"
 count 
 
-* Drop if first AZ not before censoring
+* Drop if first Pfizer not before censoring
 drop if first_pfizer_date == . | first_pfizer_date >= censor_date
 count 
 
@@ -175,13 +175,13 @@ restore
 * MODERNA COHORT 
 preserve
 
-* Drop if earliest vaccine is not Pfizer
+* Drop if earliest vaccine is not Moderna
 count 
-gen earliest_vaccine = "Moderna" if first_moderna_date == first_any_vaccine_date & first_moderna_date != . 
-drop if earliest_vaccine != "MOderna"
+gen earliest_vaccine = "Moderna" if first_moderna_date <= first_any_vaccine_date & first_moderna_date != . 
+drop if earliest_vaccine != "Moderna"
 count 
 
-* Drop if first AZ not before censoring
+* Drop if first Moderna not before censoring
 drop if first_moderna_date == . | first_moderna_date >= censor_date
 count 
 
