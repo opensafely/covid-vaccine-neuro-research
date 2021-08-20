@@ -23,3 +23,13 @@ actions:
         cohort_pfizer_cases: output/input_pfizer_cases.csv 
         cohort_moderna_cases: output/input_moderna_cases.csv 
 
+  SCCS_first_dose_only_analyses_neuro:
+    run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_neuro.do
+    needs: [00_apply_exclusion_criteria] 
+    outputs:
+      moderately_sensitive: 
+        log: output/logs/SCCS_first_dose_only_analyses.log
+      highly_sensitive:
+        sccs_pop_BP: output/temp_data/sccs_popn_BP.dta
+        sccs_pop_TM: output/temp_data/sccs_popn_TM.dta
+        sccs_pop_GBS: output/temp_data/sccs_popn_GBS.dta
