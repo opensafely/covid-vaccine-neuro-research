@@ -70,7 +70,7 @@ tempfile az_first
 save `az_first', replace
 
 clear
-import delimited `c(pwd)'/output/input_mod_cases.csv
+import delimited `c(pwd)'/output/input_moderna_cases.csv
 gen first_brand="MOD" 
 tempfile mod_first
 save `mod_first', replace
