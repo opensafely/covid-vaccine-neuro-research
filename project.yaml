@@ -33,3 +33,4 @@ actions:
         sccs_pop_BP: output/temp_data/sccs_popn_BP.dta
         sccs_pop_TM: output/temp_data/sccs_popn_TM.dta
         sccs_pop_GBS: output/temp_data/sccs_popn_GBS.dta
+        results: output/tables/results_summary.csv
