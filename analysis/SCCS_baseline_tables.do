@@ -189,6 +189,15 @@ foreach outcome in GBS TM BP {
 * this is done in a loop for vaccine brand as assumed not computationally intensive 
 
 	foreach brand in AZ PF MOD {
+		
+		preserve 
+		drop if first_brand != "`brand'"
+		
+		* Print info to log 
+		
+		noi di ""
+		noi di "===OUTPUT START:`brand' `outcome' case series==="
+		noi di ""
 
 		*Set up output file
 		cap file close tablecontent
@@ -228,6 +237,9 @@ foreach outcome in GBS TM BP {
 		safetab hcw
 
 		file close tablecontent
+		
+		restore 
+		
 
 	}
 
