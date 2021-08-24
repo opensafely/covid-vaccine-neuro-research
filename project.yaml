@@ -29,11 +29,11 @@ actions:
     outputs:
       moderately_sensitive: 
         log: output/logs/SCCS_first_dose_only_analyses.log
+        results: output/tables/results_summary.csv
       highly_sensitive:
         sccs_pop_BP: output/temp_data/sccs_popn_BP.dta
         sccs_pop_TM: output/temp_data/sccs_popn_TM.dta
         sccs_pop_GBS: output/temp_data/sccs_popn_GBS.dta
-        results: output/tables/results_summary.csv
 
   SCCS_baseline_tables:
     run: stata-mp:latest analysis/SCCS_baseline_tables.do
@@ -42,3 +42,19 @@ actions:
       moderately_sensitive: 
         log: output/logs/SCCS_baseline_tables.log
         tables: output/tables/table1* 
+
+  SCCS_assumption_checking:
+    run: stata-mp:latest analysis/SCCS_assumption_checking.do
+    needs: [SCCS_first_dose_only_analyses_neuro] 
+    outputs:
+      moderately_sensitive: 
+        log: output/logs/SCCS_assumption_checking.log
+        plots_S1: output/plots/S1* 
+        plots_S2: output/plots/S2* 
+
+
+
+
+
+
+
