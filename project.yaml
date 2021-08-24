@@ -29,11 +29,11 @@ actions:
     outputs:
       moderately_sensitive: 
         log: output/logs/SCCS_first_dose_only_analyses.log
+        results: output/tables/results_summary.csv
       highly_sensitive:
         sccs_pop_BP: output/temp_data/sccs_popn_BP.dta
         sccs_pop_TM: output/temp_data/sccs_popn_TM.dta
-        sccs_pop_GBS: output/temp_data/sccs_popn_GBS.dta
-        results: output/tables/results_summary.csv
+        sccs_pop_GBS: output/temp_data/sccs_popn_GBS.dta   
 
   SCCS_baseline_tables:
     run: stata-mp:latest analysis/SCCS_baseline_tables.do
