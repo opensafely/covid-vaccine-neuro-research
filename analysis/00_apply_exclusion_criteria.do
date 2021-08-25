@@ -44,7 +44,17 @@ foreach var of varlist first_any_vaccine_date ///
 					   any_neuromyelitis_optica_fu /// 
 					   any_adem_fu /// 
 					   any_ms_fu /// 
-					   cidp_fu_gp { 
+					   cidp_fu_gp ///
+					   bells_palsy_gp ///
+					   bells_palsy_hospital ///
+					   bells_palsy_death ///
+					   bells_palsy_emergency ///
+					   transverse_myelitis_gp ///
+					   transverse_myelitis_hospital ///
+					   transverse_myelitis_death ///
+					   guillain_barre_gp ///
+					   guillain_barre_hospital ///
+					   guillain_barre_death { 
 					   	
 						capture confirm string variable `var'
 						if _rc == 0 { 
