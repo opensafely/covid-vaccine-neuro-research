@@ -102,13 +102,12 @@ foreach outcome in GBS TM BP {
 		
 		else if lowest_count > 5 { 
 				
-			* plot without redaction and output as svg - vector image with higher quality 
 			twoway histogram time_to_`outcome', frequency /// 
 				graphregion(color(white)) ///
 				bcolor(emidblue) fcolor(ebg)    ///
 				ytitle("Count") xtitle("Time between first `brand' dose and `outcome', days") 
 								   
-			graph export "output/plots/S1_exposure_centered_interval_`brand'_`outcome'.svg", as(svg) replace
+			graph export "output/plots/S1_exposure_centered_interval_`brand'_`outcome'.pdf", as(pdf) replace
 			graph close	
 			
 		}
@@ -148,7 +147,6 @@ foreach outcome in GBS TM BP {
 		
 		else if lowest_count > 5 {
 
-			* plot without redaction and output as svg - vector image with higher quality 
 			twoway histogram time_to_`outcome'_end if early_censoring == 0, by(early_censoring, note(" ") legend(off) graphregion(color(white))) ///
 			    bcolor(emidblue) fcolor(ebg) ///
 			    frequency /// 
@@ -157,7 +155,7 @@ foreach outcome in GBS TM BP {
 			    frequency /// 
 			    ytitle("Count") xtitle("Time between `outcome' and study end in `brand' case series, days") 
 			   
-			graph export "output/plots/S2_censored_futime_`brand'_`outcome'.svg", as(svg) replace
+			graph export "output/plots/S2_censored_futime_`brand'_`outcome'.pdf", as(pdf) replace
 			graph close
 		
 		} 
