@@ -20,7 +20,7 @@ OTHER OUTPUT: 			logfile, printed to folder output/logs
 capture	mkdir "`c(pwd)'/output/logs"
 
 * set ado path
-adopath + "$projectdir/analysis/extra_ados"
+adopath + "`c(pwd)'/analysis/extra_ados"
 
 * open a log file
 cap log close

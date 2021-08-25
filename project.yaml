@@ -1,7 +1,7 @@
 version: '3.0'
 
 expectations:
-  population_size: 500000
+  population_size: 5000
 
 actions:
 
@@ -22,4 +22,38 @@ actions:
         cohort_az_cases: output/input_az_cases.csv
         cohort_pfizer_cases: output/input_pfizer_cases.csv 
         cohort_moderna_cases: output/input_moderna_cases.csv 
+
+  SCCS_first_dose_only_analyses_neuro:
+    run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_neuro.do
+    needs: [00_apply_exclusion_criteria] 
+    outputs:
+      moderately_sensitive: 
+        log: output/logs/SCCS_first_dose_only_analyses.log
+        results: output/tables/results_summary.csv
+      highly_sensitive:
+        sccs_pop_BP: output/temp_data/sccs_popn_BP.dta
+        sccs_pop_TM: output/temp_data/sccs_popn_TM.dta
+        sccs_pop_GBS: output/temp_data/sccs_popn_GBS.dta
+
+  SCCS_baseline_tables:
+    run: stata-mp:latest analysis/SCCS_baseline_tables.do
+    needs: [SCCS_first_dose_only_analyses_neuro] 
+    outputs:
+      moderately_sensitive: 
+        log: output/logs/SCCS_baseline_tables.log
+        tables: output/tables/table1* 
+
+  SCCS_assumption_checking:
+    run: stata-mp:latest analysis/SCCS_assumption_checking.do
+    needs: [SCCS_first_dose_only_analyses_neuro] 
+    outputs:
+      moderately_sensitive: 
+        log: output/logs/SCCS_assumption_checking.log
+      highly_sensitive:
+        plots_S1: output/plots/S1*
+        plots_S2: output/plots/S2*
+
+
+
+
 
