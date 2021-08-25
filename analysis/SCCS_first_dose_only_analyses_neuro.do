@@ -66,12 +66,53 @@ log using "`c(pwd)'/output/logs/SCCS_first_dose_only_analyses.log", replace
 clear
 import delimited `c(pwd)'/output/input_az_cases.csv
 gen first_brand="AZ" 
+
+* ensure rare vars are same type in all series by converting strings to numerics 
+foreach var of varlist bells_palsy_gp ///
+					   bells_palsy_hospital ///
+					   bells_palsy_death ///
+					   bells_palsy_emergency ///
+					   transverse_myelitis_gp ///
+					   transverse_myelitis_hospital ///
+					   transverse_myelitis_death ///
+					   guillain_barre_gp ///
+					   guillain_barre_hospital ///
+					   guillain_barre_death { 
+					   	
+						capture confirm string variable `var'
+						if _rc == 0 { 
+							rename `var' _tmp
+							gen `var' = date(_tmp, "DMY")
+							drop _tmp
+							format %d `var'
+						}
+					   }
 tempfile az_first
 save `az_first', replace
 
 clear
 import delimited `c(pwd)'/output/input_moderna_cases.csv
 gen first_brand="MOD" 
+* ensure rare vars are same type in all series by converting strings to numerics 
+foreach var of varlist bells_palsy_gp ///
+					   bells_palsy_hospital ///
+					   bells_palsy_death ///
+					   bells_palsy_emergency ///
+					   transverse_myelitis_gp ///
+					   transverse_myelitis_hospital ///
+					   transverse_myelitis_death ///
+					   guillain_barre_gp ///
+					   guillain_barre_hospital ///
+					   guillain_barre_death { 
+					   	
+						capture confirm string variable `var'
+						if _rc == 0 { 
+							rename `var' _tmp
+							gen `var' = date(_tmp, "DMY")
+							drop _tmp
+							format %d `var'
+						}
+					   }
 tempfile mod_first
 save `mod_first', replace
 
@@ -79,10 +120,30 @@ save `mod_first', replace
 clear
 import delimited `c(pwd)'/output/input_pfizer_cases.csv
 gen first_brand="PF"
+* ensure rare vars are same type in all series by converting strings to numerics 
+foreach var of varlist bells_palsy_gp ///
+					   bells_palsy_hospital ///
+					   bells_palsy_death ///
+					   bells_palsy_emergency ///
+					   transverse_myelitis_gp ///
+					   transverse_myelitis_hospital ///
+					   transverse_myelitis_death ///
+					   guillain_barre_gp ///
+					   guillain_barre_hospital ///
+					   guillain_barre_death { 
+					   	
+						capture confirm string variable `var'
+						if _rc == 0 { 
+							rename `var' _tmp
+							gen `var' = date(_tmp, "DMY")
+							drop _tmp
+							format %d `var'
+						}
+					   }
 count
 
-append using `az_first'
-append using `mod_first'
+append using `az_first', force
+append using `mod_first', force 
 
 *checking first_brand variable
 assert first_az_date!="" if first_brand=="AZ"
@@ -123,12 +184,7 @@ foreach var of varlist censor_date_bp censor_date_ms censor_date_gb{
 						drop _tmp
 						format %d `var'
 							
-					   }
-					   
-
-					   
-
-					   
+					   }				   
 					   
 * create flag for first dose >=1st Jan for AZ PF comparison sensitivity analysis
 
