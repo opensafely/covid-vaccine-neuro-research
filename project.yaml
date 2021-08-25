@@ -49,8 +49,11 @@ actions:
     outputs:
       moderately_sensitive: 
         log: output/logs/SCCS_assumption_checking.log
-        plots_S1: output/plots/S1* 
-        plots_S2: output/plots/S2* 
+        plots_S1: output/plots/S1*.svg 
+        plots_S2: output/plots/S2*.svg
+      highly_sensitive:
+        plots_S1: output/plots/S1*.pdf 
+        plots_S2: output/plots/S2*.pdf
 
 
 

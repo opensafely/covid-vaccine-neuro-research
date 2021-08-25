@@ -74,6 +74,9 @@ foreach outcome in GBS TM BP {
 		noi di ""
 		noi di "===OUTPUT START:`brand' `outcome' case series==="
 		noi di ""
+		
+		* gen variable for redaction limits 
+		gen max_y = 5
 	
 		** EXPOSURE CENTERED INTERVAL PLOT 
 		
@@ -82,24 +85,35 @@ foreach outcome in GBS TM BP {
 		egen lowest_count = min(count)
 		if lowest_count <= 5 {
 		
-			noi di "THE EXPOSURE CENTERED INTERVAL PLOT FOR `brand' `outcome' CONTAINS BINS OF FREQUENCIES < 5, AND HAS NOT BEEN OUTPUTTED"
+			noi di "THE EXPOSURE CENTERED INTERVAL PLOT FOR `brand' `outcome' CONTAINS BINS OF FREQUENCIES < 5 AND HAS BEEN REDACTED"
+			
+			* plot with redaction and output as pdf - note, cannot be vector quality due to disclosivity risk 
+			* note jpeg/png export not compatible with linux, will be converted using another script 
+			twoway histogram time_to_`outcome', frequency /// 
+				graphregion(color(white)) ///
+				bcolor(emidblue) fcolor(ebg)    ///
+				ytitle("Count") xtitle("Time between first `brand' dose and `outcome', days") ///
+				|| area max_y time_to_`outcome', sort color(gray) legend(order(1 "Frequency" 2 "Redacted"))
+								   
+			graph export "output/plots/S1_exposure_centered_interval_`brand'_`outcome'.pdf", as(pdf) replace
+			graph close	
 		
 		} 
 		
 		else if lowest_count > 5 { 
 				
 			* plot without redaction and output as svg - vector image with higher quality 
-			histogram time_to_`outcome', frequency /// 
-										 graphregion(color(white)) ///
-										 bcolor(emidblue) fcolor(ebg)    ///
-										 ytitle("Count") xtitle("Time between first `brand' dose and `outcome', days") 
+			twoway histogram time_to_`outcome', frequency /// 
+				graphregion(color(white)) ///
+				bcolor(emidblue) fcolor(ebg)    ///
+				ytitle("Count") xtitle("Time between first `brand' dose and `outcome', days") 
 								   
 			graph export "output/plots/S1_exposure_centered_interval_`brand'_`outcome'.svg", as(svg) replace
 			graph close	
 			
 		}
 		
-		* drop variables used for redaction purposes only 
+		* drop variables used for redaction purposes only so these can be recalculated for other plots 
 		drop count where lowest_count 
 		
 		* EVENT DEPENDENT CENSORING PLOTS 
@@ -115,24 +129,39 @@ foreach outcome in GBS TM BP {
 		
 		if lowest_count <= 5 {
 			
-			noi di "THE EVENT DEPENDENT CENSORING PLOT FOR `brand' `outcome' CONTAINS BINS OF FREQUENCIES < 5, AND HAS NOT BEEN OUTPUTTED"
+			noi di "THE EVENT DEPENDENT CENSORING PLOT FOR `brand' `outcome' CONTAINS BINS OF FREQUENCIES < 5 AND HAS BEEN REDACTED"
 			
+			* plot with redaction and output as pdf - note - highly sensitive due to raw code, will be converted to jpg 
+			twoway histogram time_to_`outcome'_end if early_censoring == 0, by(early_censoring, note(" ") legend(off) graphregion(color(white))) ///
+				bcolor(emidblue) fcolor(ebg) ///
+			    frequency /// 
+			    || histogram time_to_`outcome'_end if early_censoring == 1,  ///
+			    bcolor(maroon) fcolor(erose) ///
+			    frequency /// 
+			    ytitle("Count") xtitle("Time between `outcome' and study end in `brand' case series, days") ///
+				|| area max_y time_to_`outcome'_end, sort color(gray) legend(order(1 "Frequency" 2 "Redacted"))
+			   
+			graph export "output/plots/S2_censored_futime_`brand'_`outcome'.pdf", as(pdf) replace
+			graph close
+		
 		} 
 		
 		else if lowest_count > 5 {
-			
-		twoway histogram time_to_`outcome'_end if early_censoring == 0, by(early_censoring, note(" ") legend(off) graphregion(color(white))) ///
-			   bcolor(emidblue) fcolor(ebg) ///
-			   frequency /// 
-			   || histogram time_to_`outcome'_end if early_censoring == 1,  ///
-			   bcolor(maroon) fcolor(erose) ///
-			   frequency /// 
-			   ytitle("Count") xtitle("Time between `outcome' and study end in `brand' case series, days") 
+
+			* plot without redaction and output as svg - vector image with higher quality 
+			twoway histogram time_to_`outcome'_end if early_censoring == 0, by(early_censoring, note(" ") legend(off) graphregion(color(white))) ///
+			    bcolor(emidblue) fcolor(ebg) ///
+			    frequency /// 
+			    || histogram time_to_`outcome'_end if early_censoring == 1,  ///
+			    bcolor(maroon) fcolor(erose) ///
+			    frequency /// 
+			    ytitle("Count") xtitle("Time between `outcome' and study end in `brand' case series, days") 
 			   
-		graph export "output/plots/S2_censored_futime_`brand'_`outcome'.svg", as(svg) replace
-		graph close
+			graph export "output/plots/S2_censored_futime_`brand'_`outcome'.svg", as(svg) replace
+			graph close
 		
 		} 
+  
 		 
 		* DEATHS WITHIN 42 DAYS OF THE OUTCOME, TABULATION 
 		noi di ""
@@ -150,27 +179,3 @@ foreach outcome in GBS TM BP {
 * CLOSE LOG===================================================================*/ 
 
 log close
-
-
-/* Development code 
-
-		twoway__histogram_gen time_to_BP, freq gen(count where)
-		local min_x = r(min)
-		local max_x = r(max)
-
-			* plot with line that redacts nrs around 5 and output as png
-			* note picture format has to be a bitmap not vector if redacted 
-			* manually check these png each time to ensure width of the redaction line is sufficient, as this will vary with the frequency 
-			histogram time_to_`outcome', frequency /// 
-										 graphregion(color(white)) ///
-										 bcolor(emidblue) fcolor(ebg)    ///
-										 ytitle("Count") xtitle("Time between first `brand' dose and `outcome', days") ///
-										 addplot(pci 5 `min_x' 5 `max_x' , lwidth(vvvthick) lcolor(gray) legend(order(1 "Frequency" 2 "Redacted Frequency"))) 
-
-
- 
-					   
-					   
-					   
-					   
-					   
