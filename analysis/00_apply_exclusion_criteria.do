@@ -40,21 +40,7 @@ foreach var of varlist first_any_vaccine_date ///
 					   first_az_date ///
 					   first_moderna_date ///
 					   death_date ///
-					   dereg_date ///
-					   any_neuromyelitis_optica_fu /// 
-					   any_adem_fu /// 
-					   any_ms_fu /// 
-					   cidp_fu_gp ///
-					   bells_palsy_gp ///
-					   bells_palsy_hospital ///
-					   bells_palsy_death ///
-					   bells_palsy_emergency ///
-					   transverse_myelitis_gp ///
-					   transverse_myelitis_hospital ///
-					   transverse_myelitis_death ///
-					   guillain_barre_gp ///
-					   guillain_barre_hospital ///
-					   guillain_barre_death { 
+					   dereg_date { 
 					   	
 						capture confirm string variable `var'
 						if _rc == 0 { 
@@ -80,11 +66,11 @@ gen censor_date_bp = censor_date
 format censor_date_bp %d 
 
 * Censor date TM (NO, ADEM, MS)
-gen censor_date_ms = min(censor_date, any_neuromyelitis_optica_fu, any_adem_fu, any_ms_fu)
+gen censor_date_ms = min(censor_date, fu_any_neuromyelitis_optica, fu_any_ms)
 format censor_date_ms %d 
 
 * Censor date GB 
-gen censor_date_gb = min(censor_date, cidp_fu_gp)
+gen censor_date_gb = min(censor_date, fu_cidp_gp)
 format censor_date_gb %d 
 
 * APPLY CRITERIA==============================================================*/
