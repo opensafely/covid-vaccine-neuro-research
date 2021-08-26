@@ -181,7 +181,7 @@ def generate_confounding_variables(index_date):
         return_expectations={"date": {"earliest": "index_date"}, 
                              "incidence":0.01},
     ),
-    fu_neuromyelitis_optica__hospital=patients.admitted_to_hospital(
+    fu_neuromyelitis_optica_hospital=patients.admitted_to_hospital(
         with_these_diagnoses=neuromyelitis_optica_secondary_care,
         on_or_after="index_date",
         find_first_match_in_period=True, 
@@ -191,7 +191,7 @@ def generate_confounding_variables(index_date):
                              "incidence":0.01},
     ),
 
-   fu_any_neuromyelitis_optica_fu=patients.minimum_of("fu_neuromyelitis_optica_gp", "fu_neuromyelitis_optica_hospital"), 
+   fu_any_neuromyelitis_optica=patients.minimum_of("fu_neuromyelitis_optica_gp", "fu_neuromyelitis_optica_hospital"), 
 
     ### CIDP
     history_cidp_gp=patients.with_these_clinical_events(
