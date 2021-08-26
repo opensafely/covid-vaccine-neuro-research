@@ -44,13 +44,19 @@ study = StudyDefinition(
      # note, exclusions on history of events will be applied in a dofile, as these are relevant only to specific sccs analyses
     population=patients.satisfying(
         """
-        (age >= 18 AND age < 105) AND 
-        (sex = "M" OR sex = "F") AND 
-        has_baseline_time AND
-        known_care_home AND  
-        imd > 0 AND NOT 
-        has_died AND NOT 
-        pregnancy 
+        (age >= 18 AND age < 105) 
+        AND 
+        (sex = "M" OR sex = "F") 
+        AND 
+        has_baseline_time 
+        AND
+        known_care_home 
+        AND  
+        imd > 0 
+        AND 
+        NOT has_died 
+        AND 
+        NOT pregnancy 
         """,
     ),
     

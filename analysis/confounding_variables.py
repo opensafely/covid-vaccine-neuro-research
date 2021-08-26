@@ -73,19 +73,19 @@ def generate_confounding_variables(index_date):
     ## history of outcome events - for exclusion within the individual SCCS cohorts 
     history_bells_palsy_gp=patients.with_these_clinical_events(
         bells_palsy_primary_care_codes,
-        between=["index_date - 1 year", "index_date"],
+        between=["index_date", "index_date - 1 year"],
         returning="binary_flag",
         return_expectations={"incidence": 0.15},
     ),
     history_bells_palsy_hospital=patients.admitted_to_hospital(
         with_these_diagnoses=bells_palsy_secondary_care_codes,
-        between=["index_date - 1 year", "index_date"],
+        between=["index_date", "index_date - 1 year"],
         returning="binary_flag",
         return_expectations={"incidence": 0.10},
     ),
     history_bells_palsy_emergency=patients.attended_emergency_care(
         with_these_diagnoses=bells_palsy_emergency_care_codes,
-        between=["index_date - 1 year", "index_date"],
+        between=["index_date", "index_date - 1 year"],
         returning="binary_flag",
         return_expectations={"incidence": 0.10},
     ), 
@@ -93,13 +93,13 @@ def generate_confounding_variables(index_date):
 
     history_transverse_myelitis_gp=patients.with_these_clinical_events(
         transverse_myelitis_primary_care_codes,
-        between=["index_date - 1 year", "index_date"],
+        between=["index_date", "index_date - 1 year"],
         returning="binary_flag",
         return_expectations={"incidence": 0.15},
     ),
     history_transverse_myelitis_hospital=patients.admitted_to_hospital(
         with_these_diagnoses=transverse_myelitis_secondary_care_codes,
-        between=["index_date - 1 year", "index_date"],
+        between=["index_date", "index_date - 1 year"],
         returning="binary_flag",
         return_expectations={"incidence": 0.10},
     ),
@@ -107,13 +107,13 @@ def generate_confounding_variables(index_date):
 
     history_guillain_barre_gp=patients.with_these_clinical_events(
         guillain_barre_primary_care_codes,
-        between=["index_date - 1 year", "index_date"],
+        between=["index_date", "index_date - 1 year"],
         returning="binary_flag",
         return_expectations={"incidence": 0.15},
     ),
     history_guillain_barre_hospital=patients.admitted_to_hospital(
         with_these_diagnoses=guillain_barre_secondary_care_codes,
-        between=["index_date - 1 year", "index_date"],
+        between=["index_date", "index_date - 1 year"],
         returning="binary_flag",
         return_expectations={"incidence": 0.10},
     ),
@@ -122,118 +122,89 @@ def generate_confounding_variables(index_date):
     ## Variables used for exclusion criteria in specific SCCS 
 
     ### MS 
-    ms_gp=patients.with_these_clinical_events(
+    history_ms_gp=patients.with_these_clinical_events(
         ms_primary_care,
         on_or_before="index_date",
         returning="binary_flag",
         return_expectations={"incidence": 0.01},
     ),
-    ms_hospital=patients.admitted_to_hospital(
+    history_ms_hospital=patients.admitted_to_hospital(
         with_these_diagnoses=ms_secondary_care,
         on_or_before="index_date",
         returning="binary_flag",
         return_expectations={"incidence": 0.01},
     ),
-    any_ms=patients.satisfying("ms_gp OR ms_hospital"), 
+    history_any_ms=patients.satisfying("history_ms_gp OR history_ms_hospital"), 
 
-    ms_fu_gp=patients.with_these_clinical_events(
+    fu_ms_gp=patients.with_these_clinical_events(
         ms_primary_care,
         on_or_after="index_date",
+        find_first_match_in_period=True, 
         returning="date", 
         date_format="YYYY-MM-DD",
         return_expectations={"date": {"earliest": "index_date"}, 
                              "incidence":0.01},
     ),
-    ms_fu_hospital=patients.admitted_to_hospital(
+    fu_ms_hospital=patients.admitted_to_hospital(
         with_these_diagnoses=ms_secondary_care,
         on_or_after="index_date",
+        find_first_match_in_period=True, 
         returning="date_admitted",
         date_format="YYYY-MM-DD",
         return_expectations={"date": {"earliest": "index_date"}, 
                              "incidence":0.01},
     ),
 
-    any_ms_fu=patients.minimum_of("ms_fu_gp", "ms_fu_hospital"), 
-
-    ### ADEM
-    adem_gp=patients.with_these_clinical_events(
-        adem_primary_care,
-        on_or_before="index_date",
-        returning="binary_flag",
-        return_expectations={"incidence": 0.01},
-    ),
-    adem_hospital=patients.admitted_to_hospital(
-        with_these_diagnoses=adem_secondary_care,
-        on_or_before="index_date",
-        returning="binary_flag",
-        return_expectations={"incidence": 0.01},
-    ),
-    any_adem=patients.satisfying("adem_gp OR adem_hospital"), 
-
-    adem_fu_gp=patients.with_these_clinical_events(
-        adem_primary_care,
-        on_or_after="index_date",
-        returning="date", 
-        date_format="YYYY-MM-DD",
-        return_expectations={"date": {"earliest": "index_date"}, 
-                             "incidence":0.01},
-    ),
-    adem_fu_hospital=patients.admitted_to_hospital(
-        with_these_diagnoses=adem_secondary_care,
-        on_or_after="index_date",
-        returning="date_admitted",
-        date_format="YYYY-MM-DD",
-        return_expectations={"date": {"earliest": "index_date"}, 
-                             "incidence":0.01},
-    ),
-
-    any_adem_fu=patients.minimum_of("adem_fu_gp", "adem_fu_hospital"), 
+    fu_any_ms=patients.minimum_of("fu_ms_gp", "fu_ms_hospital"), 
 
     ### Neuromyelitis Optica
-    neuromyelitis_optica_gp=patients.with_these_clinical_events(
+    history_neuromyelitis_optica_gp=patients.with_these_clinical_events(
         neuromyelitis_optica_primary_care,
         on_or_before="index_date",
         returning="binary_flag",
         return_expectations={"incidence": 0.01},
     ),
-    neuromyelitis_optica_hospital=patients.admitted_to_hospital(
+    history_neuromyelitis_optica_hospital=patients.admitted_to_hospital(
         with_these_diagnoses=neuromyelitis_optica_secondary_care,
         on_or_before="index_date",
         returning="binary_flag",
         return_expectations={"incidence": 0.01},
     ),
-    any_neuromyelitis_optica=patients.satisfying("neuromyelitis_optica_gp OR neuromyelitis_optica_hospital"), 
+    history_any_neuromyelitis_optica=patients.satisfying("history_neuromyelitis_optica_gp OR history_neuromyelitis_optica_hospital"), 
 
-    neuromyelitis_optica_fu_gp=patients.with_these_clinical_events(
+    fu_neuromyelitis_optica_gp=patients.with_these_clinical_events(
         neuromyelitis_optica_primary_care,
         on_or_after="index_date",
+        find_first_match_in_period=True, 
         returning="date", 
         date_format="YYYY-MM-DD",
         return_expectations={"date": {"earliest": "index_date"}, 
                              "incidence":0.01},
     ),
-    neuromyelitis_optica_fu_hospital=patients.admitted_to_hospital(
+    fu_neuromyelitis_optica__hospital=patients.admitted_to_hospital(
         with_these_diagnoses=neuromyelitis_optica_secondary_care,
         on_or_after="index_date",
+        find_first_match_in_period=True, 
         returning="date_admitted",
         date_format="YYYY-MM-DD",
         return_expectations={"date": {"earliest": "index_date"}, 
                              "incidence":0.01},
     ),
 
-    any_neuromyelitis_optica_fu=patients.minimum_of("neuromyelitis_optica_fu_gp", "neuromyelitis_optica_fu_hospital"), 
+   fu_any_neuromyelitis_optica_fu=patients.minimum_of("fu_neuromyelitis_optica_gp", "fu_neuromyelitis_optica_hospital"), 
 
     ### CIDP
-    cidp_gp=patients.with_these_clinical_events(
+    history_cidp_gp=patients.with_these_clinical_events(
         cidp_primary_care,
         on_or_before="index_date",
         returning="binary_flag",
         return_expectations={"incidence": 0.01},
     ),
 
-    cidp_fu_gp=patients.with_these_clinical_events(
+    fu_cidp_gp=patients.with_these_clinical_events(
         cidp_primary_care,
         on_or_after="index_date",
+        find_first_match_in_period=True, 
         returning="date", 
         date_format="YYYY-MM-DD",
         return_expectations={"date": {"earliest": "index_date"}, 
@@ -247,7 +218,7 @@ def generate_confounding_variables(index_date):
     haem_cancer_date=patients.with_these_clinical_events(
         haematological_cancer,
         on_or_before="index_date",
-        find_first_match_in_period="true", 
+        find_first_match_in_period=True, 
         returning="date",
         date_format="YYYY-MM", 
         return_expectations={"date": {"latest": "index_date"}},
@@ -256,7 +227,7 @@ def generate_confounding_variables(index_date):
     nonhaem_nonlung_cancer_date=patients.with_these_clinical_events(
         cancer_excluding_lung_and_haematological,
         on_or_before="index_date",
-        find_first_match_in_period="true", 
+        find_first_match_in_period=True, 
         returning="date",
         date_format="YYYY-MM", 
         return_expectations={"date": {"latest": "index_date"}},
@@ -265,7 +236,7 @@ def generate_confounding_variables(index_date):
     lung_cancer_date=patients.with_these_clinical_events(
         lung_cancer,
         on_or_before="index_date",
-        find_first_match_in_period="true", 
+        find_first_match_in_period=True, 
         returning="date",
         date_format="YYYY-MM", 
         return_expectations={"date": {"latest": "index_date"}},
