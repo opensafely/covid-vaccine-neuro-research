@@ -47,7 +47,7 @@ study = StudyDefinition(
         (age >= 18 AND age < 105) AND 
         (sex = "M" OR sex = "F") AND 
         has_baseline_time AND
-        known_care_home AND NOT 
+        known_care_home AND  
         imd > 0 AND NOT 
         has_died AND NOT 
         pregnancy 
