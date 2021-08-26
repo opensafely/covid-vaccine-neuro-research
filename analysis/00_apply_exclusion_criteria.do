@@ -40,7 +40,10 @@ foreach var of varlist first_any_vaccine_date ///
 					   first_az_date ///
 					   first_moderna_date ///
 					   death_date ///
-					   dereg_date { 
+					   dereg_date ///
+					   fu_any_neuromyelitis_optica ///
+					   fu_any_ms ///
+					   fu_cidp_gp { 
 					   	
 						capture confirm string variable `var'
 						if _rc == 0 { 
