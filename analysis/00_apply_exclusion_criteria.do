@@ -115,9 +115,14 @@ count
 drop if first_any_vaccine_date == . 
 count
 
-noi di "DROP IF RECEIVED UNKNOWN OR SOMETHING OTHER THAN PFIZER/AZ/MODERNA"
+noi di "DROP IF NEVER RECEIVED VACCINES OF INTEREST" 
 count 
 drop if first_pfizer_date == . & first_az_date == . & first_moderna_date == . 
+count 
+
+noi di "DROP IF THE FIRST VACCINE WAS OF UNKNOWN TYPE" 
+count 
+drop if (first_pfizer_date != first_any_vaccine_date) & (first_az_date != first_any_vaccine_date) & (first_moderna_date != first_any_vaccine_date)
 count 
 
 noi di "DROP IF PFIZER AND AZ ON SAME DATE"
