@@ -90,47 +90,17 @@
       "downloaded_at": "2021-08-12 15:42:57.146145Z",
       "sha": "16b9bdf6c37c9f5e802912a98542c5dd5d21183d"
     },
-    "opensafely-multiple-sclerosis.csv": {
-      "id": "opensafely/multiple-sclerosis/2020-05-12",
-      "url": "https://codelists.opensafely.org/codelist/opensafely/multiple-sclerosis/2020-05-12/",
-      "downloaded_at": "2021-08-13 13:28:37.831671Z",
-      "sha": "68e04d3d387dc90a0ee05592e6fd4b7fa474b194"
+    "opensafely-multiple-sclerosis-v2.csv": {
+      "id": "opensafely/multiple-sclerosis-v2/063627df",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/multiple-sclerosis-v2/063627df/",
+      "downloaded_at": "2021-09-01 17:53:18.995000Z",
+      "sha": "e89c12f28e67e5c8dedd322f936a279cc837c564"
     },
-    "user-anna-schultze-multiple-sclerosis-icd10.csv": {
-      "id": "user/anna-schultze/multiple-sclerosis-icd10/67628f74",
-      "url": "https://codelists.opensafely.org/codelist/user/anna-schultze/multiple-sclerosis-icd10/67628f74/",
-      "downloaded_at": "2021-08-13 13:28:39.563515Z",
-      "sha": "de6b1f9688f0dd08fb69436c204f6357175c24bb"
-    },
-    "user-anna-schultze-chronic-inflammatory-demyelinating-polyneuritis.csv": {
-      "id": "user/anna-schultze/chronic-inflammatory-demyelinating-polyneuritis/007202aa",
-      "url": "https://codelists.opensafely.org/codelist/user/anna-schultze/chronic-inflammatory-demyelinating-polyneuritis/007202aa/",
-      "downloaded_at": "2021-08-13 13:28:38.679996Z",
-      "sha": "2f4746f998ba4b85a9e1c5064b31baedd6797915"
-    },
-    "user-anna-schultze-acute-disseminated-encephalitis-and-encephalomyelitis-icd10.csv": {
-      "id": "user/anna-schultze/acute-disseminated-encephalitis-and-encephalomyelitis-icd10/198175df",
-      "url": "https://codelists.opensafely.org/codelist/user/anna-schultze/acute-disseminated-encephalitis-and-encephalomyelitis-icd10/198175df/",
-      "downloaded_at": "2021-08-13 13:28:38.404139Z",
-      "sha": "e40da068843c0b0c2a40b134cbbcc52bf13d1498"
-    },
-    "user-anna-schultze-acute-disseminated-encephalitis-and-encephalomyelitis.csv": {
-      "id": "user/anna-schultze/acute-disseminated-encephalitis-and-encephalomyelitis/3290e914",
-      "url": "https://codelists.opensafely.org/codelist/user/anna-schultze/acute-disseminated-encephalitis-and-encephalomyelitis/3290e914/",
-      "downloaded_at": "2021-08-13 13:34:30.417813Z",
-      "sha": "3b9773dfa5bde2ee8e9123bc1fdc05bc5986a688"
-    },
-    "user-anna-schultze-neuromyelitis-optica.csv": {
-      "id": "user/anna-schultze/neuromyelitis-optica/64afcf7e",
-      "url": "https://codelists.opensafely.org/codelist/user/anna-schultze/neuromyelitis-optica/64afcf7e/",
-      "downloaded_at": "2021-08-13 13:28:38.988354Z",
-      "sha": "2d9ab9d3b333e17f630d4bad51d220daab19a811"
-    },
-    "user-anna-schultze-neuromyelitis-optica-icd-10.csv": {
-      "id": "user/anna-schultze/neuromyelitis-optica-icd-10/4ba05c49",
-      "url": "https://codelists.opensafely.org/codelist/user/anna-schultze/neuromyelitis-optica-icd-10/4ba05c49/",
-      "downloaded_at": "2021-08-13 13:28:39.259368Z",
-      "sha": "f1553a250498f3240a603f44c1f15783ae2d5202"
+    "opensafely-chronic-inflammatory-demyelinating-polyneuropathy-cidp.csv": {
+      "id": "opensafely/chronic-inflammatory-demyelinating-polyneuropathy-cidp/38550e49",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/chronic-inflammatory-demyelinating-polyneuropathy-cidp/38550e49/",
+      "downloaded_at": "2021-09-01 17:53:19.426431Z",
+      "sha": "0f1fad6834a47aa99f0f3d022f52eb8217d9bfba"
     }
   }
 }
