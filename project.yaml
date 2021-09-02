@@ -11,21 +11,21 @@ actions:
       highly_sensitive:
         cohort: output/input_sccs_and_historical_cohort.csv
 
-  00_apply_exclusion_criteria:
-    run: stata-mp:latest analysis/00_apply_exclusion_criteria.do 
+  apply_exclusion_criteria:
+    run: stata-mp:latest analysis/apply_exclusion_criteria.do 
     needs: [generate_cohort] 
     outputs:
       moderately_sensitive: 
-        log: output/logs/00_apply_exclusion_criteria.log
+        log: output/logs/apply_exclusion_criteria.log
       highly_sensitive:
         cohort_controls: output/input_historical_controls.csv
-        cohort_az_cases: output/input_az_cases.csv
-        cohort_pfizer_cases: output/input_pfizer_cases.csv 
-        cohort_moderna_cases: output/input_moderna_cases.csv 
+        cohort_az_cases: output/input_AZ_cases.csv
+        cohort_pfizer_cases: output/input_PF_cases.csv 
+        cohort_moderna_cases: output/input_MOD_cases.csv 
 
   SCCS_first_dose_only_analyses_neuro:
     run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_neuro.do
-    needs: [00_apply_exclusion_criteria] 
+    needs: [apply_exclusion_criteria] 
     outputs:
       moderately_sensitive: 
         log: output/logs/SCCS_first_dose_only_analyses.log
