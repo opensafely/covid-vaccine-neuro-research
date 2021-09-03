@@ -1,7 +1,7 @@
 version: '3.0'
 
 expectations:
-  population_size: 5000
+  population_size: 500000
 
 actions:
 
@@ -23,17 +23,20 @@ actions:
         cohort_pfizer_cases: output/input_PF_cases.csv 
         cohort_moderna_cases: output/input_MOD_cases.csv 
 
-  SCCS_first_dose_only_analyses_neuro:
-    run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_neuro.do
+  SCCS_first_dose_only_analyses_neuro_primary:
+    run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_neuro_primary.do
     needs: [apply_exclusion_criteria] 
     outputs:
       moderately_sensitive: 
         log: output/logs/SCCS_first_dose_only_analyses.log
-        results: output/tables/results_summary.csv
+        results: output/tables/results_summary_primary*
       highly_sensitive:
-        sccs_pop_BP: output/temp_data/sccs_popn_BP.dta
-        sccs_pop_TM: output/temp_data/sccs_popn_TM.dta
-        sccs_pop_GBS: output/temp_data/sccs_popn_GBS.dta
+        sccs_pop_BP: output/temp_data/sccs_popn_BP*
+        sccs_pop_TM: output/temp_data/sccs_popn_TM*
+        sccs_pop_GBS: output/temp_data/sccs_popn_GBS*
+        sccs_cutp_BP: output/temp_data/sccs_cutp_data_BP*
+        sccs_cutp_TM: output/temp_data/sccs_cutp_data_TM*
+        sccs_cutp_GBS: output/temp_data/sccs_cutp_data_GBS*
 
   SCCS_baseline_tables:
     run: stata-mp:latest analysis/SCCS_baseline_tables.do
