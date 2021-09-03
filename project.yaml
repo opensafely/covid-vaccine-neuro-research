@@ -1,7 +1,7 @@
 version: '3.0'
 
 expectations:
-  population_size: 500000
+  population_size: 5000
 
 actions:
 
@@ -38,7 +38,7 @@ actions:
         sccs_cutp_TM: output/temp_data/sccs_cutp_data_TM_AZ*
         sccs_cutp_GBS: output/temp_data/sccs_cutp_data_GBS_AZ*
 
-  SCCS_first_dose_only_primary_Pfizer:
+  SCCS_first_dose_only_primary_PF:
     run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_neuro_primary.do PF
     needs: [apply_exclusion_criteria] 
     outputs:
@@ -53,7 +53,7 @@ actions:
         sccs_cutp_TM: output/temp_data/sccs_cutp_data_TM_PF*
         sccs_cutp_GBS: output/temp_data/sccs_cutp_data_GBS_PF*
 
-  SCCS_first_dose_only_primary_Moderna:
+  SCCS_first_dose_only_primary_MOD:
     run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_neuro_primary.do MOD 
     needs: [apply_exclusion_criteria] 
     outputs:
@@ -68,7 +68,54 @@ actions:
         sccs_cutp_TM: output/temp_data/sccs_cutp_data_TM_MOD*
         sccs_cutp_GBS: output/temp_data/sccs_cutp_data_GBS_MOD*
 
+  SCCS_baseline_tables_AZ:
+    run: stata-mp:latest analysis/SCCS_baseline_tables.do AZ
+    needs: [SCCS_first_dose_only_primary_AZ] 
+    outputs:
+      moderately_sensitive: 
+        log: output/logs/SCCS_baseline_tables_AZ.log
+        tables: output/tables/table1_AZ* 
 
+  SCCS_baseline_tables_PF:
+    run: stata-mp:latest analysis/SCCS_baseline_tables.do PF
+    needs: [SCCS_first_dose_only_primary_PF] 
+    outputs:
+      moderately_sensitive: 
+        log: output/logs/SCCS_baseline_tables_PF.log
+        tables: output/tables/table1_PF* 
 
+  SCCS_baseline_tables_MOD:
+    run: stata-mp:latest analysis/SCCS_baseline_tables.do MOD
+    needs: [SCCS_first_dose_only_primary_MOD] 
+    outputs:
+      moderately_sensitive: 
+        log: output/logs/SCCS_baseline_tables_MOD.log
+        tables: output/tables/table1_MOD* 
 
+  SCCS_assumption_checking_AZ:
+    run: stata-mp:latest analysis/SCCS_assumption_checking.do AZ
+    needs: [SCCS_first_dose_only_primary_AZ] 
+    outputs:
+      moderately_sensitive: 
+        log: output/logs/SCCS_assumption_checking_AZ.log
+        plots_S1: output/plots/S1_exposure_centered_interval_AZ*
+        plots_S2: output/plots/S2_censored_futime_AZ*
+
+  SCCS_assumption_checking_PF:
+    run: stata-mp:latest analysis/SCCS_assumption_checking.do PF
+    needs: [SCCS_first_dose_only_primary_PF] 
+    outputs:
+      moderately_sensitive: 
+        log: output/logs/SCCS_assumption_checking_PF.log
+        plots_S1: output/plots/S1_exposure_centered_interval_PF*
+        plots_S2: output/plots/S2_censored_futime_PF*
+
+  SCCS_assumption_checking_MOD:
+    run: stata-mp:latest analysis/SCCS_assumption_checking.do MOD
+    needs: [SCCS_first_dose_only_primary_MOD] 
+    outputs:
+      moderately_sensitive: 
+        log: output/logs/SCCS_assumption_checking_MOD.log
+        plots_S1: output/plots/S1_exposure_centered_interval_MOD*
+        plots_S2: output/plots/S2_censored_futime_MOD*
 

@@ -25,9 +25,12 @@ capture	mkdir "`c(pwd)'/output/temp_data"
 * set ado path
 adopath + "`c(pwd)'/analysis/extra_ados"
 
+*variable to cycle through each brand (AZ, PF, MOD)
+local brand `1'
+
 * open a log file
 cap log close
-log using "`c(pwd)'/output/logs/SCCS_baseline_tables.log", replace 
+log using "`c(pwd)'/output/logs/SCCS_baseline_tables_`brand'.log", replace 
 
 /* PROGRAMS TO AUTOMATE TABULATIONS===========================================*/ 
 ********************************************************************************
@@ -128,16 +131,15 @@ syntax, variable(varname)
 end
 
 * IMPORT DATA=================================================================*/ 
-* This is currently set up in two loops as I want to have the outcomes as columns, with one table per vaccine
-* However, the datasets exist for one outcome with all of the vaccines as rows 
-* Because data is assumed to be small, this has resulted in two loops outputting 9 tables 
-* I first read in each case series in a loop, and then within that, loop again and output a table for each vaccine 
-* If very slow these can be parallized for speed by instead feeding in as args. from the yaml and calling the program multiple times 
-* The easiest would be to feed in the outcomes as arguments as that's the outer loop 
+* This is currently set up in a loop per outcome, reading in each brand from the yaml 
+
+*variable to cycle through each brand (AZ, PF, MOD)
+local brand `1'
+display "`brand'"
 
 foreach outcome in GBS TM BP { 
 
-	use `c(pwd)'/output/temp_data/sccs_popn_`outcome', clear
+	use `c(pwd)'/output/temp_data/sccs_popn_`outcome'_`brand', clear
 
 	** Basic data management and adding labels
 	** Note label name needs to match var name for automatic printing to work 
@@ -188,60 +190,50 @@ foreach outcome in GBS TM BP {
 * include cross tabs in log for QC 
 * this is done in a loop for vaccine brand as assumed not computationally intensive 
 
-	foreach brand in AZ PF MOD {
+	* Print info to log 
 		
-		preserve 
-		drop if first_brand != "`brand'"
-		
-		* Print info to log 
-		
-		noi di ""
-		noi di "===OUTPUT START:`brand' `outcome' case series==="
-		noi di ""
+	noi di ""
+	noi di "===OUTPUT START:`brand' `outcome' case series==="
+	noi di ""
 
-		*Set up output file
-		cap file close tablecontent
-		file open tablecontent using `c(pwd)'/output/tables/table1_`brand'_`outcome'.txt, write text replace
+	*Set up output file
+	cap file close tablecontent
+	file open tablecontent using `c(pwd)'/output/tables/table1_`brand'_`outcome'.txt, write text replace
 
-		file write tablecontent ("Table 1: Demographics of individuals in the `brand' `outcome' case series") _n
+	file write tablecontent ("Table 1: Demographics of individuals in the `brand' `outcome' case series") _n
 
-		* Column headings 
-		file write tablecontent _tab _tab  ("`outcome'") _n
-		file write tablecontent _tab _tab  ("N (%)") _n
+	* Column headings 
+	file write tablecontent _tab _tab  ("`outcome'") _n
+	file write tablecontent _tab _tab  ("N (%)") _n
 
-		* DEMOGRAPHICS (more than one level, potentially missing) 
+	* DEMOGRAPHICS (more than one level, potentially missing) 
 
-		* count of cases
-		tabulatevariable, variable(sccs_outcome_`outcome') min(1) max(1) 
-		file write tablecontent _n 
-		safetab sccs_outcome
+	* count of cases
+	tabulatevariable, variable(sccs_outcome_`outcome') min(1) max(1) 
+	file write tablecontent _n 
+	safetab sccs_outcome
 
-		summarizevariable, variable(age)
-		file write tablecontent _n 
-		summarize age, d 
+	summarizevariable, variable(age)
+	file write tablecontent _n 
+	summarize age, d 
 
-		tabulatevariable, variable(age_group_format) min(1) max(3) missing
-		file write tablecontent _n 
-		safetab age_group_format
+	tabulatevariable, variable(age_group_format) min(1) max(3) missing
+	file write tablecontent _n 
+	safetab age_group_format
 
-		tabulatevariable, variable(gender) min(1) max(2) missing 
-		file write tablecontent _n 
-		safetab gender
+	tabulatevariable, variable(gender) min(1) max(2) missing 
+	file write tablecontent _n 
+	safetab gender
 
-		tabulatevariable, variable(care_home) min(1) max(4) missing 
-		file write tablecontent _n 
-		safetab care_home
+	tabulatevariable, variable(care_home) min(1) max(4) missing 
+	file write tablecontent _n 
+	safetab care_home
 
-		tabulatevariable, variable(hcw) min(1) max(1) 
-		file write tablecontent _n 
-		safetab hcw
+	tabulatevariable, variable(hcw) min(1) max(1) 
+	file write tablecontent _n 
+	safetab hcw
 
-		file close tablecontent
-		
-		restore 
-		
-
-	}
+	file close tablecontent
 
 }
 	

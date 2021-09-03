@@ -45,8 +45,6 @@ adopath + "`c(pwd)'/analysis/extra_ados"
 *variable to cycle through each brand (AZ, PF, MOD)
 local brand `1'
 
-display "`brand'"
-
 * open a log file
 cap log close
 log using "`c(pwd)'/output/logs/SCCS_first_dose_only_analyses_neuro_primary_`brand'.log", replace 
@@ -54,6 +52,7 @@ log using "`c(pwd)'/output/logs/SCCS_first_dose_only_analyses_neuro_primary_`bra
 
 * IMPORT DATA=================================================================*/ 
 
+display "`brand'"
 
 clear
 
