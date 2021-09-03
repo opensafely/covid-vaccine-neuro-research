@@ -42,29 +42,26 @@ capture	mkdir "`c(pwd)'/output/temp_data"
 * set ado path
 adopath + "`c(pwd)'/analysis/extra_ados"
 
+*variable to cycle through each brand (AZ, PF, MOD)
+local brand `1'
+
+display "`brand'"
+
 * open a log file
 cap log close
-log using "`c(pwd)'/output/logs/SCCS_first_dose_only_analyses.log", replace 
+log using "`c(pwd)'/output/logs/SCCS_first_dose_only_analyses_neuro_primary_`brand'.log", replace 
 
-
-*runs through for each brand
 
 * IMPORT DATA=================================================================*/ 
 
 
 clear
 
-*variable to cycle through each brand (AZ, PF, MOD)
-
-local brand `1'
-
-display "`brand'"
-
 import delimited using `c(pwd)'/output/input_`brand'_cases.csv
-
 gen first_brand="`brand'"
 
 *checking first_brand variable
+* these are listed for each doze as the input value is capitalised and variables are not 
 assert first_az_date!="" if first_brand=="AZ"
 assert first_moderna_date!="" if first_brand=="MOD"
 assert first_pfizer_date!="" if first_brand=="PF"

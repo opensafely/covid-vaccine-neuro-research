@@ -23,37 +23,50 @@ actions:
         cohort_pfizer_cases: output/input_PF_cases.csv 
         cohort_moderna_cases: output/input_MOD_cases.csv 
 
-  SCCS_first_dose_only_analyses_neuro_primary:
-    run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_neuro_primary.do
+  SCCS_first_dose_only_primary_AZ:
+    run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_neuro_primary.do AZ
     needs: [apply_exclusion_criteria] 
     outputs:
       moderately_sensitive: 
-        log: output/logs/SCCS_first_dose_only_analyses.log
-        results: output/tables/results_summary_primary*
+        log: output/logs/SCCS_first_dose_only_analyses_neuro_primary_AZ.log
+        results: output/tables/results_summary_primary_AZ* 
       highly_sensitive:
-        sccs_pop_BP: output/temp_data/sccs_popn_BP*
-        sccs_pop_TM: output/temp_data/sccs_popn_TM*
-        sccs_pop_GBS: output/temp_data/sccs_popn_GBS*
-        sccs_cutp_BP: output/temp_data/sccs_cutp_data_BP*
-        sccs_cutp_TM: output/temp_data/sccs_cutp_data_TM*
-        sccs_cutp_GBS: output/temp_data/sccs_cutp_data_GBS*
+        sccs_pop_BP: output/temp_data/sccs_popn_BP_AZ*
+        sccs_pop_TM: output/temp_data/sccs_popn_TM_AZ*
+        sccs_pop_GBS: output/temp_data/sccs_popn_GBS_AZ*
+        sccs_cutp_BP: output/temp_data/sccs_cutp_data_BP_AZ*
+        sccs_cutp_TM: output/temp_data/sccs_cutp_data_TM_AZ*
+        sccs_cutp_GBS: output/temp_data/sccs_cutp_data_GBS_AZ*
 
-  SCCS_baseline_tables:
-    run: stata-mp:latest analysis/SCCS_baseline_tables.do
-    needs: [SCCS_first_dose_only_analyses_neuro] 
+  SCCS_first_dose_only_primary_Pfizer:
+    run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_neuro_primary.do PF
+    needs: [apply_exclusion_criteria] 
     outputs:
       moderately_sensitive: 
-        log: output/logs/SCCS_baseline_tables.log
-        tables: output/tables/table1* 
+        log: output/logs/SSCCS_first_dose_only_analyses_neuro_primary_PF.log
+        results: output/tables/results_summary_primary_PF* 
+      highly_sensitive:
+        sccs_pop_BP: output/temp_data/sccs_popn_BP_PF*
+        sccs_pop_TM: output/temp_data/sccs_popn_TM_PF*
+        sccs_pop_GBS: output/temp_data/sccs_popn_GBS_PF*
+        sccs_cutp_BP: output/temp_data/sccs_cutp_data_BP_PF*
+        sccs_cutp_TM: output/temp_data/sccs_cutp_data_TM_PF*
+        sccs_cutp_GBS: output/temp_data/sccs_cutp_data_GBS_PF*
 
-  SCCS_assumption_checking:
-    run: stata-mp:latest analysis/SCCS_assumption_checking.do
-    needs: [SCCS_first_dose_only_analyses_neuro] 
+  SCCS_first_dose_only_primary_Moderna:
+    run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_neuro_primary.do MOD 
+    needs: [apply_exclusion_criteria] 
     outputs:
       moderately_sensitive: 
-        log: output/logs/SCCS_assumption_checking.log
-        plots_S1: output/plots/S1*
-        plots_S2: output/plots/S2*
+        log: output/logs/SCCS_first_dose_only_analyses_neuro_primary_MOD.log
+        results: output/tables/results_summary_primary_MOD*
+      highly_sensitive:
+        sccs_pop_BP: output/temp_data/sccs_popn_BP_MOD*
+        sccs_pop_TM: output/temp_data/sccs_popn_TM_MOD*
+        sccs_pop_GBS: output/temp_data/sccs_popn_GBS_MOD*
+        sccs_cutp_BP: output/temp_data/sccs_cutp_data_BP_MOD*
+        sccs_cutp_TM: output/temp_data/sccs_cutp_data_TM_MOD*
+        sccs_cutp_GBS: output/temp_data/sccs_cutp_data_GBS_MOD*
 
 
 
