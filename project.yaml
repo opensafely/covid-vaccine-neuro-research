@@ -39,12 +39,12 @@ actions:
         sccs_cutp_GBS: output/temp_data/sccs_cutp_data_GBS_AZ*
 
   SCCS_first_dose_only_primary_PF:
-    run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_neuro_primary.do PF
+    run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_neuro_primary.do PF 
     needs: [apply_exclusion_criteria] 
     outputs:
       moderately_sensitive: 
-        log: output/logs/SSCCS_first_dose_only_analyses_neuro_primary_PF.log
-        results: output/tables/results_summary_primary_PF* 
+        log: output/logs/SCCS_first_dose_only_analyses_neuro_primary_PF.log
+        results: output/tables/results_summary_primary_PF*
       highly_sensitive:
         sccs_pop_BP: output/temp_data/sccs_popn_BP_PF*
         sccs_pop_TM: output/temp_data/sccs_popn_TM_PF*
