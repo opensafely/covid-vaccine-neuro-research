@@ -102,7 +102,7 @@ count
 drop if first_any_vaccine_date == . 
 count
 
-noi di "DROP IF RECEIVED UNKNOWN OR SOMETHING OTHER THAN PFIZER/AZ/MODERNA"
+noi di "DROP IF NEVER RECEIVED VACCINES OF INTEREST"
 count 
 drop if first_pfizer_date == . & first_az_date == . & first_moderna_date == . 
 count 
@@ -128,6 +128,17 @@ gen first_pfizer_az_moderna_date = min(first_az_date, first_pfizer_date, first_m
 
 * check equivalence for real data 
 datacheck first_pfizer_az_moderna_date == first_any_vaccine_date, nolist 
+
+noi di "COUNT IF THE FIRST VACCINE WAS OF UNKNOWN TYPE" 
+* Note, ideally these would be dropped, but the equivalence statement required reduces the dummy datasize so much it becomes unworkable 
+* Not dropping them has no impact as they are dropped for the brand-specific case series as is 
+* Therefore, a binary indicator variable is created indicating unknown vaccine type instead
+* If needed, these can be excluded from the historical case population (the only output in which they are included)
+
+gen unknown_first_dose = 1 if (first_pfizer_date != first_any_vaccine_date) & (first_az_date != first_any_vaccine_date) & (first_moderna_date != first_any_vaccine_date)
+replace unknown_first_dose = 0 if unknown_first_dose == . 
+tab unknown_first_dose, m 
+
 
 * AZ COHORT 
 preserve

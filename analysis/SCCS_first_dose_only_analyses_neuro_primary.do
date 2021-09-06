@@ -88,12 +88,16 @@ foreach var of varlist second_any_vaccine_date second_pfizer_date second_az_date
 					   }
 
 foreach var of varlist fu_cidp_gp fu_ms_no_gp { 
+	
+					capture confirm string variable `var'
+					if _rc == 0 { 
 						rename `var' _tmp
 						gen `var' = date(_tmp, "DMY")
 						drop _tmp
 						format %d `var'
-							
-					   }				   
+					   }				
+				}
+
 					   
 * create flag for first dose >=1st Jan for AZ PF comparison sensitivity analysis
 
