@@ -62,6 +62,12 @@ foreach outcome in GBS TM BP {
 	gen time_to_`outcome' = eventday - vacc_date1
 	
 	** Death 	
+	* count deaths 
+	
+	gen death = 1 if death_date != . 
+	replace death = 0 if death == . 
+	tab death, m 
+	
 	gen death_after_`outcome' = 1 if death_date != . & death_date <= censor_date & ((death_date - `outcome') < 42)
 	replace death_after_`outcome' = 0 if death_after_`outcome' == . 
 
