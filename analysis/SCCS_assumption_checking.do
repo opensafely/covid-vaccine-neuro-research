@@ -56,10 +56,15 @@ foreach outcome in GBS TM BP {
 	gen early_censoring=(calendar_censor_date != censor_date)
 	label define early_censoring 0 "Planned Censoring" 1 "Early Censoring"
 	label values early_censoring early_censoring 
+	tab early_censoring, m 
+	
 	* time to actual study end 
 	gen time_to_`outcome'_end = censor_date - `outcome' 
+	summarize time_to_`outcome'_end, d
+	
 	* time to outcome 
 	gen time_to_`outcome' = eventday - vacc_date1
+	summarize time_to_`outcome', d
 	
 	** Death 	
 	* count deaths 
