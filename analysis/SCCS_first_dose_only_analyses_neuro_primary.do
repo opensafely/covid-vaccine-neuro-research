@@ -459,7 +459,7 @@ generate loginterval = log(interval)
  *vacc1 has 5 levels, non-risk - baseline (0), pre-vacc low 28 days -TM, GBS /14 days BP (1), day 0 (2) days 1-3 (3) and days 4-28 BP, TM / 4-42 GBS (4)
  
  
- xtpoisson nevents ib0.vacc1_`j', fe i(patient_id) offset(loginterval) eform
+ capture noisily xtpoisson nevents ib0.vacc1_`j', fe i(patient_id) offset(loginterval) eform
 
   if _rc==0{
   mat b = r(table) 
@@ -475,7 +475,7 @@ generate loginterval = log(interval)
  
  display "add in week"
  
-  xtpoisson nevents ib0.vacc1_`j' ib0.week , fe i(patient_id) offset(loginterval) eform
+ capture noisily xtpoisson nevents ib0.vacc1_`j' ib0.week , fe i(patient_id) offset(loginterval) eform
   
   
   if _rc==0{  
@@ -492,7 +492,7 @@ generate loginterval = log(interval)
  
  display "add in 2 week period"
  
- xtpoisson nevents ib0.vacc1_`j' ib0.two_week, fe i(patient_id) offset(loginterval) eform
+ capture noisily xtpoisson nevents ib0.vacc1_`j' ib0.two_week, fe i(patient_id) offset(loginterval) eform
  
   if _rc==0{
   mat b = r(table) 
