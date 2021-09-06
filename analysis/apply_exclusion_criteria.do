@@ -153,6 +153,17 @@ count
 drop if first_az_date == . | first_az_date >= censor_date
 count 
 
+* count outcomes for sense checking 
+gen check_BP = (any_bells_palsy != "")
+gen check_TM = (any_transverse_myelitis != "")
+gen check_GBS = (any_guillain_barre != "")
+
+safetab check_BP, m
+safetab check_TM, m
+safetab check_GBS, m
+
+drop check_* 
+
 * Export cohort 
 export delimited using `c(pwd)'/output/input_AZ_cases.csv, replace 
 
@@ -171,6 +182,17 @@ count
 drop if first_pfizer_date == . | first_pfizer_date >= censor_date
 count 
 
+* count outcomes for sense checking 
+gen check_BP = (any_bells_palsy != "")
+gen check_TM = (any_transverse_myelitis != "")
+gen check_GBS = (any_guillain_barre != "")
+
+safetab check_BP, m
+safetab check_TM, m
+safetab check_GBS, m
+
+drop check_* 
+
 * Export cohort 
 export delimited using `c(pwd)'/output/input_PF_cases.csv, replace 
 
@@ -188,6 +210,17 @@ count
 * Drop if first Moderna not before censoring
 drop if first_moderna_date == . | first_moderna_date >= censor_date
 count 
+
+* count outcomes for sense checking 
+gen check_BP = (any_bells_palsy != "")
+gen check_TM = (any_transverse_myelitis != "")
+gen check_GBS = (any_guillain_barre != "")
+
+safetab check_BP, m
+safetab check_TM, m
+safetab check_GBS, m
+
+drop check_* 
 
 * Export cohort 
 export delimited using `c(pwd)'/output/input_MOD_cases.csv, replace 
