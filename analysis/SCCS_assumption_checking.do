@@ -39,13 +39,13 @@ foreach outcome in GBS TM BP {
 	use `c(pwd)'/output/temp_data/sccs_popn_`outcome'_`brand', clear
 	
 	* convert required string variables to date 
-	foreach var of varlist censor_date ///
-						   death_date { 
+	foreach var of varlist death_date ///
+						   calendar_censor_date { 
 					   	
 						capture confirm string variable `var'
 						if _rc == 0 { 
 							rename `var' _tmp
-							gen `var' = date(_tmp, "YMD")
+							gen `var' = date(_tmp, "DMY")
 							drop _tmp
 							format %d `var'
 						}

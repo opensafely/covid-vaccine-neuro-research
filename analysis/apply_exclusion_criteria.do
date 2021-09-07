@@ -60,8 +60,25 @@ Censor calendar date is 3 weeks prior to last SUS availability, currently approx
 * Overall censor date based on administrative variables 
 
 gen calendar_censor_date = date("11/06/2021", "DMY")
+gen index_date = date("01/07/2020", "DMY")
 gen censor_date = min(calendar_censor_date, death_date, dereg_date)
 format censor_date %d
+
+* ceck censor_date 
+summarize calendar_censor_date, d
+summarize censor_date, d 
+
+if death_date != . then check_death = 1 
+replace check_death = 0 if check_death == . 
+
+tab check_death, m 
+
+* check FU time 
+gen fu_time = censor_date - index_date
+gen check_fu = 1 if fu_time == . 
+tab checK_fu, m 
+
+summarize fu_time, d 
 
 * APPLY CRITERIA==============================================================*/
 * Check the inclusion and exclusion criteria per protocol, apply those not yet applied 
