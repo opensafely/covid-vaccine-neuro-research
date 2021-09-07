@@ -76,7 +76,7 @@ tab check_death, m
 * check FU time 
 gen fu_time = censor_date - index_date
 gen check_fu = 1 if fu_time == . 
-tab checK_fu, m 
+tab check_fu, m 
 
 summarize fu_time, d 
 

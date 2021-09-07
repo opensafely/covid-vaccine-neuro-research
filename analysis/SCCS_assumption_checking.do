@@ -34,7 +34,7 @@ log using "`c(pwd)'/output/logs/SCCS_assumption_checking_`brand'.log", replace
 * IMPORT AND CLEAN DATA=======================================================*/ 
 * basic data management to generate FU time and count deaths occuring after each event 
 
-foreach outcome in GBS TM BP { 
+foreach outcome in BP TM GBS { 
 
 	use `c(pwd)'/output/temp_data/sccs_popn_`outcome'_`brand', clear
 	
