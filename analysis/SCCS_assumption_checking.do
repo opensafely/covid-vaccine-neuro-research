@@ -40,7 +40,8 @@ foreach outcome in BP TM GBS {
 	
 	* convert required string variables to date 
 	foreach var of varlist death_date ///
-						   calendar_censor_date { 
+						   calendar_censor_date ///
+						   censor_date { 
 					   	
 						capture confirm string variable `var'
 						if _rc == 0 { 
