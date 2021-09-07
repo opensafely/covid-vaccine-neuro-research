@@ -34,18 +34,19 @@ log using "`c(pwd)'/output/logs/SCCS_assumption_checking_`brand'.log", replace
 * IMPORT AND CLEAN DATA=======================================================*/ 
 * basic data management to generate FU time and count deaths occuring after each event 
 
-foreach outcome in GBS TM BP { 
+foreach outcome in BP TM GBS { 
 
 	use `c(pwd)'/output/temp_data/sccs_popn_`outcome'_`brand', clear
 	
 	* convert required string variables to date 
-	foreach var of varlist censor_date ///
-						   death_date { 
+	foreach var of varlist death_date ///
+						   calendar_censor_date ///
+						   censor_date { 
 					   	
 						capture confirm string variable `var'
 						if _rc == 0 { 
 							rename `var' _tmp
-							gen `var' = date(_tmp, "YMD")
+							gen `var' = date(_tmp, "DMY")
 							drop _tmp
 							format %d `var'
 						}
