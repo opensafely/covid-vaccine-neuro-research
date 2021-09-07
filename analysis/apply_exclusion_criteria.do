@@ -68,7 +68,7 @@ format censor_date %d
 summarize calendar_censor_date, d
 summarize censor_date, d 
 
-if death_date != . then check_death = 1 
+gen check_death = 1 if death_date != . 
 replace check_death = 0 if check_death == . 
 
 tab check_death, m 
