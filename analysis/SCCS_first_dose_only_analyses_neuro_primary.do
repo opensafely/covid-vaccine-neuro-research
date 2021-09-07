@@ -461,7 +461,7 @@ generate loginterval = log(interval)
  
  capture noisily xtpoisson nevents ib0.vacc1_`j', fe i(patient_id) offset(loginterval) eform
 
-  if _rc+(e(converge))==0{
+  if _rc+(e(converge)==0) == 0 {
   mat b = r(table) 
  
 
@@ -478,7 +478,7 @@ generate loginterval = log(interval)
  capture noisily xtpoisson nevents ib0.vacc1_`j' ib0.week , fe i(patient_id) offset(loginterval) eform
   
   
-  if _rc+(e(converge))==0{  
+  if _rc+(e(converge)==0) == 0 {  
    mat b = r(table) 
 
  forvalues v = 1/4 {
@@ -494,7 +494,7 @@ generate loginterval = log(interval)
  
  capture noisily xtpoisson nevents ib0.vacc1_`j' ib0.two_week, fe i(patient_id) offset(loginterval) eform
  
-  if _rc+(e(converge))==0 {
+  if _rc+(e(converge)==0) == 0 {
   mat b = r(table) 
  
  forvalues v = 1/4 {
