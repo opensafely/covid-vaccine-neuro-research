@@ -28,6 +28,7 @@ adopath + "`c(pwd)'/analysis/extra_ados"
 *variable to cycle through each brand (AZ, PF, MOD)
 local brand `1'
 display "`brand'"
+capture	mkdir "`c(pwd)'/output/tables/1_baseline_`brand'"
 
 * open a log file
 cap log close
@@ -234,6 +235,8 @@ foreach outcome in GBS TM BP {
 		label define BP_emergency_ind 1 ""
 		label values BP_emergency_ind BP_emergency__ind 
 		
+		label variable BP_emergency_ind "Diagnosed in A&E"
+		
 		} 
 		
 	else di "BP outcomes are not relevant to this case series, variables not created"
@@ -241,59 +244,56 @@ foreach outcome in GBS TM BP {
 	* create variables for recording in more than one setting (each person one category only)
 	* ignore emergency codes for BP for now 
 		
-	gen `outcome'_GP_only=1 if `outcome'_GP_ind == 1 & /// 
-							   `outcome'_hospital_ind == 0 & /// 
-							   `outcome'_death_ind == 0 
+	gen `outcome'_location = "GP only" if `outcome'_GP_ind == 1 & /// 
+										  `outcome'_hospital_ind == 0 & /// 
+							              `outcome'_death_ind == 0 
 								 
-	gen `outcome'_hospital_only=1 if `outcome'_GP_ind == 0 & /// 
-								     `outcome'_hospital_ind == 1 & /// 
-								     `outcome'_death_ind == 0 						 
+	replace `outcome'_location = "Hospital only" if `outcome'_GP_ind == 0 & /// 
+													`outcome'_hospital_ind == 1 & /// 
+													`outcome'_death_ind == 0 						 
 								 
-	gen `outcome'_death_only=1 if `outcome'_GP_ind == 0 & /// 
-							      `outcome'_hospital_ind == 0 & /// 
-							      `outcome'_death_ind == 1 			
+	replace `outcome'_location = "Death only" if `outcome'_GP_ind == 0 & /// 
+												 `outcome'_hospital_ind == 0 & /// 
+												 `outcome'_death_ind == 1 			
 								 
-	gen `outcome'_GP_hospital=1 if `outcome'_GP_ind == 1 & /// 
-								   `outcome'_hospital_ind == 1 & /// 
-								   `outcome'_death_ind == 0 	
+	replace `outcome'_location = "GP and hospital" if `outcome'_GP_ind == 1 & /// 
+													  `outcome'_hospital_ind == 1 & /// 
+													  `outcome'_death_ind == 0 	
 									 
-	gen `outcome'_hospital_death=1 if `outcome'_GP_ind == 0 & /// 
-								      `outcome'_hospital_ind == 1 & /// 
-								      `outcome'_death_ind == 1 		
+	replace `outcome'_location = "Hospital and death" if `outcome'_GP_ind == 0 & /// 
+														 `outcome'_hospital_ind == 1 & /// 
+														 `outcome'_death_ind == 1 		
 									  
-	gen `outcome'_GP_death=1 if `outcome'_GP_ind == 1 & /// 
-								`outcome'_hospital_ind == 0 & /// 
-								`outcome'_death_ind == 1 		
+	replace `outcome'_location = "GP and death" if `outcome'_GP_ind == 1 & /// 
+												   `outcome'_hospital_ind == 0 & /// 
+												   `outcome'_death_ind == 1 		
 									  
-	gen `outcome'_GP_hospital_death=1 if `outcome'_GP_ind == 1 & /// 
-								      `outcome'_hospital_ind == 1 & /// 
-								      `outcome'_death_ind == 1 
+	replace `outcome'_location = "GP and hospital and death" if `outcome'_GP_ind == 1 & /// 
+																`outcome'_hospital_ind == 1 & /// 
+																`outcome'_death_ind == 1 
 									  
 	* separate consideration for how emergency codes adds on to this 
 	
 	if "`outcome'" == "BP" { 
 		
-		gen BP_GP_emergency = 1 if `outcome'_GP_only == 1 & `outcome'_emergency_ind == 1 
-		gen BP_hospital_emergency = 1 if `outcome'_hospital_only == 1 & `outcome'_emergency_ind == 1 	
-		gen BP_death_emergency = 1 if `outcome'_death_only == 1 & `outcome'_emergency_ind == 1 
+		replace `outcome'_location = "GP and emergency" if `outcome'_location == "GP only" & `outcome'_emergency_ind == 1 
+		replace `outcome'_location = "Hospital and emergency" if `outcome'_location == "Emergency only" & `outcome'_emergency_ind == 1 
+		replace `outcome'_location = "Death and emergency" if `outcome'_location == "Death only" & `outcome'_emergency_ind == 1 
 		
-		gen BP_GP_hospital_emergency = 1 if `outcome'_GP_hospital== 1 & `outcome'_emergency_ind == 1 
-		gen BP_hospital_death_emergency = 1 if `outcome'_hospital_death == 1 & `outcome'_emergency_ind == 1 	
-		gen BP_GP_death_emergency = 1 if `outcome'_GP_death == 1 & `outcome'_emergency_ind == 1 
+		replace `outcome'_location = "GP and hospital and emergency" if `outcome'_location == "GP and hospital" & `outcome'_emergency_ind == 1 
+		replace `outcome'_location = "GP and death and emergency" if `outcome'_location == "GP and death" & `outcome'_emergency_ind == 1 
+		replace `outcome'_location = "Hospital and death and emergency" if `outcome'_location == "Hospital and death" & `outcome'_emergency_ind == 1 
 		
-		gen BP_GP_hospital_death_emergency = 1 if `outcome'_GP_hospital_death == 1 & `outcome'_emergency_ind == 1 
+		replace `outcome'_location = "GP and hospital and death and emergency" if `outcome'_location == "GP and hospital and death" & `outcome'_emergency_ind == 1 
+
 		
 	}
 	
 	else di "BP outcomes are not relevant to this case series, variables not created"
 	
-    foreach var of varlist `outcome'_* {
+	* Tab diagnosis location (unique) note not safetab as need to see recording and log will not be released 
 	
-						capture confirm numeric variable `var'
-						if _rc == 0 { 
-							safetab `var', m
-						}
-	} 
+	tab `outcome'_location, m
 
 	** Add variable and value labels to variables that you want to present in tables 
 	label variable sccs_outcome "Total Cases"
@@ -303,6 +303,9 @@ foreach outcome in GBS TM BP {
 	label variable care_home "Care Home"
 	label variable hcw "Health Care Worker"
 	label variable prior_covid "Prior Covid"
+	label variable `outcome'_GP_ind "Diagnosed at GP"
+	label variable `outcome'_hospital_ind "Diagnosed at Hospital"
+	label variable `outcome'_death_ind "Diagnosed at Death"
 	
 /* INVOKE PROGRAMS FOR TABLE 1================================================*/ 
 * include cross tabs in log for QC 
@@ -313,10 +316,13 @@ foreach outcome in GBS TM BP {
 	noi di ""
 	noi di "===OUTPUT START:`brand' `outcome' case series==="
 	noi di ""
+	
+	count if sccs_outcome_`outcome'
+	if r(N) > 5 {
 
 	*Set up output file
 	cap file close tablecontent
-	file open tablecontent using `c(pwd)'/output/tables/table1_`brand'_`outcome'.txt, write text replace
+	file open tablecontent using `c(pwd)'/output/tables/1_baseline_`brand'/table1_`brand'_`outcome'.txt, write text replace
 
 	file write tablecontent ("Table 1: Demographics of individuals in the `brand' `outcome' case series") _n
 
@@ -363,13 +369,17 @@ foreach outcome in GBS TM BP {
 	
 	if "`outcome'" == "BP" {
 
-		tabulatevariable, variable(`outcome'_death_ind) min(1) max(1) 
+		tabulatevariable, variable(`outcome'_emergency_ind) min(1) max(1) 
 		file write tablecontent _n 
-		safetab `outcome'_death_ind, m
+		safetab `outcome'_emergency_ind, m
 			
 	}
 
 	file close tablecontent
+	
+	} 
+	
+	else di "5 or fewer outcomes, no table generated"
 
 }
 
