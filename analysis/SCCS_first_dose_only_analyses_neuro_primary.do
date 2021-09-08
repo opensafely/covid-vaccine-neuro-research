@@ -194,7 +194,7 @@ display `n'
 display "weeks"
 foreach i of numlist 13/`n' {
  display `i'
- gen cutp`i' = (`i'-2)*7
+ gen cutp`i' = (`i'-12)*7
  }
 
 local last=`n'+1
@@ -263,12 +263,20 @@ preserve
 
 	
 	*keep those indivs with events within follow up time
+	
+	display "THIS MANY HAVE EVENT PRIOR TO START FU `j'"
 	drop if eventday<=start
+	display "THIS MANY HAVE EVENT AFTER END FU `j'"
 	drop if eventday>=end
 	
 	***ALSO DOUBLE CHECK HAVE VACCINE WITHIN FU TIME****
 	drop if vacc_date1<=start
 	drop if vacc_date1>=end
+	
+	
+	*summary of length of follow up time
+	display "SUMMARY OF FOLLOW UP TIME IN STUDY"
+	summ cutp2, detail
 	
 	save "`c(pwd)'/output/temp_data/sccs_popn_`j'_`brand'.dta", replace
 	
@@ -378,6 +386,49 @@ by patient_id: generate int interval = cutp[_n] - cutp[_n-1]
 			** vacc1_GBS_ext has 5 levels, non-risk (0), pre-vacc low 28 days (1), day 0 (2) days 1-3 (3), days 4-90 (4)
 			label define vacc1_GBS_ext1 0 "non-risk" 1 "pre-vacc 28" 2 "day 0" 3 "days 1-3" 4 "days 4-90" 
 			label values vacc1_GBS_ext vacc1_GBS_ext1	
+			
+		*5. create variable for "non-risk" period prior to vaccination to be separate
+		*BP
+		*replace time up to pre-vacc low as new category
+		by patient_id: egen time_pre_BP=min(cutp) if vacc1_BP==1
+		by patient_id: egen time_pre2_BP=min(time_pre_BP)
+	
+		gen vacc1_BP_non_risk_post_vacc=vacc1_BP
+		replace vacc1_BP_non_risk_post_vacc=5 if cutp<time_pre2
+			** vacc1_BP_non_risk_post_vacc has 6 levels, non-risk post-vacc(0), pre-vacc low 14 days (1), day 0 (2) days 1-3 (3), days 4-28 (4) , pre-vacc non-risk (5)
+			label define vacc1_BP_non_risk_post_vacc1 0 "non-risk post-vacc" 1 "pre-vacc 14" 2 "day 0" 3 "days 1-3" 4 "days 4-28" 5 "non-risk pre-vacc"
+			label values vacc1_BP_non_risk_post_vacc vacc1_BP_non_risk_post_vacc1	
+		
+		drop time_pre*
+		
+		*TM
+		*replace time up to pre-vacc low as new category
+		by patient_id: egen time_pre_TM=min(cutp) if vacc1_TM==1
+		by patient_id: egen time_pre2_TM=min(time_pre_TM)
+	
+		gen vacc1_TM_non_risk_post_vacc=vacc1_TM
+		replace vacc1_TM_non_risk_post_vacc=5 if cutp<time_pre2_TM
+		
+			** vacc1_TM_non_risk_post_vacc has 6 levels, non-risk (0), pre-vacc low 28 days (1), day 0 (2) days 1-3 (3), days 4-28 (4) , pre-vacc non-risk (5) 
+			label define vacc1_TM_non_risk_post_vacc1 0 "non-risk" 1 "pre-vacc 28" 2 "day 0" 3 "days 1-3" 4 "days 4-28" 5 "non-risk pre-vacc"
+			label values vacc1_TM_non_risk_post_vacc vacc1_TM_non_risk_post_vacc1
+			
+		drop time_pre*	
+   
+		*GBS
+		*replace time up to pre-vacc low as new category
+		by patient_id: egen time_pre_GBS=min(cutp) if vacc1_GBS==1
+		by patient_id: egen time_pre2_GBS=min(time_pre_GBS)
+	
+		gen vacc1_GBS_non_risk_post_vacc=vacc1_GBS
+		replace vacc1_GBS_non_risk_post_vacc=5 if cutp<time_pre2_GBS
+	
+			
+			** vacc1_GBS_non_risk_post_vacc has 6 levels, non-risk (0), pre-vacc low 28 days (1), day 0 (2) days 1-3 (3), days 4-42 (4),  pre-vacc non-risk (5)
+			label define vacc1_GBS_non_risk_post_vacc1 0 "non-risk" 1 "pre-vacc 28" 2 "day 0" 3 "days 1-3" 4 "days 4-42" 5 "non-risk pre-vacc"
+			label values vacc1_GBS_non_risk_post_vacc vacc1_GBS_non_risk_post_vacc1	
+			
+		drop time_pre*	
 
    
    *weekly exposure groups
@@ -387,7 +438,7 @@ by patient_id: generate int interval = cutp[_n] - cutp[_n-1]
    egen test3=max(type)
    local w=test3[1]
    
-   	generate exgr2 = type-3 if type>=3 & type<=`w'
+   	generate exgr2 = type-13 if type>=13 & type<=`w'
 		count if exgr2 >=.
 		local nmiss = r(N)
 		local nchange = 1
@@ -441,6 +492,16 @@ generate loginterval = log(interval)
  display "NUMBER OF OUTCOMES"
  display "`j'"
  count if nevents==1
+ 
+
+ *summarise number of events by risk window
+display "TABLE OF NUM EVENTS BY RISK WINDOW"
+tabstat  nevents, s(sum) by(vacc1_`j')format(%9.0f)
+
+*summarise number of events by week
+display "TABLE OF NUM EVENTS BY WEEK"
+tabstat  nevents, s(sum) by(week)format(%9.0f)
+ 
  
  
 * Setup file for posting results
