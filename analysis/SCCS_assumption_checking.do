@@ -68,11 +68,6 @@ foreach outcome in BP TM GBS {
 	summarize time_to_`outcome', d
 	
 	** Death 	
-	* count deaths 
-	
-	gen death = 1 if death_date != . 
-	replace death = 0 if death == . 
-	tab death, m 
 	
 	gen death_after_`outcome' = 1 if death_date != . & death_date <= censor_date & ((death_date - `outcome') < 42)
 	replace death_after_`outcome' = 0 if death_after_`outcome' == . 
@@ -91,10 +86,6 @@ foreach outcome in BP TM GBS {
 	* generate x-axis limits and cut-off count for redaction 
 	twoway__histogram_gen time_to_`outcome', freq gen(count where)
 	egen lowest_count = min(count)
-	
-	if lowest_count <= 5 {
-	
-		noi di "THE EXPOSURE CENTERED INTERVAL PLOT FOR `brand' `outcome' CONTAINS BINS OF FREQUENCIES < 5 AND HAS BEEN REDACTED"
 		
 		* plot with redaction and output as pdf - note, cannot be vector quality due to disclosivity risk 
 		* note jpeg/png export not compatible with linux, will be converted using another script 
@@ -106,38 +97,8 @@ foreach outcome in BP TM GBS {
 							   
 		graph export "output/plots/S1_exposure_centered_interval_`brand'_`outcome'.pdf", as(pdf) replace
 		graph close	
-	
-	} 
-	
-	else if lowest_count > 5 { 
-			
-		twoway histogram time_to_`outcome', frequency /// 
-			graphregion(color(white)) ///
-			bcolor(emidblue) fcolor(ebg)    ///
-			ytitle("Count") xtitle("Time between first `brand' dose and `outcome', days") 
-							   
-		graph export "output/plots/S1_exposure_centered_interval_`brand'_`outcome'.pdf", as(pdf) replace
-		graph close	
-		
-	}
-	
-	* drop variables used for redaction purposes only so these can be recalculated for other plots 
-	drop count where lowest_count 
-	
-	* EVENT DEPENDENT CENSORING PLOTS 
 
-	twoway__histogram_gen time_to_`outcome'_end if early_censoring == 1 , freq gen(count where)
-	egen lowest_count1 = min(count)
-	drop count where 
-	
-	twoway__histogram_gen time_to_`outcome'_end if early_censoring == 0 , freq gen(count where)
-	egen lowest_count0 = min(count)
-	
-	gen lowest_count = min(lowest_count0, lowest_count1)
-	
-	if lowest_count <= 5 {
-		
-		noi di "THE EVENT DEPENDENT CENSORING PLOT FOR `brand' `outcome' CONTAINS BINS OF FREQUENCIES < 5 AND HAS BEEN REDACTED"
+	* EVENT DEPENDENT CENSORING PLOTS 
 		
 		* plot with redaction and output as pdf - note - highly sensitive due to raw code, will be converted to jpg 
 		twoway histogram time_to_`outcome'_end if early_censoring == 0, by(early_censoring, note(" ") legend(off) graphregion(color(white))) ///
@@ -151,23 +112,7 @@ foreach outcome in BP TM GBS {
 		   
 		graph export "output/plots/S2_censored_futime_`brand'_`outcome'.pdf", as(pdf) replace
 		graph close
-	
-	} 
-	
-	else if lowest_count > 5 {
 
-		twoway histogram time_to_`outcome'_end if early_censoring == 0, by(early_censoring, note(" ") legend(off) graphregion(color(white))) ///
-		    bcolor(emidblue) fcolor(ebg) ///
-		    frequency /// 
-		    || histogram time_to_`outcome'_end if early_censoring == 1,  ///
-		    bcolor(maroon) fcolor(erose) ///
-		    frequency /// 
-		    ytitle("Count") xtitle("Time between `outcome' and study end in `brand' case series, days") 
-		   
-		graph export "output/plots/S2_censored_futime_`brand'_`outcome'.pdf", as(pdf) replace
-		graph close
-	
-	} 
  
 	* DEATHS WITHIN 42 DAYS OF THE OUTCOME, TABULATION 
 	noi di ""
