@@ -27,6 +27,7 @@ adopath + "`c(pwd)'/analysis/extra_ados"
 
 *variable to cycle through each brand (AZ, PF, MOD)
 local brand `1'
+display "`brand'"
 
 * open a log file
 cap log close
@@ -133,10 +134,6 @@ end
 * IMPORT DATA=================================================================*/ 
 * This is currently set up in a loop per outcome, reading in each brand from the yaml 
 
-*variable to cycle through each brand (AZ, PF, MOD)
-local brand `1'
-display "`brand'"
-
 foreach outcome in GBS TM BP { 
 
 	use `c(pwd)'/output/temp_data/sccs_popn_`outcome'_`brand', clear
@@ -174,10 +171,130 @@ foreach outcome in GBS TM BP {
 	label define sccs_outcome_`outcome' 1 "" 
 	label values sccs_outcome_`outcome' sccs_outcome_`outcome'
 	
+	* Prior COVID 
+	replace prior_covid = 0 if prior_covid == . 
+	label define prior_covid 1 ""
+	label values prior_covid prior_covid 
+	
 	* HCW 
 	label define hcw 1 ""
 	label values hcw hcw 
 	
+	* outcome in different settings
+	* note: for each outcome because of naming changes in prior do-file compared to python 
+	
+	* convert each string to a date 
+	generate BP_GP = bells_palsy_gp
+	generate BP_hospital = bells_palsy_hospital 
+	generate BP_death = bells_palsy_death
+	generate BP_emergency = bells_palsy_emergency 
+	
+	generate TM_GP = transverse_myelitis_gp
+	generate TM_hospital = transverse_myelitis_hospital 
+	generate TM_death = transverse_myelitis_death
+	
+	generate GBS_GP = guillain_barre_gp
+	generate GBS_hospital = guillain_barre_hospital 
+	generate GBS_death = guillain_barre_death
+	
+	foreach var of varlist `outcome'_GP ///
+						   `outcome'_hospital  ///
+						   `outcome'_death { 
+					   	
+						capture confirm string variable `var'
+						if _rc == 0 { 
+							rename `var' _tmp
+							gen `var' = date(_tmp, "YMD")
+							drop _tmp
+							format %d `var'
+						}
+					  }
+
+	* create indicator variables each outcome 
+	foreach var of varlist `outcome'_GP ///
+						   `outcome'_hospital  ///
+						   `outcome'_death { 
+						   	
+								gen `var'_ind = (`var' != .)
+								* empty labels to display just variable name in table  
+								label define `var'_ind 1 ""
+								label values `var'_ind `var'_ind 
+							
+						   } 
+						   
+	* specific consideration for emergency codes 
+	if "`outcome'" == "BP" { 
+		
+		rename BP_emergency _tmp 
+		gen BP_emergency = date(_tmp, "YMD")
+		drop _tmp
+		format BP_emergency %d 
+		
+		gen BP_emergency_ind = (BP_emergency != .)
+		label define BP_emergency_ind 1 ""
+		label values BP_emergency_ind BP_emergency__ind 
+		
+		} 
+		
+	else di "BP outcomes are not relevant to this case series, variables not created"
+	
+	* create variables for recording in more than one setting (each person one category only)
+	* ignore emergency codes for BP for now 
+		
+	gen `outcome'_GP_only=1 if `outcome'_GP_ind == 1 & /// 
+							   `outcome'_hospital_ind == 0 & /// 
+							   `outcome'_death_ind == 0 
+								 
+	gen `outcome'_hospital_only=1 if `outcome'_GP_ind == 0 & /// 
+								     `outcome'_hospital_ind == 1 & /// 
+								     `outcome'_death_ind == 0 						 
+								 
+	gen `outcome'_death_only=1 if `outcome'_GP_ind == 0 & /// 
+							      `outcome'_hospital_ind == 0 & /// 
+							      `outcome'_death_ind == 1 			
+								 
+	gen `outcome'_GP_hospital=1 if `outcome'_GP_ind == 1 & /// 
+								   `outcome'_hospital_ind == 1 & /// 
+								   `outcome'_death_ind == 0 	
+									 
+	gen `outcome'_hospital_death=1 if `outcome'_GP_ind == 0 & /// 
+								      `outcome'_hospital_ind == 1 & /// 
+								      `outcome'_death_ind == 1 		
+									  
+	gen `outcome'_GP_death=1 if `outcome'_GP_ind == 1 & /// 
+								`outcome'_hospital_ind == 0 & /// 
+								`outcome'_death_ind == 1 		
+									  
+	gen `outcome'_GP_hospital_death=1 if `outcome'_GP_ind == 1 & /// 
+								      `outcome'_hospital_ind == 1 & /// 
+								      `outcome'_death_ind == 1 
+									  
+	* separate consideration for how emergency codes adds on to this 
+	
+	if "`outcome'" == "BP" { 
+		
+		gen BP_GP_emergency = 1 if `outcome'_GP_only == 1 & `outcome'_emergency_ind == 1 
+		gen BP_hospital_emergency = 1 if `outcome'_hospital_only == 1 & `outcome'_emergency_ind == 1 	
+		gen BP_death_emergency = 1 if `outcome'_death_only == 1 & `outcome'_emergency_ind == 1 
+		
+		gen BP_GP_hospital_emergency = 1 if `outcome'_GP_hospital== 1 & `outcome'_emergency_ind == 1 
+		gen BP_hospital_death_emergency = 1 if `outcome'_hospital_death == 1 & `outcome'_emergency_ind == 1 	
+		gen BP_GP_death_emergency = 1 if `outcome'_GP_death == 1 & `outcome'_emergency_ind == 1 
+		
+		gen BP_GP_hospital_death_emergency = 1 if `outcome'_GP_hospital_death == 1 & `outcome'_emergency_ind == 1 
+		
+	}
+	
+	else di "BP outcomes are not relevant to this case series, variables not created"
+	
+    foreach var of varlist `outcome'_* {
+	
+						capture confirm numeric variable `var'
+						if _rc == 0 { 
+							safetab `var', m
+						}
+	} 
+
 	** Add variable and value labels to variables that you want to present in tables 
 	label variable sccs_outcome "Total Cases"
 	label variable age_group_format "Age Group"
@@ -185,6 +302,7 @@ foreach outcome in GBS TM BP {
 	label variable gender "Gender"
 	label variable care_home "Care Home"
 	label variable hcw "Health Care Worker"
+	label variable prior_covid "Prior Covid"
 	
 /* INVOKE PROGRAMS FOR TABLE 1================================================*/ 
 * include cross tabs in log for QC 
@@ -211,7 +329,7 @@ foreach outcome in GBS TM BP {
 	* count of cases
 	tabulatevariable, variable(sccs_outcome_`outcome') min(1) max(1) 
 	file write tablecontent _n 
-	safetab sccs_outcome
+	safetab sccs_outcome, m
 
 	summarizevariable, variable(age)
 	file write tablecontent _n 
@@ -219,23 +337,47 @@ foreach outcome in GBS TM BP {
 
 	tabulatevariable, variable(age_group_format) min(1) max(3) missing
 	file write tablecontent _n 
-	safetab age_group_format
+	safetab age_group_format, m
 
 	tabulatevariable, variable(gender) min(1) max(2) missing 
 	file write tablecontent _n 
-	safetab gender
+	safetab gender, m
 
-	tabulatevariable, variable(care_home) min(1) max(4) missing 
+	tabulatevariable, variable(prior_covid) min(1) max(1) 
 	file write tablecontent _n 
-	safetab care_home
+	safetab prior_covid, m
+	
+	tabulatevariable, variable(`outcome'_GP_ind) min(1) max(1) 
+	file write tablecontent _n 
+	safetab `outcome'_GP_ind, m
+	
+	tabulatevariable, variable(`outcome'_hospital_ind) min(1) max(1) 
+	file write tablecontent _n 
+	safetab `outcome'_hospital_ind, m
+	
+	tabulatevariable, variable(`outcome'_death_ind) min(1) max(1) 
+	file write tablecontent _n 
+	safetab `outcome'_death_ind, m
+	
+	* add BP emergency codes (only one outcome)
+	
+	if "`outcome'" == "BP" {
 
-	tabulatevariable, variable(hcw) min(1) max(1) 
-	file write tablecontent _n 
-	safetab hcw
+		tabulatevariable, variable(`outcome'_death_ind) min(1) max(1) 
+		file write tablecontent _n 
+		safetab `outcome'_death_ind, m
+			
+	}
 
 	file close tablecontent
 
 }
+
+/* PLOT OUTCOMES OVER TIME BY LOCATION OF CODING =============================*/
+* for sense checking 
+
+
+
 	
 * Close log file 
 log close
