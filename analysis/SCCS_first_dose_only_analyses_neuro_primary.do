@@ -414,7 +414,7 @@ by patient_id: generate int interval = cutp[_n] - cutp[_n-1]
    
 		*GBS
 		*replace time up to pre-vacc low as new category
-		by patient_id: egen time_pre_GBS=min(cutp) if vacc1_GBS=1
+		by patient_id: egen time_pre_GBS=min(cutp) if vacc1_GBS==1
 		by patient_id: egen time_pre2_GBS=min(time_pre_GBS)
 	
 		gen vacc1_GBS_non_risk_post_vacc=vacc1_GBS
