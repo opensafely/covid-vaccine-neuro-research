@@ -59,7 +59,7 @@ Censor calendar date is 3 weeks prior to last SUS availability, currently approx
 
 * Overall censor date based on administrative variables 
 
-gen calendar_censor_date = date("11/06/2021", "DMY")
+gen calendar_censor_date = date("9/06/2021", "DMY")
 gen index_date = date("01/07/2020", "DMY")
 gen censor_date = min(calendar_censor_date, death_date, dereg_date)
 format censor_date %d
