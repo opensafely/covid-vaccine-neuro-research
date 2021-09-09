@@ -551,6 +551,7 @@ tabstat  nevents, s(sum) by(week)format(%9.0f)
  else di "DID NOT CONVERGE - `brand' PRIMARY RISK WINDOW AFTER 1ST DOSE - WEEK ADJ"
  
  
+ 
  display "add in 2 week period"
  
  capture noisily xtpoisson nevents ib0.vacc1_`j' ib0.two_week, fe i(patient_id) offset(loginterval) eform
@@ -566,6 +567,27 @@ tabstat  nevents, s(sum) by(week)format(%9.0f)
  else di "DID NOT CONVERGE - `brand' PRIMARY RISK WINDOW AFTER 1ST DOSE - 2 WEEK ADJ"
  
 
+ gen vaccine="`brand'"
+ gen outcome="`j'"
+
+ display "POST-HOC SENSITIVITY REMOVING WEEK 44 FOR AZ TM"
+ 
+ 
+  if vaccine=="AZ" & outcome=="TM"{
+  
+  display "unadjusted"
+  xtpoisson nevents ib0.vacc1_`j' if week!=44, fe i(patient_id) offset(loginterval) eform
+  
+  display "week adjusted"
+ xtpoisson nevents ib0.vacc1_`j' ib0.week if week!=44 , fe i(patient_id) offset(loginterval) eform
+}
+ 
+ drop vaccine outcome
+ 
+ 
+ 
+ 
+ 
  restore
 }
  
