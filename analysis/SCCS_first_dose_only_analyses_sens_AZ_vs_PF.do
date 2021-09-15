@@ -6,8 +6,6 @@ AUTHOR:					Jemma Walker
 								
 DESCRIPTION OF FILE:	SCCS analysis of neuro events (GBS, TM and BP) - ratio of ratios AZ vs PF
 							
-							
-
 DATASETS USED:			sccs_cutp_data_BP_AZ.dta, sccs_cutp_data_TM_AZ.dta ,sccs_cutp_data_GBS_AZ.dta
 						sccs_cutp_data_BP_PF.dta, sccs_cutp_data_TM_PF.dta ,sccs_cutp_data_GBS_PF.dta
 DATASETS CREATED: 		none
@@ -16,8 +14,6 @@ OTHER OUTPUT: 			logfile, printed to folder /logs
 						
 							
 ==============================================================================*/
-
-
 
 /* HOUSEKEEPING===============================================================*/
 
@@ -33,7 +29,7 @@ adopath + "`c(pwd)'/analysis/extra_ados"
 cap log close
 log using "`c(pwd)'/output/logs/SCCS_first_dose_only_sens_AZ_vs_PF.log", replace 
 
-
+/* ANALYSIS===================================================================*/
 
 * Setup file for posting results
   tempname results
@@ -41,26 +37,19 @@ log using "`c(pwd)'/output/logs/SCCS_first_dose_only_sens_AZ_vs_PF.log", replace
 		str4(outcome) str10(brand) str50(analysis) str35(subanalysis) str20(category) comparison_period irr lc uc ///
 		using "`c(pwd)'/output/tables/results_summary_sens_AZ_vs_PF", replace
 		
-
 foreach j in BP TM GBS{
-
-
-
+	
 use "`c(pwd)'/output/temp_data/sccs_cutp_data_`j'_AZ.dta", clear
-
 append using "`c(pwd)'/output/temp_data/sccs_cutp_data_`j'_PF.dta"
  
 *need numeric variable for interaction term for ratio of ratios- AZ vs PF 
 gen AZ=1 if first_brand=="AZ"
 recode AZ .=0 
- 
 
- 
  tempname results
 	postfile `results' ///
 		str4(outcome) str10(brand) str50(analysis) str35(subanalysis) str20(category) comparison_period irr lc uc ///
 		using "`c(pwd)'/output/tables/results_summary_sens_AZ_vs_PF", replace
- 
  
  *head to head comparison- AZ vs PF
  display "****************"
@@ -69,9 +58,7 @@ recode AZ .=0
  display "****************"
  display "AZ VS PF PRIMARY RISK WINDOW AFTER 1ST DOSE"
  *vacc1 has 5 levels, non-risk - baseline (0), pre-vacc low 28 days -TM, GBS /14 days BP (1), day 0 (2) days 1-3 (3) and days 4-28 BP, TM / 4-42 GBS (4)
- 
-
- 
+  
  **IF DOSES >1JAN  (incl_AZ_PF_compare==1)
  
  *need originals to comapre to limited to >1st Jan as well
@@ -136,7 +123,7 @@ else di "DID NOT CONVERGE - `j' AZ VS PF"
 	}
  else di "DID NOT CONVERGE - `j' AZ (RESTRICTED TO DOSES AFTER 1st JAN) - WEEK ADJ"
 	
- i "`j' PF (RESTRICTED TO DOSES AFTER 1st JAN) - WEEK ADJ"
+ di "`j' PF (RESTRICTED TO DOSES AFTER 1st JAN) - WEEK ADJ"
  xtpoisson nevents ib0.vacc1_`j' ib0.week if first_brand=="PF" & incl_AZ_PF_compare==1, fe i(patient_id) offset(loginterval) eform
  
    if _rc==0{
@@ -238,14 +225,11 @@ else di "DID NOT CONVERGE - `j' AZ VS PF"
 
  }
  
- 
- 	  * Close post-file
+* Close post-file
 postclose `results'
 
-	
-	use "`c(pwd)'/output/tables/results_summary_sens_AZ_vs_PF", clear
+use "`c(pwd)'/output/tables/results_summary_sens_AZ_vs_PF", clear
 export delimited using "`c(pwd)'/output/tables/results_summary_sens_AZ_vs_PF.csv", replace
-
  
 log close 
  

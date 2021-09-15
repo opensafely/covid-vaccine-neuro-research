@@ -44,27 +44,25 @@ adopath + "`c(pwd)'/analysis/extra_ados"
 
 *variable to cycle through each brand (AZ, PF, MOD)
 local brand `1'
+display "`brand'"
 
 * open a log file
 cap log close
 log using "`c(pwd)'/output/logs/SCCS_first_dose_only_analyses_neuro_primary_`brand'.log", replace 
 
-
 * IMPORT DATA=================================================================*/ 
-
-display "`brand'"
-
 clear
 
 import delimited using `c(pwd)'/output/input_`brand'_cases.csv
 gen first_brand="`brand'"
+
+* IMPORT DATA=================================================================*/ 
 
 *checking first_brand variable
 * these are listed for each doze as the input value is capitalised and variables are not 
 assert first_az_date!="" if first_brand=="AZ"
 assert first_moderna_date!="" if first_brand=="MOD"
 assert first_pfizer_date!="" if first_brand=="PF"
-
 
 *formatting dates
 gen AZ_date=date(first_az_date,"DMY")
@@ -107,6 +105,7 @@ gen incl_AZ_PF_compare=1 if (AZ_date>=d("01jan2021") & first_brand=="AZ") | (PF_
 *previous covid infection flag
 
 gen prior_covid=1 if first_brand=="`brand'" & first_positive_covid_test < `brand'_date 
+replace prior_covid = 0 if prior_covid == . 
 
 
 rename history_any_transverse_myelitis history_TM
