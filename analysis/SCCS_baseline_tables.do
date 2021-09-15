@@ -28,7 +28,7 @@ adopath + "`c(pwd)'/analysis/extra_ados"
 *variable to cycle through each brand (AZ, PF, MOD)
 local brand `1'
 display "`brand'"
-capture	mkdir "`c(pwd)'/output/tables/1_baseline_`brand'"
+capture	mkdir "`c(pwd)'/output/tables/baseline_`brand'"
 
 * open a log file
 cap log close
