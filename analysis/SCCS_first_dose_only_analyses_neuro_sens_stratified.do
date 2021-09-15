@@ -24,7 +24,7 @@ capture	mkdir "`c(pwd)'/output/temp_data"
 adopath + "`c(pwd)'/analysis/extra_ados"
 
 *variable to cycle through each brand (AZ, PF, MOD)
-local brand = "AZ"
+local brand = `1'
 
 * open a log file
 cap log close

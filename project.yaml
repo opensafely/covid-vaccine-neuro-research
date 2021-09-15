@@ -161,7 +161,7 @@ actions:
   ## AZ vs Pfizer 
   SCCS_comparative_AZ_Pfizer:
     run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_sens_AZ_vs_PF.do 
-    needs: [SCCS_first_dose_only_primary_AZ, SCCS_first_dose_only_primary_PF, apply_exclusion_criteria] 
+    needs: [SCCS_first_dose_only_primary_AZ, SCCS_first_dose_only_primary_PF] 
     outputs:
       moderately_sensitive: 
         log: output/logs/SCCS_first_dose_only_analyses_sens_AZ_vs_PF.log
