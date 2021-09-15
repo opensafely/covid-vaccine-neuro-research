@@ -52,110 +52,110 @@ use "`c(pwd)'/output/temp_data/sccs_cutp_data_`j'_`brand'.dta", clear
 
 
  display "AGE=18-39"
- xtpoisson nevents ib0.vacc1_`j'  if first_brand=="`brand'" & age_group_SCCS=="18-39", fe i(patient_id) offset(loginterval) eform
-
+ capture noisily xtpoisson nevents ib0.vacc1_`j'  if first_brand=="`brand'" & age_group_SCCS=="18-39", fe i(patient_id) offset(loginterval) eform
+ if _rc+(e(converge)==0) == 0 {
   mat b = r(table) 
 
  forvalues v = 1/4 {
     local k = `v' + 1 
 	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("") ("18-39") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
-
+ }
 
  display "AGE=40-64"
- xtpoisson nevents ib0.vacc1_`j'  if first_brand=="`brand'" & age_group_SCCS=="40-64", fe i(patient_id) offset(loginterval) eform
-
+ capture noisily xtpoisson nevents ib0.vacc1_`j'  if first_brand=="`brand'" & age_group_SCCS=="40-64", fe i(patient_id) offset(loginterval) eform
+ if _rc+(e(converge)==0) == 0 {
    mat b = r(table) 
 
  forvalues v = 1/4 {
     local k = `v' + 1 
 	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("") ("40-64") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
-
+ }
 
 
  display "AGE=65-105"
- xtpoisson nevents ib0.vacc1_`j'  if first_brand=="`brand'" & age_group_SCCS=="65-105", fe i(patient_id) offset(loginterval) eform
-
+ capture noisily xtpoisson nevents ib0.vacc1_`j'  if first_brand=="`brand'" & age_group_SCCS=="65-105", fe i(patient_id) offset(loginterval) eform
+ if _rc+(e(converge)==0) == 0 {
    mat b = r(table) 
 
  forvalues v = 1/4 {
     local k = `v' + 1 
 	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("") ("65-105") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
-
+ }
 
 
  display "ADD IN WEEK PERIOD"
 
-  display "AGE=18-39"
-  xtpoisson nevents ib0.vacc1_`j' ib0.week if first_brand=="`brand'" & age_group_SCCS=="18-39", fe i(patient_id) offset(loginterval) eform
-
+ display "AGE=18-39"
+ capture noisily xtpoisson nevents ib0.vacc1_`j' ib0.week if first_brand=="`brand'" & age_group_SCCS=="18-39", fe i(patient_id) offset(loginterval) eform
+ if _rc+(e(converge)==0) == 0 {
     mat b = r(table) 
 
  forvalues v = 1/4 {
     local k = `v' + 1 
 	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in week") ("18-39") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
+ }
 
-
-  display "AGE=40-64"
-  xtpoisson nevents ib0.vacc1_`j' ib0.week if first_brand=="`brand'" & age_group_SCCS=="40-64", fe i(patient_id) offset(loginterval) eform
-
+ display "AGE=40-64"
+ capture noisily xtpoisson nevents ib0.vacc1_`j' ib0.week if first_brand=="`brand'" & age_group_SCCS=="40-64", fe i(patient_id) offset(loginterval) eform
+ if _rc+(e(converge)==0) == 0 {
    mat b = r(table) 
 
  forvalues v = 1/4 {
     local k = `v' + 1 
 	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in week") ("40-64") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
+ }
 
-
-  display "AGE=65-105"
-  xtpoisson nevents ib0.vacc1_`j' ib0.week if first_brand=="`brand'" & age_group_SCCS=="65-105", fe i(patient_id) offset(loginterval) eform
-
+ display "AGE=65-105"
+ capture noisily xtpoisson nevents ib0.vacc1_`j' ib0.week if first_brand=="`brand'" & age_group_SCCS=="65-105", fe i(patient_id) offset(loginterval) eform
+ if _rc+(e(converge)==0) == 0 {
    mat b = r(table) 
 
  forvalues v = 1/4 {
     local k = `v' + 1 
 	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in week") ("65-105") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
-
+ }
 
  display "ADD IN 2 WEEK PERIOD"
 
  display "AGE=18-39"
- xtpoisson nevents ib0.vacc1_`j' ib0.two_week if first_brand=="`brand'" & age_group_SCCS=="18-39", fe i(patient_id) offset(loginterval) eform
-
+ capture noisily xtpoisson nevents ib0.vacc1_`j' ib0.two_week if first_brand=="`brand'" & age_group_SCCS=="18-39", fe i(patient_id) offset(loginterval) eform
+ if _rc+(e(converge)==0) == 0 {
      mat b = r(table) 
 
  forvalues v = 1/4 {
     local k = `v' + 1 
 	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("18-39") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
-
+ }
 
  display "AGE=40-64"
- xtpoisson nevents ib0.vacc1_`j' ib0.two_week if first_brand=="`brand'" & age_group_SCCS=="40-64", fe i(patient_id) offset(loginterval) eform
-
+ capture noisily xtpoisson nevents ib0.vacc1_`j' ib0.two_week if first_brand=="`brand'" & age_group_SCCS=="40-64", fe i(patient_id) offset(loginterval) eform
+ if _rc+(e(converge)==0) == 0 {
      mat b = r(table) 
 
  forvalues v = 1/4 {
     local k = `v' + 1 
 	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("40-64") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
-
+ }
 
 
  display "AGE=65-105"
- xtpoisson nevents ib0.vacc1_`j' ib0.two_week if first_brand=="`brand'" & age_group_SCCS=="65-105", fe i(patient_id) offset(loginterval) eform
-
+ capture noisily xtpoisson nevents ib0.vacc1_`j' ib0.two_week if first_brand=="`brand'" & age_group_SCCS=="65-105", fe i(patient_id) offset(loginterval) eform
+ if _rc+(e(converge)==0) == 0 {
      mat b = r(table) 
 
  forvalues v = 1/4 {
     local k = `v' + 1 
 	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("65-105") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
-
+ }
 
 
  *exclude healthcare workers
@@ -168,39 +168,41 @@ use "`c(pwd)'/output/temp_data/sccs_cutp_data_`j'_`brand'.dta", clear
  *vacc1 has 5 levels, non-risk - baseline (0), pre-vacc low 28 days -TM, GBS /14 days BP (1), day 0 (2) days 1-3 (3) and days 4-28 BP, TM / 4-42 GBS (4)
 
 
- xtpoisson nevents ib0.vacc1_`j'  if first_brand=="`brand'" & hcw==0, fe i(patient_id) offset(loginterval) eform
+ capture noisily xtpoisson nevents ib0.vacc1_`j'  if first_brand=="`brand'" & hcw==0, fe i(patient_id) offset(loginterval) eform
  *vacc1 has 5 levels, non-risk - baseline (0), pre-vacc low 28 days -TM, GBS /14 days BP (1), day 0 (2) days 1-3 (3) and days 4-28 BP, TM / 4-42 GBS (4)
-
+ if _rc+(e(converge)==0) == 0 {
  mat b = r(table) 
 
  forvalues v = 1/4 {
     local k = `v' + 1 
 	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("") ("exclude hcw") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
-
+ }
 
  display "add in week"
 
-  xtpoisson nevents ib0.vacc1_`j' ib0.week if first_brand=="`brand'" & hcw==0, fe i(patient_id) offset(loginterval) eform
-
+ capture noisily xtpoisson nevents ib0.vacc1_`j' ib0.week if first_brand=="`brand'" & hcw==0, fe i(patient_id) offset(loginterval) eform
+ if _rc+(e(converge)==0) == 0 {
    mat b = r(table) 
 
    forvalues v = 1/4 {
     local k = `v' + 1 
 	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in week") ("exclude hcw") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
+ }
 
 
  display "add in 2 week period"
 
- xtpoisson nevents ib0.vacc1_`j' ib0.two_week if first_brand=="`brand'" & hcw==0, fe i(patient_id) offset(loginterval) eform
-
+ capture noisily xtpoisson nevents ib0.vacc1_`j' ib0.two_week if first_brand=="`brand'" & hcw==0, fe i(patient_id) offset(loginterval) eform
+ if _rc+(e(converge)==0) == 0 {
   mat b = r(table) 
 
   forvalues v = 1/4 {
     local k = `v' + 1 
 	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("exclude hcw") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
+ }
 
  **previous COVID infection
    display "****************"
@@ -212,70 +214,72 @@ use "`c(pwd)'/output/temp_data/sccs_cutp_data_`j'_`brand'.dta", clear
  *vacc1 has 5 levels, non-risk - baseline (0), pre-vacc low 28 days -TM, GBS /14 days BP (1), day 0 (2) days 1-3 (3) and days 4-28 BP, TM / 4-42 GBS (4)
 
  display "prior covid"
- xtpoisson nevents ib0.vacc1_`j'  if first_brand=="`brand'" & prior_covid==1, fe i(patient_id) offset(loginterval) eform
-
+ capture noisily xtpoisson nevents ib0.vacc1_`j'  if first_brand=="`brand'" & prior_covid==1, fe i(patient_id) offset(loginterval) eform
+ if _rc+(e(converge)==0) == 0 {
   mat b = r(table) 
 
   forvalues v = 1/4 {
     local k = `v' + 1 
 	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("") ("prior covid") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
-
+ }
  display "no prior covid"
- xtpoisson nevents ib0.vacc1_`j'  if first_brand=="`brand'" & prior_covid!=1, fe i(patient_id) offset(loginterval) eform
-
-
+ capture noisily xtpoisson nevents ib0.vacc1_`j'  if first_brand=="`brand'" & prior_covid!=1, fe i(patient_id) offset(loginterval) eform
+ if _rc+(e(converge)==0) == 0 {
   mat b = r(table) 
 
   forvalues v = 1/4 {
     local k = `v' + 1 
 	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("") ("no prior covid") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
+ }
 
  display "add in week"
  display "prior covid"
- xtpoisson nevents ib0.vacc1_`j' ib0.week if first_brand=="`brand'" & prior_covid==1, fe i(patient_id) offset(loginterval) eform
-
-
+ capture noisily  xtpoisson nevents ib0.vacc1_`j' ib0.week if first_brand=="`brand'" & prior_covid==1, fe i(patient_id) offset(loginterval) eform
+ if _rc+(e(converge)==0) == 0 {
   mat b = r(table) 
 
   forvalues v = 1/4 {
     local k = `v' + 1 
 	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in week") ("prior covid") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
-
+ } 
+ 
  display "no prior covid"
- xtpoisson nevents ib0.vacc1_`j' ib0.week if first_brand=="`brand'" & prior_covid!=1, fe i(patient_id) offset(loginterval) eform
-
-
+ capture noisily xtpoisson nevents ib0.vacc1_`j' ib0.week if first_brand=="`brand'" & prior_covid!=1, fe i(patient_id) offset(loginterval) eform
+ if _rc+(e(converge)==0) == 0 {
   mat b = r(table) 
 
   forvalues v = 1/4 {
     local k = `v' + 1 
 	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in week") ("no prior covid") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
-
+ } 
 
  display "add in 2 week period"
  display "prior covid"
- xtpoisson nevents ib0.vacc1_`j' ib0.two_week if first_brand=="`brand'" & prior_covid==1, fe i(patient_id) offset(loginterval) eform
-
+ capture noisily  xtpoisson nevents ib0.vacc1_`j' ib0.two_week if first_brand=="`brand'" & prior_covid==1, fe i(patient_id) offset(loginterval) eform
+ 
+ if _rc+(e(converge)==0) == 0 {
    mat b = r(table) 
 
   forvalues v = 1/4 {
     local k = `v' + 1 
 	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in week") ("prior covid") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
+ } 
 
  display "no prior covid"
- xtpoisson nevents ib0.vacc1_`j' ib0.two_week if first_brand=="`brand'" & prior_covid!=1, fe i(patient_id) offset(loginterval) eform
-
+ capture noisily xtpoisson nevents ib0.vacc1_`j' ib0.two_week if first_brand=="`brand'" & prior_covid!=1, fe i(patient_id) offset(loginterval) eform
+ if _rc+(e(converge)==0) == 0 {
    mat b = r(table) 
 
   forvalues v = 1/4 {
     local k = `v' + 1 
 	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("no prior covid") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
+ } 
 } 
 
  * Close post-file

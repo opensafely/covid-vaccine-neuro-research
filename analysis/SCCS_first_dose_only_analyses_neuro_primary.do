@@ -220,14 +220,8 @@ tempfile patient_info
 save `patient_info', replace
 restore
 
-
-/*
 **** Results output
-tempname results
-	postfile `results' ///
-		str4(outcome) str10(brand) str50(analysis) str20(subanalysis) str15(category) str10(period) irr lc uc ///
-		using "`c(pwd)'/output/tables/results_summary_primary_`brand'", replace
-*/		
+	
 * Setup file for posting results
   tempname results
 	postfile `results' ///
@@ -393,7 +387,7 @@ by patient_id: generate int interval = cutp[_n] - cutp[_n-1]
 		by patient_id: egen time_pre2_BP=min(time_pre_BP)
 	
 		gen vacc1_BP_non_risk_post_vacc=vacc1_BP
-		replace vacc1_BP_non_risk_post_vacc=5 if cutp<time_pre2
+		replace vacc1_BP_non_risk_post_vacc=5 if cutp<time_pre2_BP
 			** vacc1_BP_non_risk_post_vacc has 6 levels, non-risk post-vacc(0), pre-vacc low 14 days (1), day 0 (2) days 1-3 (3), days 4-28 (4) , pre-vacc non-risk (5)
 			label define vacc1_BP_non_risk_post_vacc1 0 "non-risk post-vacc" 1 "pre-vacc 14" 2 "day 0" 3 "days 1-3" 4 "days 4-28" 5 "non-risk pre-vacc"
 			label values vacc1_BP_non_risk_post_vacc vacc1_BP_non_risk_post_vacc1	
@@ -501,16 +495,6 @@ tabstat  nevents, s(sum) by(vacc1_`j')format(%9.0f)
 display "TABLE OF NUM EVENTS BY WEEK"
 tabstat  nevents, s(sum) by(week)format(%9.0f)
  
- 
- 
-* Setup file for posting results
-/*  tempname results
-	postfile `results' ///
-		str4(outcome) str10(brand) str50(analysis) str35(subanalysis) str20(category) comparison_period irr lc uc ///
-		using "`c(pwd)'/output/tables/results_summary_primary_`brand'", replace
- 
-*/
- 
  display "****************"
  display "****OUTCOME*****"
  display "`j'"
@@ -570,7 +554,7 @@ tabstat  nevents, s(sum) by(week)format(%9.0f)
  gen outcome="`j'"
 
  display "POST-HOC SENSITIVITY REMOVING WEEK 44 FOR AZ TM"
- 
+ * note, not outputting these results for now as post hoc exploratory only  
  
   if vaccine=="AZ" & outcome=="TM"{
   

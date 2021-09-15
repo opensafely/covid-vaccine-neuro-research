@@ -56,26 +56,28 @@ use "`c(pwd)'/output/temp_data/sccs_cutp_data_`j'_`brand'.dta", clear
 
  capture noisily xtpoisson nevents ib0.vacc1_`j'_ext if first_brand=="`brand'", fe i(patient_id) offset(loginterval) eform
  
+ if _rc+(e(converge)==0) == 0 {
     mat b = r(table) 
  
   forvalues v = 1/4 {
     local k = `v' + 1 
 	post `results'  ("`j'") ("`brand'") ("Extended risk window after 1d") ("") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
- 
+ }
 
 
  display "add in week"
  
  capture noisily xtpoisson nevents ib0.vacc1_`j'_ext ib0.week if first_brand=="`brand'", fe i(patient_id) offset(loginterval) eform
  
+ 	if _rc+(e(converge)==0) == 0 {
      mat b = r(table) 
  
   forvalues v = 1/4 {
     local k = `v' + 1 
 	post `results'  ("`j'") ("`brand'") ("Extended risk window after 1d") ("add in week") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
- 
+	}
 
 
  
@@ -83,13 +85,14 @@ use "`c(pwd)'/output/temp_data/sccs_cutp_data_`j'_`brand'.dta", clear
  
  capture noisily xtpoisson nevents ib0.vacc1_`j'_ext ib0.two_week if first_brand=="`brand'", fe i(patient_id) offset(loginterval) eform
  
+ 	if _rc+(e(converge)==0) == 0 {
       mat b = r(table) 
  
   forvalues v = 1/4 {
     local k = `v' + 1 
 	post `results'  ("`j'") ("`brand'") ("Extended risk window after 1d") ("add in 2 week") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
- 
+	}
  
  
  *only consider post-vacc non-risk period (separate pre-vacc non-risk period)
@@ -104,41 +107,41 @@ use "`c(pwd)'/output/temp_data/sccs_cutp_data_`j'_`brand'.dta", clear
 				
 
  capture noisily xtpoisson nevents ib0.vacc1_`j'_non_risk_post_vacc if first_brand=="`brand'", fe i(patient_id) offset(loginterval) eform
- 
+ 	if _rc+(e(converge)==0) == 0 {
     mat b = r(table) 
  
   forvalues v = 1/5 {
     local k = `v' + 1 
 	post `results'  ("`j'") ("`brand'") ("Post-vacc non-risk period after 1d") ("") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
- 
+	}
 
 
  display "add in week"
  
  capture noisily xtpoisson nevents ib0.vacc1_`j'_non_risk_post_vacc ib0.week if first_brand=="`brand'", fe i(patient_id) offset(loginterval) eform
- 
+ 	if _rc+(e(converge)==0) == 0 {
      mat b = r(table) 
  
   forvalues v = 1/5 {
     local k = `v' + 1 
 	post `results'  ("`j'") ("`brand'") ("Post-vacc non-risk period after 1d") ("add in week") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
- 
+	}
 
 
  
  display "add in 2 week period"
  
  capture noisily xtpoisson nevents ib0.vacc1_`j'_non_risk_post_vacc ib0.two_week if first_brand=="`brand'", fe i(patient_id) offset(loginterval) eform
- 
+ 	if _rc+(e(converge)==0) == 0 {
       mat b = r(table) 
  
   forvalues v = 1/5 {
     local k = `v' + 1 
 	post `results'  ("`j'") ("`brand'") ("Post-vacc non-risk period after 1d") ("add in 2 week") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
- 
+	}
  
  } 
  
