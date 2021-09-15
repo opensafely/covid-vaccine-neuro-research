@@ -94,8 +94,8 @@ actions:
     outputs:
       moderately_sensitive: 
         log: output/logs/SCCS_assumption_checking_AZ.log
-        plots_S1: output/plots/S1_exposure_centered_interval_AZ.png
-        plots_S2: output/plots/S2_censored_futime_AZ.png
+        plots_S1: output/plots/S1_exposure_centered_interval_AZ.pdf
+        plots_S2: output/plots/S2_censored_futime_AZ.pdf
 
   SCCS_assumption_checking_PF:
     run: stata-mp:latest analysis/SCCS_assumption_checking.do PF
@@ -103,8 +103,8 @@ actions:
     outputs:
       moderately_sensitive: 
         log: output/logs/SCCS_assumption_checking_PF.log
-        plots_S1: output/plots/S1_exposure_centered_interval_PF.png
-        plots_S2: output/plots/S2_censored_futime_PF.png
+        plots_S1: output/plots/S1_exposure_centered_interval_PF.pdf
+        plots_S2: output/plots/S2_censored_futime_PF.pdf
 
   # sensitivity analyses 
   ## stratified analyses 
@@ -144,7 +144,7 @@ actions:
   ## second doses 
   SCCS_second_dose_AZ:
     run: stata-mp:latest analysis/SCCS_first_second_dose_analyses_neuro.do AZ
-    needs: [SCCS_first_dose_only_primary_AZ] 
+    needs: [SCCS_first_dose_only_primary_AZ, apply_exclusion_criteria] 
     outputs:
       moderately_sensitive: 
         log: output/logs/SCCS_first_second_dose_analyses_neuro_AZ.log
@@ -152,7 +152,7 @@ actions:
 
   SCCS_second_dose_PF:
     run: stata-mp:latest analysis/SCCS_first_second_dose_analyses_neuro.do PF
-    needs: [SCCS_first_dose_only_primary_PF] 
+    needs: [SCCS_first_dose_only_primary_PF, apply_exclusion_criteria] 
     outputs:
       moderately_sensitive: 
         log: output/logs/SCCS_first_second_dose_analyses_neuro_PF.log
@@ -161,7 +161,7 @@ actions:
   ## AZ vs Pfizer 
   SCCS_comparative_AZ_Pfizer:
     run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_sens_AZ_vs_PF.do 
-    needs: [SCCS_first_dose_only_primary_AZ] 
+    needs: [SCCS_first_dose_only_primary_AZ, SCCS_first_dose_only_primary_PF, apply_exclusion_criteria] 
     outputs:
       moderately_sensitive: 
         log: output/logs/SCCS_first_dose_only_analyses_sens_AZ_vs_PF.log
