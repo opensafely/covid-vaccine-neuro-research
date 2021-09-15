@@ -426,8 +426,8 @@ foreach j in BP TM GBS{
 postclose `results'
 
 * Clean and export .csv of results
-use "`c(pwd)'/output/tables/results_summary_primary_`brand'", clear
-export delimited using "`c(pwd)'/output/tables/results_summary_primary_`brand'.csv", replace
+use "`c(pwd)'/output/tables/results_summary_second_doses_`brand'", clear
+export delimited using "`c(pwd)'/output/tables/results_summary_second_doses_`brand'.csv", replace
 
 
 log close
