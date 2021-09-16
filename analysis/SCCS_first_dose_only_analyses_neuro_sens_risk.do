@@ -44,6 +44,12 @@ foreach j in BP TM GBS{
 
 use "`c(pwd)'/output/temp_data/sccs_cutp_data_`j'_`brand'.dta", clear
 
+	* local macro var containing nr of events 
+	count 
+	local eventnum = r(N)
+	di "NUMBER OF EVENTS (PEOPLE) IN THE STUDY"
+	di "`eventnum'"
+
  *extended risk window
  display "****************"
  display "****OUTCOME*****"
@@ -56,7 +62,7 @@ use "`c(pwd)'/output/temp_data/sccs_cutp_data_`j'_`brand'.dta", clear
 
  capture noisily xtpoisson nevents ib0.vacc1_`j'_ext if first_brand=="`brand'", fe i(patient_id) offset(loginterval) eform
  
- if _rc+(e(converge)==0) == 0 {
+ if _rc+(e(converge)==0) == 0  & `eventnum' > 5 {
     mat b = r(table) 
  
   forvalues v = 1/4 {
@@ -70,7 +76,7 @@ use "`c(pwd)'/output/temp_data/sccs_cutp_data_`j'_`brand'.dta", clear
  
  capture noisily xtpoisson nevents ib0.vacc1_`j'_ext ib0.week if first_brand=="`brand'", fe i(patient_id) offset(loginterval) eform
  
- 	if _rc+(e(converge)==0) == 0 {
+ 	if _rc+(e(converge)==0) == 0  & `eventnum' > 5 {
      mat b = r(table) 
  
   forvalues v = 1/4 {
@@ -85,7 +91,7 @@ use "`c(pwd)'/output/temp_data/sccs_cutp_data_`j'_`brand'.dta", clear
  
  capture noisily xtpoisson nevents ib0.vacc1_`j'_ext ib0.two_week if first_brand=="`brand'", fe i(patient_id) offset(loginterval) eform
  
- 	if _rc+(e(converge)==0) == 0 {
+ 	if _rc+(e(converge)==0) == 0  & `eventnum' > 5 {
       mat b = r(table) 
  
   forvalues v = 1/4 {
@@ -107,7 +113,7 @@ use "`c(pwd)'/output/temp_data/sccs_cutp_data_`j'_`brand'.dta", clear
 				
 
  capture noisily xtpoisson nevents ib0.vacc1_`j'_non_risk_post_vacc if first_brand=="`brand'", fe i(patient_id) offset(loginterval) eform
- 	if _rc+(e(converge)==0) == 0 {
+ 	if _rc+(e(converge)==0) == 0  & `eventnum' > 5 {
     mat b = r(table) 
  
   forvalues v = 1/5 {
@@ -120,7 +126,7 @@ use "`c(pwd)'/output/temp_data/sccs_cutp_data_`j'_`brand'.dta", clear
  display "add in week"
  
  capture noisily xtpoisson nevents ib0.vacc1_`j'_non_risk_post_vacc ib0.week if first_brand=="`brand'", fe i(patient_id) offset(loginterval) eform
- 	if _rc+(e(converge)==0) == 0 {
+ 	if _rc+(e(converge)==0) == 0  & `eventnum' > 5 {
      mat b = r(table) 
  
   forvalues v = 1/5 {
@@ -134,7 +140,7 @@ use "`c(pwd)'/output/temp_data/sccs_cutp_data_`j'_`brand'.dta", clear
  display "add in 2 week period"
  
  capture noisily xtpoisson nevents ib0.vacc1_`j'_non_risk_post_vacc ib0.two_week if first_brand=="`brand'", fe i(patient_id) offset(loginterval) eform
- 	if _rc+(e(converge)==0) == 0 {
+ 	if _rc+(e(converge)==0) == 0  & `eventnum' > 5 {
       mat b = r(table) 
  
   forvalues v = 1/5 {

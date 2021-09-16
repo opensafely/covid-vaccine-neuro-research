@@ -43,7 +43,7 @@ capture	mkdir "`c(pwd)'/output/temp_data"
 adopath + "`c(pwd)'/analysis/extra_ados"
 
 *variable to cycle through each brand (AZ, PF, MOD)
-local brand `1'
+local brand "AZ"
 display "`brand'"
 
 * open a log file
@@ -236,7 +236,7 @@ foreach j of varlist BP TM GBS{
 
 preserve
      
-	 display "`j'"
+	 display "************ OUTCOME `j'"
 	 
 	 drop if flag_X_before_`j'==1
 	 noi display "THIS MANY (ABOVE) HAVE X (CIDP for GBS, MS/NO for TM) DURING FU PRIOR TO GBS /TM SO DROPPED"
@@ -252,9 +252,6 @@ preserve
 	keep if `j'!=.
 	gen eventday=`j'-study_start
 	
-	
-
-	
 	*keep those indivs with events within follow up time
 	
 	display "THIS MANY HAVE EVENT PRIOR TO START FU `j'"
@@ -266,6 +263,11 @@ preserve
 	drop if vacc_date1<=start
 	drop if vacc_date1>=end
 	
+	* local macro var containing nr of events 
+	count 
+	local eventnum = r(N)
+	di "NUMBER OF EVENTS (PEOPLE) IN THE STUDY"
+	di "`eventnum'"
 	
 	*summary of length of follow up time
 	display "SUMMARY OF FOLLOW UP TIME IN STUDY"
@@ -505,7 +507,7 @@ tabstat  nevents, s(sum) by(week)format(%9.0f)
  
  capture noisily xtpoisson nevents ib0.vacc1_`j', fe i(patient_id) offset(loginterval) eform
 
-  if _rc+(e(converge)==0) == 0 {
+  if _rc+(e(converge)==0) == 0 & `eventnum' > 5 {
   mat b = r(table) 
  
 
@@ -522,7 +524,7 @@ tabstat  nevents, s(sum) by(week)format(%9.0f)
  capture noisily xtpoisson nevents ib0.vacc1_`j' ib0.week , fe i(patient_id) offset(loginterval) eform
   
   
-  if _rc+(e(converge)==0) == 0 {  
+  if _rc+(e(converge)==0) == 0 & `eventnum' > 5 {  
    mat b = r(table) 
 
  forvalues v = 1/4 {
@@ -539,7 +541,7 @@ tabstat  nevents, s(sum) by(week)format(%9.0f)
  
  capture noisily xtpoisson nevents ib0.vacc1_`j' ib0.two_week, fe i(patient_id) offset(loginterval) eform
  
-  if _rc+(e(converge)==0) == 0 {
+  if _rc+(e(converge)==0) == 0 & `eventnum' > 5 {
   mat b = r(table) 
  
  forvalues v = 1/4 {

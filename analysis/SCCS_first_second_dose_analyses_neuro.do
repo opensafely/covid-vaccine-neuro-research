@@ -172,16 +172,15 @@ rename second_moderna_date second_MOD_date
 
 *time since study start of dose 2
 gen vacc_date2= second_`brand'_date - study_start if incl_2nd_dose_`brand'==1 & second_`brand'_date!=.
-gen vacc2=1 & (vacc_date2!=.) & vacc_date2 <= end 
 
+gen vacc2=1 if (vacc_date2!=.) & vacc_date2 <= end 
 di "THIS MANY HAD A VALID SECOND DOSE DURING THE FU"
 tab vacc2, m 
 
 replace vacc_date2=99999999 if vacc_date2==.
 *this is outwith the study period
 
-*generate cut points that event will lie between
-
+*generate cut points that event will
 gen cutp1=start
 gen cutp2=end
 
@@ -198,11 +197,12 @@ datacheck vacc_date2- vacc_date1 >=21 if vacc_date2!=., nolist
 		str4(outcome) str10(brand) str50(analysis) str35(subanalysis) str20(category) comparison_period irr lc uc ///
 		using "`c(pwd)'/output/tables/results_summary_second_doses_`brand'", replace
 		
-foreach j in BP TM GBS{
+foreach j in BP TM GBS {
 
 	preserve
 
-	gen outcome="`j'"
+	gen outcome="BP"
+	display "************ OUTCOME `j'"
 
 	gen cutp3=vacc_date1-29 if outcome=="GBS" | outcome=="TM"
 	replace cutp3= vacc_date1-15 if outcome=="BP"
@@ -226,6 +226,7 @@ foreach j in BP TM GBS{
 	*** for those with risk window after dose 1 overlapping with day 4-42 after dose 2, censor risk window post dose 1 at dose 2 +4 days which is the start of the dose 2 risk window
 	* end dose 1 risk window at start of dose 2 risk window (dose 2 risk trumps dose 1 risk)
 	replace cutp7= min(cutp7, cutp11) if vacc_date2!=.
+	di "THIS MANY (above) HAVE OVERLAPPING FIRST AND SECOND DOSE RISK WINDOWS"
 
 	*if cutp7 >= cutp11 (i.e. risk windows overlap) then don't need cutp8-11 (dose 2 pre-vacc, dose 2 day 0, dose 2 days 1-3) as all trumped by those for 1st dose
 	replace cutp8=999 if cutp7>=cutp11 
@@ -286,13 +287,19 @@ foreach j in BP TM GBS{
 	***ALSO DOUBLE CHECK HAVE VACCINE WITHIN FU TIME****
 	drop if vacc_date1<=start
 	drop if vacc_date1>=end
-		
+
+	*local macro containing event count 
+	count 
+	local eventnum = r(N)
+	display "THIS MANY HAVE AT LEAST ONE EVENT"
+	di "`eventnum'"
+	
 	*summary of length of follow up time
 	display "SUMMARY OF FOLLOW UP TIME IN STUDY"
 	summ cutp2, detail
 		
 	save "`c(pwd)'/output/temp_data/sccs_popn_2doses_`j'_`brand'.dta", replace
-		
+
 	*** now reshape and collapse
 	compress
 
@@ -326,8 +333,8 @@ foreach j in BP TM GBS{
 			recode exgr1 (0=0) (1=1) (2=2) (3=3) (4=4) (5=0) (6=5) (7=6) (8=7) (9=8), generate(vacc1_`j'_incl_dose2)
 				** vacc1_`j'_dose2 has 9 levels, non-risk (0), pre-vacc low (1), day 0 (2) days 1-3 (3), days 4-28/42 (4),  pre-vacc low dose 2 (5), day 0 dose2 (6) days 1-3 dose2 (7), days 4-42 dose 2 (8)
 				label define vacc1_`j'_incl_dose21 0 "non-risk" 1 "pre-vacc" 2 "day 0" 3 "days 1-3" 4 "days 4-28 or 42"  5 "pre-vacc dose2" 6 "day 0 dose2" 7 "days 1-3 dose 2" 8 "days 4-28 or 42 dose2"
-				label values vacc1_`j'_incl_dose2 vacc1_`j'_incl_dose21	
-		
+				label values vacc1_`j'_incl_dose2 vacc1_`j'_incl_dose21		
+
 	   *weekly exposure groups
 	   *up to maximum cutp for weeks defined by max length of study_end
 	   
@@ -356,7 +363,8 @@ foreach j in BP TM GBS{
 	drop if interval ==0 | interval==.
 
 	generate loginterval = log(interval)
-	   
+
+
 	 
 	 *count how many outcomes there are on the day of vaccination
 	 display "NUMBER OF OUTCOMES ON DAY OF 1st VACCINATION"
@@ -382,10 +390,10 @@ foreach j in BP TM GBS{
 	 
 	capture noisily xtpoisson nevents ib0.vacc1_`j'_incl_dose2  , fe i(patient_id) offset(loginterval) eform
 	 
-	if _rc+(e(converge)==0) == 0 {
+	if _rc+(e(converge)==0) == 0 & `eventnum' > 5 {
 		mat b = r(table) 
  
-		forvalues v = 1/7 {
+		forvalues v = 1/8 {
 			local k = `v' + 1 
 			post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 		}
@@ -395,10 +403,10 @@ foreach j in BP TM GBS{
 	display "add in week"
 	capture noisily xtpoisson nevents ib0.vacc1_`j'_incl_dose2 ib0.week , fe i(patient_id) offset(loginterval) eform
 	
-	if _rc+(e(converge)==0) == 0 {
+	if _rc+(e(converge)==0) == 0 & `eventnum' > 5 {
 		mat b = r(table) 
  
-		forvalues v = 1/7 {
+		forvalues v = 1/8 {
 			local k = `v' + 1 
 			post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 		}
@@ -408,10 +416,10 @@ foreach j in BP TM GBS{
 	display "add in 2 week period"
 	capture noisily xtpoisson nevents ib0.vacc1_`j'_incl_dose2 ib0.two_week , fe i(patient_id) offset(loginterval) eform
 	
-	if _rc+(e(converge)==0) == 0 {
+	if _rc+(e(converge)==0) == 0 & `eventnum' > 5 {
 		mat b = r(table) 
  
-		forvalues v = 1/7 {
+		forvalues v = 1/8 {
 			local k = `v' + 1 
 			post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 		}

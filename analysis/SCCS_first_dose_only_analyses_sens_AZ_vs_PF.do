@@ -46,6 +46,13 @@ append using "`c(pwd)'/output/temp_data/sccs_cutp_data_`j'_PF.dta"
 gen AZ=1 if first_brand=="AZ"
 recode AZ .=0 
 
+* local macro var containing nr of events 
+count if AZ == 1
+local eventnum_AZ = r(N)
+
+count if AZ == 0
+local eventnum_PF = r(N)
+
  tempname results
 	postfile `results' ///
 		str4(outcome) str10(brand) str50(analysis) str35(subanalysis) str20(category) comparison_period irr lc uc ///
@@ -67,7 +74,7 @@ recode AZ .=0
  
  xtpoisson nevents ib0.vacc1_`j' if first_brand=="AZ" & incl_AZ_PF_compare==1, fe i(patient_id) offset(loginterval) eform
  
-   if _rc==0{
+  if _rc+(e(converge)==0) == 0 & `eventnum_AZ' > 5 {
   mat b = r(table) 
  
   forvalues v = 1/4 {
@@ -81,7 +88,7 @@ recode AZ .=0
  di "`j' PF (RESTRICTED TO DOSES AFTER 1st JAN)"
  xtpoisson nevents ib0.vacc1_`j' if first_brand=="PF" & incl_AZ_PF_compare==1, fe i(patient_id) offset(loginterval) eform
    
-   if _rc==0{
+  if _rc+(e(converge)==0) == 0 & `eventnum_PF' > 5 {
   mat b = r(table) 
  
  
@@ -97,7 +104,7 @@ recode AZ .=0
  di " `j' AZ VS PF"
  xtpoisson nevents ib0.vacc1_`j'##AZ if incl_AZ_PF_compare==1, fe i(patient_id) offset(loginterval) eform
 
-     if _rc==0{
+  if _rc+(e(converge)==0) == 0 & `eventnum_PF' > 5 {
    mat b = r(table) 
  
   forvalues v = 1/4 {
@@ -113,7 +120,7 @@ else di "DID NOT CONVERGE - `j' AZ VS PF"
  di "`j' AZ (RESTRICTED TO DOSES AFTER 1st JAN) - WEEK ADJ"
  xtpoisson nevents ib0.vacc1_`j' ib0.week if first_brand=="AZ" & incl_AZ_PF_compare==1, fe i(patient_id) offset(loginterval) eform
   
-    if _rc==0{
+  if _rc+(e(converge)==0) == 0 & `eventnum_AZ' > 5 {
   mat b = r(table) 
  
   forvalues v = 1/4 {
@@ -126,7 +133,7 @@ else di "DID NOT CONVERGE - `j' AZ VS PF"
  di "`j' PF (RESTRICTED TO DOSES AFTER 1st JAN) - WEEK ADJ"
  xtpoisson nevents ib0.vacc1_`j' ib0.week if first_brand=="PF" & incl_AZ_PF_compare==1, fe i(patient_id) offset(loginterval) eform
  
-   if _rc==0{
+  if _rc+(e(converge)==0) == 0 & `eventnum_PF' > 5 {
   mat b = r(table) 
  
   forvalues v = 1/4 {
@@ -140,7 +147,7 @@ else di "DID NOT CONVERGE - `j' AZ VS PF"
  di "`j' AZ VS PF -  WEEK ADJ "
   xtpoisson nevents ib0.vacc1_`j'##AZ ib0.week if incl_AZ_PF_compare==1, fe i(patient_id) offset(loginterval) eform
  
-   if _rc==0{
+  if _rc+(e(converge)==0) == 0 & `eventnum_PF' > 5 {
     mat b = r(table) 
  
   forvalues v = 1/4 {
@@ -154,7 +161,7 @@ else di "DID NOT CONVERGE - `j' AZ VS PF"
   di "`j' AZ VS PF -  WEEK ADJ & INTERACTION"
   xtpoisson nevents ib0.vacc1_`j'##AZ ib0.week##AZ if incl_AZ_PF_compare==1, fe i(patient_id) offset(loginterval) eform
  
-   if _rc==0{
+  if _rc+(e(converge)==0) == 0 & `eventnum_PF' > 5 {
      mat b = r(table) 
  
   forvalues v = 1/4 {
@@ -171,7 +178,7 @@ else di "DID NOT CONVERGE - `j' AZ VS PF"
  di "`j' AZ (RESTRICTED TO DOSES AFTER 1st JAN) - 2 WEEK ADJ"
  xtpoisson nevents ib0.vacc1_`j' ib0.two_week if first_brand=="AZ" & incl_AZ_PF_compare==1, fe i(patient_id) offset(loginterval) eform
  
-   if _rc==0{
+  if _rc+(e(converge)==0) == 0 & `eventnum_AZ' > 5 {
    mat b = r(table) 
  
   forvalues v = 1/4 {
@@ -185,7 +192,7 @@ else di "DID NOT CONVERGE - `j' AZ VS PF"
  di "`j' PF (RESTRICTED TO DOSES AFTER 1st JAN) -2 WEEK ADJ"
  xtpoisson nevents ib0.vacc1_`j' ib0.two_week if first_brand=="PF" & incl_AZ_PF_compare==1, fe i(patient_id) offset(loginterval) eform
  
-   if _rc==0{
+  if _rc+(e(converge)==0) == 0 & `eventnum_PF' > 5 {
    mat b = r(table) 
  
   forvalues v = 1/4 {
@@ -199,7 +206,7 @@ else di "DID NOT CONVERGE - `j' AZ VS PF"
  di "`j' AZ VS PF - 2 WEEK ADJ "
  xtpoisson nevents ib0.vacc1_`j'##AZ ib0.two_week if incl_AZ_PF_compare==1, fe i(patient_id) offset(loginterval) eform
  
-     if _rc==0{
+  if _rc+(e(converge)==0) == 0 & `eventnum_PF' > 5 {
    mat b = r(table) 
  
   forvalues v = 1/4 {
@@ -212,7 +219,7 @@ else di "DID NOT CONVERGE - `j' AZ VS PF"
  di "`j' AZ VS PF - 2 WEEK ADJ & INTERACTION"
   xtpoisson nevents ib0.vacc1_`j'##AZ ib0.two_week##AZ if incl_AZ_PF_compare==1, fe i(patient_id) offset(loginterval) eform
  
-      if _rc==0{
+  if _rc+(e(converge)==0) == 0 & `eventnum_PF' > 5 {
 	mat b = r(table) 
  
   forvalues v = 1/4 {
