@@ -94,8 +94,8 @@ actions:
     outputs:
       moderately_sensitive: 
         log: output/logs/SCCS_assumption_checking_AZ.log
-        plots_S1: output/plots/S1_exposure_centered_interval_AZ.pdf
-        plots_S2: output/plots/S2_censored_futime_AZ.pdf
+        plots_S1: output/plots/S1_exposure_centered_interval_AZ*
+        plots_S2: output/plots/S2_censored_futime_AZ*
 
   SCCS_assumption_checking_PF:
     run: stata-mp:latest analysis/SCCS_assumption_checking.do PF
@@ -103,8 +103,8 @@ actions:
     outputs:
       moderately_sensitive: 
         log: output/logs/SCCS_assumption_checking_PF.log
-        plots_S1: output/plots/S1_exposure_centered_interval_PF.pdf
-        plots_S2: output/plots/S2_censored_futime_PF.pdf
+        plots_S1: output/plots/S1_exposure_centered_interval_PF*
+        plots_S2: output/plots/S2_censored_futime_PF*
 
   # sensitivity analyses 
   ## stratified analyses 

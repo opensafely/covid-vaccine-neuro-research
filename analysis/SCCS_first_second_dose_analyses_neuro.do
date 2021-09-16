@@ -34,7 +34,7 @@ display "`brand'"
 
 * open a log file
 cap log close
-log using "`c(pwd)'/output/logs/SCCS_first_second_dose_analyses_`brand'.log", replace 
+log using "`c(pwd)'/output/logs/SCCS_first_second_dose_analyses_neuro_`brand'.log", replace 
 
 * IMPORT DATA=================================================================*/ 
 clear

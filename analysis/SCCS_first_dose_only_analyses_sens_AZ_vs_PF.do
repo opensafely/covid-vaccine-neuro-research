@@ -27,7 +27,7 @@ adopath + "`c(pwd)'/analysis/extra_ados"
 
 * open a log file
 cap log close
-log using "`c(pwd)'/output/logs/SCCS_first_dose_only_sens_AZ_vs_PF.log", replace 
+log using "`c(pwd)'/output/logs/SCCS_first_dose_only_analyses_sens_AZ_vs_PF.log", replace 
 
 /* ANALYSIS===================================================================*/
 
