@@ -5,6 +5,7 @@ expectations:
 
 actions:
 
+  # extract relevant cohorts 
   generate_cohort:
     run: cohortextractor:latest generate_cohort --study-definition study_definition_sccs_and_historical_cohort
     outputs:
@@ -23,6 +24,7 @@ actions:
         cohort_pfizer_cases: output/input_PF_cases.csv 
         cohort_moderna_cases: output/input_MOD_cases.csv 
 
+  # main analyses 
   SCCS_first_dose_only_primary_AZ:
     run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_neuro_primary.do AZ
     needs: [apply_exclusion_criteria] 
@@ -68,13 +70,14 @@ actions:
         sccs_cutp_TM: output/temp_data/sccs_cutp_data_TM_MOD*
         sccs_cutp_GBS: output/temp_data/sccs_cutp_data_GBS_MOD*
 
+  # baseline tables (AZ and PF only due to small MOD numbers)
   SCCS_baseline_tables_AZ:
     run: stata-mp:latest analysis/SCCS_baseline_tables.do AZ
     needs: [SCCS_first_dose_only_primary_AZ] 
     outputs:
       moderately_sensitive: 
         log: output/logs/SCCS_baseline_tables_AZ.log
-        tables: output/tables/1_baseline_AZ/*
+        tables: output/tables/baseline_AZ/*
 
   SCCS_baseline_tables_PF:
     run: stata-mp:latest analysis/SCCS_baseline_tables.do PF
@@ -82,16 +85,9 @@ actions:
     outputs:
       moderately_sensitive: 
         log: output/logs/SCCS_baseline_tables_PF.log
-        tables: output/tables/1_baseline_PF/*
+        tables: output/tables/baseline_PF/*
 
-  SCCS_baseline_tables_MOD:
-    run: stata-mp:latest analysis/SCCS_baseline_tables.do MOD
-    needs: [SCCS_first_dose_only_primary_MOD] 
-    outputs:
-      moderately_sensitive: 
-        log: output/logs/SCCS_baseline_tables_MOD.log
-        tables: output/tables/1_baseline_MOD/*
-
+  # check assumptions 
   SCCS_assumption_checking_AZ:
     run: stata-mp:latest analysis/SCCS_assumption_checking.do AZ
     needs: [SCCS_first_dose_only_primary_AZ] 
@@ -110,12 +106,64 @@ actions:
         plots_S1: output/plots/S1_exposure_centered_interval_PF*
         plots_S2: output/plots/S2_censored_futime_PF*
 
-  SCCS_assumption_checking_MOD:
-    run: stata-mp:latest analysis/SCCS_assumption_checking.do MOD
-    needs: [SCCS_first_dose_only_primary_MOD] 
+  # sensitivity analyses 
+  ## stratified analyses 
+  SCCS_stratified_analyses_AZ:
+    run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_neuro_sens_stratified.do AZ
+    needs: [SCCS_first_dose_only_primary_AZ] 
     outputs:
       moderately_sensitive: 
-        log: output/logs/SCCS_assumption_checking_MOD.log
-        plots_S1: output/plots/S1_exposure_centered_interval_MOD*
-        plots_S2: output/plots/S2_censored_futime_MOD*
+        log: output/logs/SCCS_first_dose_only_analyses_neuro_sens_stratified_AZ.log
+        results: output/tables/results_summary_stratified_AZ.csv
+
+  SCCS_stratified_analyses_PF:
+    run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_neuro_sens_stratified.do PF
+    needs: [SCCS_first_dose_only_primary_PF] 
+    outputs:
+      moderately_sensitive: 
+        log: output/logs/SCCS_first_dose_only_analyses_neuro_sens_stratified_PF.log
+        results: output/tables/results_summary_stratified_PF.csv
+
+  ## changing risk windows 
+  SCCS_vary_risk_windows_AZ:
+    run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_neuro_sens_risk.do AZ
+    needs: [SCCS_first_dose_only_primary_AZ] 
+    outputs:
+      moderately_sensitive: 
+        log: output/logs/SCCS_first_dose_only_analyses_neuro_sens_risk_AZ.log
+        results: output/tables/results_summary_sens_risk_AZ.csv
+
+  SCCS_vary_risk_windows_PF:
+    run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_neuro_sens_risk.do PF
+    needs: [SCCS_first_dose_only_primary_PF] 
+    outputs:
+      moderately_sensitive: 
+        log: output/logs/SCCS_first_dose_only_analyses_neuro_sens_risk_PF.log
+        results: output/tables/results_summary_sens_risk_PF.csv
+
+  ## second doses 
+  SCCS_second_dose_AZ:
+    run: stata-mp:latest analysis/SCCS_first_second_dose_analyses_neuro.do AZ
+    needs: [SCCS_first_dose_only_primary_AZ, apply_exclusion_criteria] 
+    outputs:
+      moderately_sensitive: 
+        log: output/logs/SCCS_first_second_dose_analyses_neuro_AZ.log
+        results: output/tables/results_summary_second_doses_AZ.csv
+
+  SCCS_second_dose_PF:
+    run: stata-mp:latest analysis/SCCS_first_second_dose_analyses_neuro.do PF
+    needs: [SCCS_first_dose_only_primary_PF, apply_exclusion_criteria] 
+    outputs:
+      moderately_sensitive: 
+        log: output/logs/SCCS_first_second_dose_analyses_neuro_PF.log
+        results: output/tables/results_summary_second_doses_PF*
+
+  ## AZ vs Pfizer 
+  SCCS_comparative_AZ_Pfizer:
+    run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_sens_AZ_vs_PF.do 
+    needs: [SCCS_first_dose_only_primary_AZ, SCCS_first_dose_only_primary_PF] 
+    outputs:
+      moderately_sensitive: 
+        log: output/logs/SCCS_first_dose_only_analyses_sens_AZ_vs_PF.log
+        results: output/tables/results_summary_sens_AZ_vs_PF.csv
 

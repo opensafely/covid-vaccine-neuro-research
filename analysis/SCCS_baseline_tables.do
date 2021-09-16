@@ -28,7 +28,7 @@ adopath + "`c(pwd)'/analysis/extra_ados"
 *variable to cycle through each brand (AZ, PF, MOD)
 local brand `1'
 display "`brand'"
-capture	mkdir "`c(pwd)'/output/tables/1_baseline_`brand'"
+capture	mkdir "`c(pwd)'/output/tables/baseline_`brand'"
 
 * open a log file
 cap log close
@@ -322,7 +322,7 @@ foreach outcome in GBS TM BP {
 
 	*Set up output file
 	cap file close tablecontent
-	file open tablecontent using `c(pwd)'/output/tables/1_baseline_`brand'/table1_`brand'_`outcome'.txt, write text replace
+	file open tablecontent using `c(pwd)'/output/tables/baseline_`brand'/table1_`brand'_`outcome'.txt, write text replace
 
 	file write tablecontent ("Table 1: Demographics of individuals in the `brand' `outcome' case series") _n
 

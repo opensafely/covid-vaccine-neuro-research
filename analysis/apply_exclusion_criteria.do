@@ -55,11 +55,11 @@ foreach var of varlist first_any_vaccine_date ///
 
 /* Censor Date
 This is needed as the vaccines for the SCCS need to be administrated prior to censoring 
-Censor calendar date is 3 weeks prior to last SUS availability, currently approx 1 July 2021 */ 
+Censor calendar date is 3 weeks prior to last SUS availability, currently approx 1 Aug 2021 */ 
 
 * Overall censor date based on administrative variables 
 
-gen calendar_censor_date = date("9/06/2021", "DMY")
+gen calendar_censor_date = date("9/07/2021", "DMY")
 gen index_date = date("01/07/2020", "DMY")
 gen censor_date = min(calendar_censor_date, death_date, dereg_date)
 format censor_date %d

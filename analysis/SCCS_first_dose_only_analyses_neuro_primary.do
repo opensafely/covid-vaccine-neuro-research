@@ -44,27 +44,25 @@ adopath + "`c(pwd)'/analysis/extra_ados"
 
 *variable to cycle through each brand (AZ, PF, MOD)
 local brand `1'
+display "`brand'"
 
 * open a log file
 cap log close
 log using "`c(pwd)'/output/logs/SCCS_first_dose_only_analyses_neuro_primary_`brand'.log", replace 
 
-
 * IMPORT DATA=================================================================*/ 
-
-display "`brand'"
-
 clear
 
 import delimited using `c(pwd)'/output/input_`brand'_cases.csv
 gen first_brand="`brand'"
+
+* IMPORT DATA=================================================================*/ 
 
 *checking first_brand variable
 * these are listed for each doze as the input value is capitalised and variables are not 
 assert first_az_date!="" if first_brand=="AZ"
 assert first_moderna_date!="" if first_brand=="MOD"
 assert first_pfizer_date!="" if first_brand=="PF"
-
 
 *formatting dates
 gen AZ_date=date(first_az_date,"DMY")
@@ -107,6 +105,7 @@ gen incl_AZ_PF_compare=1 if (AZ_date>=d("01jan2021") & first_brand=="AZ") | (PF_
 *previous covid infection flag
 
 gen prior_covid=1 if first_brand=="`brand'" & first_positive_covid_test < `brand'_date 
+replace prior_covid = 0 if prior_covid == . 
 
 
 rename history_any_transverse_myelitis history_TM
@@ -221,14 +220,8 @@ tempfile patient_info
 save `patient_info', replace
 restore
 
-
-/*
 **** Results output
-tempname results
-	postfile `results' ///
-		str4(outcome) str10(brand) str50(analysis) str20(subanalysis) str15(category) str10(period) irr lc uc ///
-		using "`c(pwd)'/output/tables/results_summary_primary_`brand'", replace
-*/		
+	
 * Setup file for posting results
   tempname results
 	postfile `results' ///
@@ -243,7 +236,7 @@ foreach j of varlist BP TM GBS{
 
 preserve
      
-	 display "`j'"
+	 display "************ OUTCOME `j'"
 	 
 	 drop if flag_X_before_`j'==1
 	 noi display "THIS MANY (ABOVE) HAVE X (CIDP for GBS, MS/NO for TM) DURING FU PRIOR TO GBS /TM SO DROPPED"
@@ -259,9 +252,6 @@ preserve
 	keep if `j'!=.
 	gen eventday=`j'-study_start
 	
-	
-
-	
 	*keep those indivs with events within follow up time
 	
 	display "THIS MANY HAVE EVENT PRIOR TO START FU `j'"
@@ -273,6 +263,11 @@ preserve
 	drop if vacc_date1<=start
 	drop if vacc_date1>=end
 	
+	* local macro var containing nr of events 
+	count 
+	local eventnum = r(N)
+	di "NUMBER OF EVENTS (PEOPLE) IN THE STUDY"
+	di "`eventnum'"
 	
 	*summary of length of follow up time
 	display "SUMMARY OF FOLLOW UP TIME IN STUDY"
@@ -394,7 +389,7 @@ by patient_id: generate int interval = cutp[_n] - cutp[_n-1]
 		by patient_id: egen time_pre2_BP=min(time_pre_BP)
 	
 		gen vacc1_BP_non_risk_post_vacc=vacc1_BP
-		replace vacc1_BP_non_risk_post_vacc=5 if cutp<time_pre2
+		replace vacc1_BP_non_risk_post_vacc=5 if cutp<time_pre2_BP
 			** vacc1_BP_non_risk_post_vacc has 6 levels, non-risk post-vacc(0), pre-vacc low 14 days (1), day 0 (2) days 1-3 (3), days 4-28 (4) , pre-vacc non-risk (5)
 			label define vacc1_BP_non_risk_post_vacc1 0 "non-risk post-vacc" 1 "pre-vacc 14" 2 "day 0" 3 "days 1-3" 4 "days 4-28" 5 "non-risk pre-vacc"
 			label values vacc1_BP_non_risk_post_vacc vacc1_BP_non_risk_post_vacc1	
@@ -502,16 +497,6 @@ tabstat  nevents, s(sum) by(vacc1_`j')format(%9.0f)
 display "TABLE OF NUM EVENTS BY WEEK"
 tabstat  nevents, s(sum) by(week)format(%9.0f)
  
- 
- 
-* Setup file for posting results
-/*  tempname results
-	postfile `results' ///
-		str4(outcome) str10(brand) str50(analysis) str35(subanalysis) str20(category) comparison_period irr lc uc ///
-		using "`c(pwd)'/output/tables/results_summary_primary_`brand'", replace
- 
-*/
- 
  display "****************"
  display "****OUTCOME*****"
  display "`j'"
@@ -522,7 +507,7 @@ tabstat  nevents, s(sum) by(week)format(%9.0f)
  
  capture noisily xtpoisson nevents ib0.vacc1_`j', fe i(patient_id) offset(loginterval) eform
 
-  if _rc+(e(converge)==0) == 0 {
+  if _rc+(e(converge)==0) == 0 & `eventnum' > 5 {
   mat b = r(table) 
  
 
@@ -539,7 +524,7 @@ tabstat  nevents, s(sum) by(week)format(%9.0f)
  capture noisily xtpoisson nevents ib0.vacc1_`j' ib0.week , fe i(patient_id) offset(loginterval) eform
   
   
-  if _rc+(e(converge)==0) == 0 {  
+  if _rc+(e(converge)==0) == 0 & `eventnum' > 5 {  
    mat b = r(table) 
 
  forvalues v = 1/4 {
@@ -556,7 +541,7 @@ tabstat  nevents, s(sum) by(week)format(%9.0f)
  
  capture noisily xtpoisson nevents ib0.vacc1_`j' ib0.two_week, fe i(patient_id) offset(loginterval) eform
  
-  if _rc+(e(converge)==0) == 0 {
+  if _rc+(e(converge)==0) == 0 & `eventnum' > 5 {
   mat b = r(table) 
  
  forvalues v = 1/4 {
@@ -571,7 +556,7 @@ tabstat  nevents, s(sum) by(week)format(%9.0f)
  gen outcome="`j'"
 
  display "POST-HOC SENSITIVITY REMOVING WEEK 44 FOR AZ TM"
- 
+ * note, not outputting these results for now as post hoc exploratory only  
  
   if vaccine=="AZ" & outcome=="TM"{
   
