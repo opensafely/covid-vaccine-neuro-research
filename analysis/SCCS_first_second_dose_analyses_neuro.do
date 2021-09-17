@@ -395,7 +395,7 @@ foreach j in BP TM GBS {
  
 		forvalues v = 1/8 {
 			local k = `v' + 1 
-			post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+			post `results'  ("`j'") ("`brand'") ("Second dose") ("") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 		}
 	}
 	else di "DID NOT CONVERGE - `brand' SECOND DOSE UNADJUSTED"
@@ -408,7 +408,7 @@ foreach j in BP TM GBS {
  
 		forvalues v = 1/8 {
 			local k = `v' + 1 
-			post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+			post `results'  ("`j'") ("`brand'") ("Second dose") ("add in week") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 		}
 	}
 	else di "DID NOT CONVERGE - `brand' SECOND DOSE 1 WEEK"
@@ -421,7 +421,7 @@ foreach j in BP TM GBS {
  
 		forvalues v = 1/8 {
 			local k = `v' + 1 
-			post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+			post `results'  ("`j'") ("`brand'") ("Second dose") ("add in 2 week") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 		}
 	}
 	else di "DID NOT CONVERGE - `brand' SECOND DOSE 2 WEEK"
