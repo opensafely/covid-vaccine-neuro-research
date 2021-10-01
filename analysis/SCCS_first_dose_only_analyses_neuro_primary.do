@@ -225,7 +225,7 @@ restore
 * Setup file for posting results
   tempname results
 	postfile `results' ///
-		str4(outcome) str10(brand) str50(analysis) str35(subanalysis) str20(category) comparison_period irr lc uc ///
+		str4(outcome) str10(brand) str50(analysis) str35(subanalysis) str20(category) str20(vlab) comparison_period irr lc uc ///
 		using "`c(pwd)'/output/tables/results_summary_primary_`brand'", replace
 		
 
@@ -513,7 +513,8 @@ tabstat  nevents, s(sum) by(week)format(%9.0f)
 
  forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("") ("") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
  
@@ -529,7 +530,8 @@ tabstat  nevents, s(sum) by(week)format(%9.0f)
 
  forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in week") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in week") ("") ("`vlab'")  (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
  
@@ -546,7 +548,8 @@ tabstat  nevents, s(sum) by(week)format(%9.0f)
  
  forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("") ("`vlab'")  (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
  else di "DID NOT CONVERGE - `brand' PRIMARY RISK WINDOW AFTER 1ST DOSE - 2 WEEK ADJ"
