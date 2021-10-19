@@ -77,7 +77,7 @@ gen BP=any_bells_palsy
 gen TM=any_transverse_myelitis
 gen GBS=any_guillain_barre
 
-foreach var of varlist second_any_vaccine_date second_pfizer_date second_az_date second_moderna_date BP TM GBS first_positive_covid_test{ 
+foreach var of varlist second_any_vaccine_date second_pfizer_date second_az_date second_moderna_date BP TM GBS first_positive_covid_test bells_palsy_gp bells_palsy_hospital bells_palsy_emergency{ 
 						rename `var' _tmp
 						gen `var' = date(_tmp, "YMD")
 						drop _tmp
@@ -96,6 +96,14 @@ foreach var of varlist fu_cidp_gp fu_ms_no_gp {
 					   }				
 				}
 
+				
+*post-hoc sensiitivity analysis
+*include only those BP with a GP record
+
+gen BP_anyGPdate=BP 
+replace BP_anyGPdate=. if bells_palsy_gp==.		
+format %td BP_anyGPdate					
+				
 					   
 * create flag for first dose >=1st Jan for AZ PF comparison sensitivity analysis
 
@@ -232,7 +240,7 @@ restore
 
 *loop over each outcome
 
-foreach j of varlist BP TM GBS{
+foreach j of varlist BP TM GBS BP_anyGPdate{
 
 preserve
      
@@ -273,6 +281,36 @@ preserve
 	display "SUMMARY OF FOLLOW UP TIME IN STUDY"
 	summ cutp2, detail
 	
+	
+	*for GP restricted BP, count how many have hosp or emergency before GP record
+	if "`j'"=="BP_anyGPdate"{
+	
+		datacheck bells_palsy_gp!=., nolist
+	
+		display "TOTAL WITH ANY GP DATE"
+		count 
+		
+		display "HOSPITAL DATE BEFORE GP DATE"
+		count if bells_palsy_hospital<bells_palsy_gp
+		
+		display "EMERGENCY DATE BEFORE GP DATE"
+		count if bells_palsy_emergency<bells_palsy_gp
+		
+		display "HOSPITAL & EMERGENCY DATES BOTH BEFORE GP DATE"
+		count if bells_palsy_emergency<bells_palsy_gp & bells_palsy_hospital<bells_palsy_gp
+		
+		display "HOSPITAL DATE EQUAL TO GP DATE"
+		count if bells_palsy_gp==bells_palsy_hospital
+		
+		display "EMERGENCY DATE EQUAL TO GP DATE"
+		count if bells_palsy_gp==bells_palsy_emergency
+		
+		display "GP DATE EQUAL TO BOTH HOSPITAL AND EMERGENCY DATE"
+		count if bells_palsy_gp==bells_palsy_hospital & bells_palsy_gp==bells_palsy_emergency
+		
+		}
+	
+	
 	save "`c(pwd)'/output/temp_data/sccs_popn_`j'_`brand'.dta", replace
 	
 *** now reshape and collapse
@@ -310,6 +348,10 @@ by patient_id: generate int interval = cutp[_n] - cutp[_n-1]
 			** vacc1_BP has 5 levels, non-risk (0), pre-vacc low 14 days (1), day 0 (2) days 1-3 (3), days 4-28 (4) 
 			label define vacc1_BP1 0 "non-risk" 1 "pre-vacc 14" 2 "day 0" 3 "days 1-3" 4 "days 4-28" 
 			label values vacc1_BP vacc1_BP1	
+			
+			
+		*BP_anyGPdate should be the same as for BP
+		gen vacc1_BP_anyGPdate=vacc1_BP		
 	
 		*TM
 		recode exgr1 (0=0) (1=1) (2=1) (3=2) (4=3) (5=4) (6=4) (7=4) (8=0) (9=0), generate(vacc1_TM)
