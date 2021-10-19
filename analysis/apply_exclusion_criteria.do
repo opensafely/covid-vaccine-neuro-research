@@ -156,6 +156,8 @@ gen unknown_first_dose = 1 if (first_pfizer_date != first_any_vaccine_date) & (f
 replace unknown_first_dose = 0 if unknown_first_dose == . 
 tab unknown_first_dose, m 
 
+tempname denominators 
+postfile `denominators' str10(brand) ntotal using "`c(pwd)'/output/tables/denominators", replace
 
 * AZ COHORT 
 preserve
@@ -169,6 +171,7 @@ count
 * Drop if first AZ not before censoring
 drop if first_az_date == . | first_az_date >= censor_date
 count 
+post `denominators'  ("AZ") (r(N))
 
 * count outcomes for sense checking 
 gen check_BP = (any_bells_palsy != "")
@@ -198,6 +201,7 @@ count
 * Drop if first Pfizer not before censoring
 drop if first_pfizer_date == . | first_pfizer_date >= censor_date
 count 
+post `denominators'  ("PF") (r(N))
 
 * count outcomes for sense checking 
 gen check_BP = (any_bells_palsy != "")
@@ -227,6 +231,7 @@ count
 * Drop if first Moderna not before censoring
 drop if first_moderna_date == . | first_moderna_date >= censor_date
 count 
+post `denominators'  ("MOD") (r(N))
 
 * count outcomes for sense checking 
 gen check_BP = (any_bells_palsy != "")
@@ -245,6 +250,14 @@ export delimited using `c(pwd)'/output/input_MOD_cases.csv, replace
 restore
 
 * SCCS case series will be created sepatately in a different Stata program 
+
+* output denominator file 
+postclose `denominators'
+
+* Clean and export .csv of results
+use "`c(pwd)'/output/tables/denominators", clear
+export delimited using "`c(pwd)'/output/tables/denominators.csv", replace
+
 
 * CLOSE LOG===================================================================*/ 
 
