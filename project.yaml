@@ -23,7 +23,7 @@ actions:
         cohort_az_cases: output/input_AZ_cases.csv
         cohort_pfizer_cases: output/input_PF_cases.csv 
         cohort_moderna_cases: output/input_MOD_cases.csv 
-        denominators: output/tables/denominators.csv
+        denominators: output/tables/denominators*
 
   # main analyses 
   SCCS_first_dose_only_primary_AZ:
