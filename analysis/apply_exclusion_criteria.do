@@ -18,6 +18,7 @@ OTHER OUTPUT: 			logfile, printed to folder output/logs
 
 * create folders that do not exist on server 
 capture	mkdir "`c(pwd)'/output/logs"
+capture	mkdir "`c(pwd)'/output/tables"
 
 * set ado path
 adopath + "`c(pwd)'/analysis/extra_ados"
