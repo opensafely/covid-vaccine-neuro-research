@@ -157,7 +157,7 @@ replace unknown_first_dose = 0 if unknown_first_dose == .
 tab unknown_first_dose, m 
 
 tempname denominators 
-postfile `denominators' str10(brand) ntotal using "`c(pwd)'/output/tables/denominators", replace
+postfile `denominators' str10(brand) ntotal using "`c(pwd)'/output/tables/denominators.dta", replace
 
 * AZ COHORT 
 preserve
