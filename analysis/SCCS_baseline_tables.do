@@ -26,7 +26,7 @@ capture	mkdir "`c(pwd)'/output/temp_data"
 adopath + "`c(pwd)'/analysis/extra_ados"
 
 *variable to cycle through each brand (AZ, PF, MOD)
-local brand `1'
+local brand "AZ"
 display "`brand'"
 capture	mkdir "`c(pwd)'/output/tables/baseline_`brand'"
 
@@ -132,7 +132,7 @@ end
 * IMPORT DATA=================================================================*/ 
 * This is currently set up in a loop per outcome, reading in each brand from the yaml 
 
-foreach outcome in GBS TM BP { 
+foreach outcome in BP { 
 
 	use `c(pwd)'/output/temp_data/sccs_popn_`outcome'_`brand', clear
 
@@ -182,11 +182,12 @@ foreach outcome in GBS TM BP {
 	* note: for each outcome because of naming changes in prior do-file compared to python 
 	
 	* convert each string to a date 
-	generate BP_GP = bells_palsy_gp
-	generate BP_hospital = bells_palsy_hospital 
+	* note, some of these converted in a prior program 
+	rename bells_palsy_gp BP_GP
+	rename bells_palsy_hospital BP_hospital
+	rename bells_palsy_emergency BP_emergency
 	generate BP_death = bells_palsy_death
-	generate BP_emergency = bells_palsy_emergency 
-	
+
 	generate TM_GP = transverse_myelitis_gp
 	generate TM_hospital = transverse_myelitis_hospital 
 	generate TM_death = transverse_myelitis_death
@@ -222,11 +223,6 @@ foreach outcome in GBS TM BP {
 						   
 	* specific consideration for emergency codes 
 	if "`outcome'" == "BP" { 
-		
-		rename BP_emergency _tmp 
-		gen BP_emergency = date(_tmp, "YMD")
-		drop _tmp
-		format BP_emergency %d 
 		
 		gen BP_emergency_ind = (BP_emergency != .)
 		label define BP_emergency_ind 1 ""
