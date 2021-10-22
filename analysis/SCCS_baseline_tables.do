@@ -26,7 +26,7 @@ capture	mkdir "`c(pwd)'/output/temp_data"
 adopath + "`c(pwd)'/analysis/extra_ados"
 
 *variable to cycle through each brand (AZ, PF, MOD)
-local brand "AZ"
+local brand `1'
 display "`brand'"
 capture	mkdir "`c(pwd)'/output/tables/baseline_`brand'"
 
@@ -132,7 +132,7 @@ end
 * IMPORT DATA=================================================================*/ 
 * This is currently set up in a loop per outcome, reading in each brand from the yaml 
 
-foreach outcome in BP { 
+foreach outcome in BP TM GBS { 
 
 	use `c(pwd)'/output/temp_data/sccs_popn_`outcome'_`brand', clear
 
