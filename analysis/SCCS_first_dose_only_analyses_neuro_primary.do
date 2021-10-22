@@ -120,6 +120,8 @@ rename history_any_transverse_myelitis history_TM
 rename history_any_bells_palsy history_BP
 rename history_any_guillain_barre history_GBS
 
+*for completeness in loop below
+gen history_BP_anyGPdate= history_BP
 
 *create flag to drop if cidp date before gbs date
 gen flag_X_before_GBS=1 if fu_cidp_gp <= GBS & GBS!=.
@@ -132,7 +134,7 @@ gen flag_X_before_TM=1 if fu_ms_no_gp<=TM & TM!=.
 
 *nothing to drop before BP but need dummy flag for loop
 gen flag_X_before_BP=. if BP!=.
-
+gen flag_X_before_BP_anyGPdate=. if BP_anyGPdate!=.	
 
 *define age group so can explore for effect modification by age (18-39, 40-64, 65-105)
 
