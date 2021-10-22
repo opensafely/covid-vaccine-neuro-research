@@ -126,16 +126,13 @@ syntax, variable(varname)
 	file write tablecontent ("Median (IQR)") _tab 
 	file write tablecontent (round(r(p50)),0.01) (" (") (round(r(p25)),0.01) ("-") (round(r(p75)),0.01) (")") _n
 							
-	qui summarize `variable', d
-	file write tablecontent _tab ("Min, Max") _tab 
-	file write tablecontent (round(r(min)),0.01) (", ") (round(r(max)),0.01) ("") _n
 							
 end
 
 * IMPORT DATA=================================================================*/ 
 * This is currently set up in a loop per outcome, reading in each brand from the yaml 
 
-foreach outcome in GBS TM BP { 
+foreach outcome in BP TM GBS { 
 
 	use `c(pwd)'/output/temp_data/sccs_popn_`outcome'_`brand', clear
 
@@ -185,11 +182,12 @@ foreach outcome in GBS TM BP {
 	* note: for each outcome because of naming changes in prior do-file compared to python 
 	
 	* convert each string to a date 
-	generate BP_GP = bells_palsy_gp
-	generate BP_hospital = bells_palsy_hospital 
+	* note, some of these converted in a prior program 
+	rename bells_palsy_gp BP_GP
+	rename bells_palsy_hospital BP_hospital
+	rename bells_palsy_emergency BP_emergency
 	generate BP_death = bells_palsy_death
-	generate BP_emergency = bells_palsy_emergency 
-	
+
 	generate TM_GP = transverse_myelitis_gp
 	generate TM_hospital = transverse_myelitis_hospital 
 	generate TM_death = transverse_myelitis_death
@@ -226,11 +224,6 @@ foreach outcome in GBS TM BP {
 	* specific consideration for emergency codes 
 	if "`outcome'" == "BP" { 
 		
-		rename BP_emergency _tmp 
-		gen BP_emergency = date(_tmp, "YMD")
-		drop _tmp
-		format BP_emergency %d 
-		
 		gen BP_emergency_ind = (BP_emergency != .)
 		label define BP_emergency_ind 1 ""
 		label values BP_emergency_ind BP_emergency__ind 
@@ -244,55 +237,62 @@ foreach outcome in GBS TM BP {
 	* create variables for recording in more than one setting (each person one category only)
 	* ignore emergency codes for BP for now 
 		
-	gen `outcome'_location = "GP only" if `outcome'_GP_ind == 1 & /// 
+	gen `outcome'_location = 1 if `outcome'_GP_ind == 1 & /// 
 										  `outcome'_hospital_ind == 0 & /// 
 							              `outcome'_death_ind == 0 
 								 
-	replace `outcome'_location = "Hospital only" if `outcome'_GP_ind == 0 & /// 
+	replace `outcome'_location = 2 if `outcome'_GP_ind == 0 & /// 
 													`outcome'_hospital_ind == 1 & /// 
 													`outcome'_death_ind == 0 						 
 								 
-	replace `outcome'_location = "Death only" if `outcome'_GP_ind == 0 & /// 
+	replace `outcome'_location = 3 if `outcome'_GP_ind == 0 & /// 
 												 `outcome'_hospital_ind == 0 & /// 
 												 `outcome'_death_ind == 1 			
 								 
-	replace `outcome'_location = "GP and hospital" if `outcome'_GP_ind == 1 & /// 
+	replace `outcome'_location = 4 if `outcome'_GP_ind == 1 & /// 
 													  `outcome'_hospital_ind == 1 & /// 
 													  `outcome'_death_ind == 0 	
 									 
-	replace `outcome'_location = "Hospital and death" if `outcome'_GP_ind == 0 & /// 
+	replace `outcome'_location = 5 if `outcome'_GP_ind == 0 & /// 
 														 `outcome'_hospital_ind == 1 & /// 
 														 `outcome'_death_ind == 1 		
 									  
-	replace `outcome'_location = "GP and death" if `outcome'_GP_ind == 1 & /// 
+	replace `outcome'_location = 6 if `outcome'_GP_ind == 1 & /// 
 												   `outcome'_hospital_ind == 0 & /// 
 												   `outcome'_death_ind == 1 		
 									  
-	replace `outcome'_location = "GP and hospital and death" if `outcome'_GP_ind == 1 & /// 
+	replace `outcome'_location = 7 if `outcome'_GP_ind == 1 & /// 
 																`outcome'_hospital_ind == 1 & /// 
 																`outcome'_death_ind == 1 
-									  
+								  
 	* separate consideration for how emergency codes adds on to this 
 	
 	if "`outcome'" == "BP" { 
 		
-		replace `outcome'_location = "GP and emergency" if `outcome'_location == "GP only" & `outcome'_emergency_ind == 1 
-		replace `outcome'_location = "Hospital and emergency" if `outcome'_location == "Emergency only" & `outcome'_emergency_ind == 1 
-		replace `outcome'_location = "Death and emergency" if `outcome'_location == "Death only" & `outcome'_emergency_ind == 1 
+		replace `outcome'_location = 8 if `outcome'_location == 1 & `outcome'_emergency_ind == 1 
+		replace `outcome'_location = 9 if `outcome'_location == 2 & `outcome'_emergency_ind == 1 
+		replace `outcome'_location = 10 if `outcome'_location == 3 & `outcome'_emergency_ind == 1 
 		
-		replace `outcome'_location = "GP and hospital and emergency" if `outcome'_location == "GP and hospital" & `outcome'_emergency_ind == 1 
-		replace `outcome'_location = "GP and death and emergency" if `outcome'_location == "GP and death" & `outcome'_emergency_ind == 1 
-		replace `outcome'_location = "Hospital and death and emergency" if `outcome'_location == "Hospital and death" & `outcome'_emergency_ind == 1 
+		replace `outcome'_location = 11 if `outcome'_location == 4 & `outcome'_emergency_ind == 1 
+		replace `outcome'_location = 12 if `outcome'_location == 5 & `outcome'_emergency_ind == 1 
+		replace `outcome'_location = 13 if `outcome'_location == 6 & `outcome'_emergency_ind == 1 
 		
-		replace `outcome'_location = "GP and hospital and death and emergency" if `outcome'_location == "GP and hospital and death" & `outcome'_emergency_ind == 1 
+		replace `outcome'_location = 14 if `outcome'_location == 7 & `outcome'_emergency_ind == 1 
 
 		
 	}
-	
+
 	else di "BP outcomes are not relevant to this case series, variables not created"
 	
-	* Tab diagnosis location (unique) note not safetab as need to see recording and log will not be released 
+	label define `outcome'_location 1 "GP only" 2 "Hospital only" 3 "Death only" 4 "GP and hospital" ///
+	5 "Hospital and death" 6 "GP and death" 7 "GP and hospital and death" ///
+	8 "GP and emergency" 9 "Hospital and emergency" 10 "Death and emergency" ///
+	11 "GP and hospital and emergency" 12 "GP and death and emergency"  13 "Hospital and death and emergency" ///
+	14 "GP and hospital and death and emergency"
 	
+	label values `outcome'_location `outcome'_location 
+	
+	* Tab diagnosis location (unique) note not safetab as need to see recording and log will not be released 
 	tab `outcome'_location, m
 
 	** Add variable and value labels to variables that you want to present in tables 
@@ -353,28 +353,10 @@ foreach outcome in GBS TM BP {
 	file write tablecontent _n 
 	safetab prior_covid, m
 	
-	tabulatevariable, variable(`outcome'_GP_ind) min(1) max(1) 
+	tabulatevariable, variable(`outcome'_location) min(1) max(14) 
 	file write tablecontent _n 
-	safetab `outcome'_GP_ind, m
+	safetab `outcome'_location, m
 	
-	tabulatevariable, variable(`outcome'_hospital_ind) min(1) max(1) 
-	file write tablecontent _n 
-	safetab `outcome'_hospital_ind, m
-	
-	tabulatevariable, variable(`outcome'_death_ind) min(1) max(1) 
-	file write tablecontent _n 
-	safetab `outcome'_death_ind, m
-	
-	* add BP emergency codes (only one outcome)
-	
-	if "`outcome'" == "BP" {
-
-		tabulatevariable, variable(`outcome'_emergency_ind) min(1) max(1) 
-		file write tablecontent _n 
-		safetab `outcome'_emergency_ind, m
-			
-	}
-
 	file close tablecontent
 	
 	} 
