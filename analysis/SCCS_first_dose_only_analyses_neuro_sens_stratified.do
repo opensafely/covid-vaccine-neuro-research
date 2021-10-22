@@ -36,7 +36,7 @@ log using "`c(pwd)'/output/logs/SCCS_first_dose_only_analyses_neuro_sens_stratif
 * Setup file for posting results
 tempname results
 postfile `results' ///
- str4(outcome) str10(brand) str50(analysis) str35(subanalysis) str20(category) comparison_period irr lc uc ///
+ str4(outcome) str10(brand) str50(analysis) str35(subanalysis) str20(category) str20(vlab) comparison_period irr lc uc ///
  using "`c(pwd)'/output/tables/results_summary_stratified_`brand'", replace
  
 foreach j in BP TM GBS{
@@ -68,7 +68,8 @@ local eventnum_age3 = r(N)
 
  forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("") ("18-39") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("") ("18-39") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
 
@@ -79,7 +80,8 @@ local eventnum_age3 = r(N)
 
  forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("") ("40-64") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("") ("40-64") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
 
@@ -91,7 +93,8 @@ local eventnum_age3 = r(N)
 
  forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("") ("65-105") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("") ("65-105") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
 
@@ -105,7 +108,8 @@ local eventnum_age3 = r(N)
 
  forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in week") ("18-39") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in week") ("18-39") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
 
@@ -116,7 +120,8 @@ local eventnum_age3 = r(N)
 
  forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in week") ("40-64") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in week") ("40-64") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
 
@@ -127,7 +132,8 @@ local eventnum_age3 = r(N)
 
  forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in week") ("65-105") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in week") ("65-105") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
 
@@ -140,7 +146,8 @@ local eventnum_age3 = r(N)
 
  forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("18-39") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("18-39") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
 
@@ -151,7 +158,8 @@ local eventnum_age3 = r(N)
 
  forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("40-64") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("40-64") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
 
@@ -163,7 +171,8 @@ local eventnum_age3 = r(N)
 
  forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("65-105") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("65-105") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
 
@@ -188,7 +197,8 @@ local eventnum_hcw = r(N)
 
  forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("") ("exclude hcw") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("") ("exclude hcw") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
 
@@ -200,7 +210,8 @@ local eventnum_hcw = r(N)
 
    forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in week") ("exclude hcw") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in week") ("exclude hcw") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
 
@@ -213,7 +224,8 @@ local eventnum_hcw = r(N)
 
   forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("exclude hcw") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("exclude hcw") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
 
@@ -240,7 +252,8 @@ local eventnum_nocov = r(N)
 
   forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("") ("prior covid") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("") ("prior covid") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
  display "no prior covid"
@@ -250,7 +263,8 @@ local eventnum_nocov = r(N)
 
   forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("") ("no prior covid") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("") ("no prior covid") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
 
@@ -262,7 +276,8 @@ local eventnum_nocov = r(N)
 
   forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in week") ("prior covid") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in week") ("prior covid") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  } 
  
@@ -273,7 +288,8 @@ local eventnum_nocov = r(N)
 
   forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in week") ("no prior covid") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in week") ("no prior covid") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  } 
 
@@ -286,7 +302,8 @@ local eventnum_nocov = r(N)
 
   forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in week") ("prior covid") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in week") ("prior covid") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  } 
 
@@ -297,7 +314,8 @@ local eventnum_nocov = r(N)
 
   forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("no prior covid") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("no prior covid") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  } 
 } 

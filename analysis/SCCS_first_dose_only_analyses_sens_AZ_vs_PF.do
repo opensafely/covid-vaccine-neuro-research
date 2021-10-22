@@ -55,7 +55,7 @@ local eventnum_PF = r(N)
 
  tempname results
 	postfile `results' ///
-		str4(outcome) str10(brand) str50(analysis) str35(subanalysis) str20(category) comparison_period irr lc uc ///
+		str4(outcome) str10(brand) str50(analysis) str35(subanalysis) str20(category) str20(vlab) comparison_period irr lc uc ///
 		using "`c(pwd)'/output/tables/results_summary_sens_AZ_vs_PF", replace
  
  *head to head comparison- AZ vs PF
@@ -79,7 +79,8 @@ local eventnum_PF = r(N)
  
   forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("AZ vs PF primary risk window") ("") ("First = AZ") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("AZ vs PF primary risk window") ("") ("First = AZ") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
  else di "DID NOT CONVERGE - `j' AZ (RESTRICTED TO DOSES AFTER 1st JAN)"
@@ -94,7 +95,8 @@ local eventnum_PF = r(N)
  
   forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("AZ vs PF primary risk window") ("") ("First = PF") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("AZ vs PF primary risk window") ("") ("First = PF") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
 	}
 
@@ -109,7 +111,8 @@ local eventnum_PF = r(N)
  
   forvalues v = 1/4 {
     local k = `v' + 10 + (`v'-1) 
-	post `results'  ("`j'") ("`brand'") ("AZ vs PF primary risk window") ("") ("AZ vs PF") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("AZ vs PF primary risk window") ("") ("AZ vs PF") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
 	}
 else di "DID NOT CONVERGE - `j' AZ VS PF"
@@ -125,7 +128,8 @@ else di "DID NOT CONVERGE - `j' AZ VS PF"
  
   forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("AZ vs PF primary risk window") ("add in week") ("First = AZ") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("AZ vs PF primary risk window") ("add in week") ("First = AZ") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
 	}
  else di "DID NOT CONVERGE - `j' AZ (RESTRICTED TO DOSES AFTER 1st JAN) - WEEK ADJ"
@@ -138,7 +142,8 @@ else di "DID NOT CONVERGE - `j' AZ VS PF"
  
   forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("AZ vs PF primary risk window") ("add in week") ("First = PF") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("AZ vs PF primary risk window") ("add in week") ("First = PF") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
  else di "DID NOT CONVERGE - `j' PF (RESTRICTED TO DOSES AFTER 1st JAN) - WEEK ADJ"
@@ -152,7 +157,8 @@ else di "DID NOT CONVERGE - `j' AZ VS PF"
  
   forvalues v = 1/4 {
     local k = `v' + 10 + (`v'-1) 
-	post `results'  ("`j'") ("`brand'") ("AZ vs PF primary risk window") ("add in week") ("AZ vs PF") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("AZ vs PF primary risk window") ("add in week") ("AZ vs PF") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
 	}
  else di "DID NOT CONVERGE - `j' AZ VS PF -  WEEK ADJ "
@@ -166,7 +172,8 @@ else di "DID NOT CONVERGE - `j' AZ VS PF"
  
   forvalues v = 1/4 {
     local k = `v' + 10 + (`v'-1) 
-	post `results'  ("`j'") ("`brand'") ("AZ vs PF primary risk window") ("add in week interction") ("AZ vs PF") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("AZ vs PF primary risk window") ("add in week interction") ("AZ vs PF") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
  
@@ -183,7 +190,8 @@ else di "DID NOT CONVERGE - `j' AZ VS PF"
  
   forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("AZ vs PF primary risk window") ("add in 2 week") ("First = AZ") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("AZ vs PF primary risk window") ("add in 2 week") ("First = AZ") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
  
@@ -197,7 +205,8 @@ else di "DID NOT CONVERGE - `j' AZ VS PF"
  
   forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("AZ vs PF primary risk window") ("add in 2 week") ("First = PF") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("AZ vs PF primary risk window") ("add in 2 week") ("First = PF") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
   else di "DID NOT CONVERGE - `j' PF (RESTRICTED TO DOSES AFTER 1st JAN) -2 WEEK ADJ"
@@ -211,7 +220,8 @@ else di "DID NOT CONVERGE - `j' AZ VS PF"
  
   forvalues v = 1/4 {
     local k = `v' + 10 + (`v'-1) 
-	post `results'  ("`j'") ("`brand'") ("AZ vs PF primary risk window") ("add in 2 week") ("AZ vs PF") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("AZ vs PF primary risk window") ("add in 2 week") ("AZ vs PF") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
  else di "DID NOT CONVERGE - `j' AZ VS PF - 2 WEEK ADJ "
@@ -224,7 +234,8 @@ else di "DID NOT CONVERGE - `j' AZ VS PF"
  
   forvalues v = 1/4 {
     local k = `v' + 10 + (`v'-1) 
-	post `results'  ("`j'") ("`brand'") ("AZ vs PF primary risk window") ("add in 2 week interction") ("AZ vs PF") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("AZ vs PF primary risk window") ("add in 2 week interction") ("AZ vs PF") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
   else di "DID NOT CONVERGE - `j' AZ VS PF - 2 WEEK ADJ & INTERACTION"

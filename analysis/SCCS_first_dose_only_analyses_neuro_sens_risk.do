@@ -36,7 +36,7 @@ log using "`c(pwd)'/output/logs/SCCS_first_dose_only_analyses_neuro_sens_risk_`b
 * Setup file for posting results
   tempname results
 	postfile `results' ///
-		str4(outcome) str10(brand) str50(analysis) str35(subanalysis) str20(category) comparison_period irr lc uc ///
+		str4(outcome) str10(brand) str50(analysis) str35(subanalysis) str20(category) str20(vlab) comparison_period irr lc uc ///
 		using "`c(pwd)'/output/tables/results_summary_sens_risk_`brand'", replace
 		
 
@@ -66,8 +66,9 @@ use "`c(pwd)'/output/temp_data/sccs_cutp_data_`j'_`brand'.dta", clear
     mat b = r(table) 
  
   forvalues v = 1/4 {
-    local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Extended risk window after 1d") ("") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+    local k = `v' + 1
+	local vlab: label vacc1_`j'_ext1 `v'
+	post `results'  ("`j'") ("`brand'") ("Extended risk window after 1d") ("") ("") ("`vlab'")  (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
  }
 
@@ -80,8 +81,9 @@ use "`c(pwd)'/output/temp_data/sccs_cutp_data_`j'_`brand'.dta", clear
      mat b = r(table) 
  
   forvalues v = 1/4 {
-    local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Extended risk window after 1d") ("add in week") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+    local k = `v' + 1
+	local vlab: label vacc1_`j'_ext1 `v'
+	post `results'  ("`j'") ("`brand'") ("Extended risk window after 1d") ("add in week") ("") ("`vlab'")   (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
 	}
 
@@ -96,7 +98,8 @@ use "`c(pwd)'/output/temp_data/sccs_cutp_data_`j'_`brand'.dta", clear
  
   forvalues v = 1/4 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Extended risk window after 1d") ("add in 2 week") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'_ext1 `v'
+	post `results'  ("`j'") ("`brand'") ("Extended risk window after 1d") ("add in 2 week") ("") ("`vlab'")   (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
 	}
  
@@ -118,7 +121,8 @@ use "`c(pwd)'/output/temp_data/sccs_cutp_data_`j'_`brand'.dta", clear
  
   forvalues v = 1/5 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Post-vacc non-risk period after 1d") ("") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'_non_risk_post_vac1 `v'
+	post `results'  ("`j'") ("`brand'") ("Post-vacc non-risk period after 1d") ("") ("") ("`vlab'")  (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
 	}
 
@@ -131,7 +135,8 @@ use "`c(pwd)'/output/temp_data/sccs_cutp_data_`j'_`brand'.dta", clear
  
   forvalues v = 1/5 {
     local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Post-vacc non-risk period after 1d") ("add in week") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	local vlab: label vacc1_`j'_non_risk_post_vac1 `v'
+	post `results'  ("`j'") ("`brand'") ("Post-vacc non-risk period after 1d") ("add in week") ("") ("`vlab'")   (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
 	}
 
@@ -144,8 +149,9 @@ use "`c(pwd)'/output/temp_data/sccs_cutp_data_`j'_`brand'.dta", clear
       mat b = r(table) 
  
   forvalues v = 1/5 {
-    local k = `v' + 1 
-	post `results'  ("`j'") ("`brand'") ("Post-vacc non-risk period after 1d") ("add in 2 week") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+    local k = `v' + 1
+	local vlab: label vacc1_`j'_non_risk_post_vac1 `v'
+	post `results'  ("`j'") ("`brand'") ("Post-vacc non-risk period after 1d") ("add in 2 week") ("") ("`vlab'")   (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 	}
 	}
  
