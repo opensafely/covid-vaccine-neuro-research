@@ -32,9 +32,9 @@ log using "`c(pwd)'/output/logs/SCCS_first_dose_only_analyses_sens_AZ_vs_PF.log"
 /* ANALYSIS===================================================================*/
 
 * Setup file for posting results
-  tempname results
+ tempname results
 	postfile `results' ///
-		str4(outcome) str10(brand) str50(analysis) str35(subanalysis) str20(category) comparison_period irr lc uc ///
+		str4(outcome) str10(brand) str50(analysis) str35(subanalysis) str20(category) str20(vlab) comparison_period irr lc uc ///
 		using "`c(pwd)'/output/tables/results_summary_sens_AZ_vs_PF", replace
 		
 foreach j in BP TM GBS{
@@ -52,11 +52,6 @@ local eventnum_AZ = r(N)
 
 count if AZ == 0
 local eventnum_PF = r(N)
-
- tempname results
-	postfile `results' ///
-		str4(outcome) str10(brand) str50(analysis) str35(subanalysis) str20(category) str20(vlab) comparison_period irr lc uc ///
-		using "`c(pwd)'/output/tables/results_summary_sens_AZ_vs_PF", replace
  
  *head to head comparison- AZ vs PF
  display "****************"
