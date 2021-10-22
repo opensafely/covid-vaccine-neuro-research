@@ -84,7 +84,7 @@ keep patient_id BP first_gp first_hosp first_emer bells_palsy_gp bells_palsy_hos
 *check that each individual has BP equal to >=1 of GP, hospital or emergency date
 gen all_miss=1 if first_gp==. & first_hosp==. & first_emer==.
 
-*datacheck all_miss==.
+*datacheck all_miss==., nolist
 
 
 *save an merge with final SCCS dataset for BP (some patient ids will be dropped and shouldn't be included in counts, etc.)
@@ -140,8 +140,8 @@ count if first_gp==1 & first_hosp==1 & first_emer==1 & num==1
 gen first_source="GP" if first_gp==1	
 replace first_source="hosp" if first_hosp==1 & first_source==""
 replace first_source="emer" if first_emer==1 & first_source==""
-	
-*datacheck first_source!=""
+
+*datacheck first_source!="", nolist
 drop if first_source==""
 
 *interested in non-risk and risk window time only

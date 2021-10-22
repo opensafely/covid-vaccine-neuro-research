@@ -194,7 +194,7 @@ datacheck vacc_date2- vacc_date1 >=21 if vacc_date2!=., nolist
 * Setup file for posting results
   tempname results
 	postfile `results' ///
-		str4(outcome) str10(brand) str50(analysis) str35(subanalysis) str20(category) comparison_period irr lc uc ///
+		str4(outcome) str10(brand) str50(analysis) str35(subanalysis) str20(category) str20(vlab) comparison_period irr lc uc ///
 		using "`c(pwd)'/output/tables/results_summary_second_doses_`brand'", replace
 		
 foreach j in BP TM GBS {
@@ -395,7 +395,8 @@ foreach j in BP TM GBS {
  
 		forvalues v = 1/8 {
 			local k = `v' + 1 
-			post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+			local vlab: label vacc1_`j'_incl_dose21 `v'
+			post `results'  ("`j'") ("`brand'") ("Second dose") ("") ("") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 		}
 	}
 	else di "DID NOT CONVERGE - `brand' SECOND DOSE UNADJUSTED"
@@ -408,7 +409,8 @@ foreach j in BP TM GBS {
  
 		forvalues v = 1/8 {
 			local k = `v' + 1 
-			post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+			local vlab: label vacc1_`j'_incl_dose21 `v'
+			post `results'  ("`j'") ("`brand'") ("Second dose") ("add in week") ("") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 		}
 	}
 	else di "DID NOT CONVERGE - `brand' SECOND DOSE 1 WEEK"
@@ -421,7 +423,8 @@ foreach j in BP TM GBS {
  
 		forvalues v = 1/8 {
 			local k = `v' + 1 
-			post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+			local vlab: label vacc1_`j'_incl_dose21 `v'
+			post `results'  ("`j'") ("`brand'") ("Second dose") ("add in 2 week") ("") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 		}
 	}
 	else di "DID NOT CONVERGE - `brand' SECOND DOSE 2 WEEK"
