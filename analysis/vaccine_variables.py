@@ -24,7 +24,7 @@ def generate_vaccine_variables(index_date):
     # pfizer (first dose) 
     first_pfizer_date=patients.with_tpp_vaccination_record(
         target_disease_matches="SARS-2 CORONAVIRUS",
-        product_name_matches="COVID-19 mRNA Vaccine Pfizer-BioNTech BNT162b2 30micrograms/0.3ml dose conc for susp for inj MDV",
+        product_name_matches="COVID-19 mRNA Vaccine Comirnaty 30micrograms/0.3ml dose conc for susp for inj MDV (Pfizer)",
         on_or_after="2020-12-07",  
         find_first_match_in_period=True,
         returning="date",
@@ -88,7 +88,7 @@ def generate_vaccine_variables(index_date):
     # pfizer (second dose) 
     second_pfizer_date=patients.with_tpp_vaccination_record(
         target_disease_matches="SARS-2 CORONAVIRUS",
-        product_name_matches="COVID-19 mRNA Vaccine Pfizer-BioNTech BNT162b2 30micrograms/0.3ml dose conc for susp for inj MDV",
+        product_name_matches="COVID-19 mRNA Vaccine Comirnaty 30micrograms/0.3ml dose conc for susp for inj MDV (Pfizer)",
         on_or_after="first_any_vaccine_date + 21 days",  
         find_first_match_in_period=True,
         returning="date",
