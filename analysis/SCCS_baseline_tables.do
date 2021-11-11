@@ -278,7 +278,7 @@ foreach outcome in BP TM GBS {
 		replace `outcome'_location = 13 if `outcome'_location == 6 & `outcome'_emergency_ind == 1 
 		
 		replace `outcome'_location = 14 if `outcome'_location == 7 & `outcome'_emergency_ind == 1 
-
+		replace `outcome'_location = 15 if `outcome'_location == . & `outcome'_emergency_ind == 1 
 		
 	}
 
@@ -288,7 +288,7 @@ foreach outcome in BP TM GBS {
 	5 "Hospital and death" 6 "GP and death" 7 "GP and hospital and death" ///
 	8 "GP and emergency" 9 "Hospital and emergency" 10 "Death and emergency" ///
 	11 "GP and hospital and emergency" 12 "GP and death and emergency"  13 "Hospital and death and emergency" ///
-	14 "GP and hospital and death and emergency"
+	14 "GP and hospital and death and emergency" 15 "Emergency only"
 	
 	label values `outcome'_location `outcome'_location 
 	
@@ -353,7 +353,7 @@ foreach outcome in BP TM GBS {
 	file write tablecontent _n 
 	safetab prior_covid, m
 	
-	tabulatevariable, variable(`outcome'_location) min(1) max(14) 
+	tabulatevariable, variable(`outcome'_location) min(1) max(15) 
 	file write tablecontent _n 
 	safetab `outcome'_location, m
 	
