@@ -1,0 +1,24 @@
+Table 1: Demographics of individuals in the PF GBS case series
+		GBS
+		N (%)
+Total Cases		            356 (100.00)
+
+Age	Median (IQR)	69.5 (53.5-80)
+
+Age Group	18-39	             35 (9.83)
+	40-64	            111 (31.18)
+	65-105	            210 (58.99)
+	Missing	              0 (0.00)
+
+Gender	Men	            206 (57.87)
+	Women	            150 (42.13)
+	Missing	              0 (0.00)
+
+Prior Covid		             28 (7.87)
+
+	GP only	             67 (18.82)
+	Hospital only	            228 (64.04)
+	Death only	              0 (0.00)
+	[REDACTED COMBINATIONS]
+	More than one source (manual) 61	
+

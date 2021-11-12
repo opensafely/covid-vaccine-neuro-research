@@ -1,0 +1,49 @@
+outcome,brand,analysis,subanalysis,category,vlab,comparison_period,irr,lc,uc
+BP,PF,Primary risk window after 1d,,,pre-vacc 14,1,.72521412,.60088509,.87526798
+[REDACTED]
+[REDACTED]
+BP,PF,Primary risk window after 1d,,,days 4-28,4,.88604504,.7760011,1.0116941
+BP,PF,Primary risk window after 1d,add in week,,pre-vacc 14,1,.75954086,.62349981,.9252646
+[REDACTED]
+[REDACTED]
+BP,PF,Primary risk window after 1d,add in week,,days 4-28,4,.88074958,.76097125,1.0193813
+BP,PF,Primary risk window after 1d,add in 2 week,,pre-vacc 14,1,.76425874,.62752813,.93078125
+[REDACTED]
+[REDACTED]
+BP,PF,Primary risk window after 1d,add in 2 week,,days 4-28,4,.88438433,.76441175,1.0231863
+TM,PF,Primary risk window after 1d,,,pre-vacc 28,1,.86066937,.41929266,1.76667
+[REDACTED]
+[REDACTED]
+TM,PF,Primary risk window after 1d,,,days 4-28,4,1.483647,.81585169,2.6980495
+TM,PF,Primary risk window after 1d,add in week,,pre-vacc 28,1,1.026439,.45968434,2.2919574
+[REDACTED]
+[REDACTED]
+TM,PF,Primary risk window after 1d,add in week,,days 4-28,4,1.4622195,.720339,2.9681659
+TM,PF,Primary risk window after 1d,add in 2 week,,pre-vacc 28,1,1.0068223,.45229545,2.2412148
+[REDACTED]
+[REDACTED]
+TM,PF,Primary risk window after 1d,add in 2 week,,days 4-28,4,1.4399693,.7111873,2.9155633
+GBS,PF,Primary risk window after 1d,,,pre-vacc 28,1,.49886134,.29186255,.85267073
+[REDACTED]
+[REDACTED]
+GBS,PF,Primary risk window after 1d,,,days 4-42,4,1.0006018,.71363157,1.4029703
+GBS,PF,Primary risk window after 1d,add in week,,pre-vacc 28,1,.62507832,.3359451,1.1630558
+[REDACTED]
+[REDACTED]
+GBS,PF,Primary risk window after 1d,add in week,,days 4-42,4,1.0149851,.63987994,1.6099812
+GBS,PF,Primary risk window after 1d,add in 2 week,,pre-vacc 28,1,.6070767,.32795966,1.1237422
+[REDACTED]
+[REDACTED]
+GBS,PF,Primary risk window after 1d,add in 2 week,,days 4-42,4,1.0150874,.64386892,1.6003293
+BP_a,PF,Primary risk window after 1d,,,1,1,.66183877,.50747049,.8631646
+[REDACTED]
+[REDACTED]
+BP_a,PF,Primary risk window after 1d,,,4,4,.91022396,.76156205,1.0879058
+BP_a,PF,Primary risk window after 1d,add in week,,1,1,.70102686,.53171939,.92424446
+[REDACTED]
+[REDACTED]
+BP_a,PF,Primary risk window after 1d,add in week,,4,4,.91111618,.74992502,1.1069542
+BP_a,PF,Primary risk window after 1d,add in 2 week,,1,1,.71307951,.541062,.93978584
+[REDACTED]
+[REDACTED]
+BP_a,PF,Primary risk window after 1d,add in 2 week,,4,4,.91627568,.75451094,1.1127223

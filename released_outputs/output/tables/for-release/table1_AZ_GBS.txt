@@ -1,0 +1,26 @@
+Table 1: Demographics of individuals in the AZ GBS case series
+		GBS
+		N (%)
+Total Cases		            607 (100.00)
+
+Age	Median (IQR)	63 (52-73)
+
+Age Group	18-39	             48 (7.91)
+	40-64	            279 (45.96)
+	65-105	            280 (46.13)
+	Missing	              0 (0.00)
+
+Gender	Men	            333 (54.86)
+	Women	            274 (45.14)
+	Missing	              0 (0.00)
+
+Prior Covid		             68 (11.20)
+
+	GP only	             85 (14.00)
+	Hospital only	            358 (58.98)
+	Death only	              0 (0.00)
+	GP and hospital	            158 (26.03)
+	[REDACTED OTHER COMBINATIONS]
+	Other combinations (manual) 6	
+
+

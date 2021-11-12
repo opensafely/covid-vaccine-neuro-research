@@ -1,0 +1,82 @@
+outcome,brand,analysis,subanalysis,category,vlab,comparison_period,irr,lc,uc
+BP,AZ,Extended risk window after 1d,,,pre-vacc 14,1,.68206316,.57978201,.80238807
+[REDACTED]
+[REDACTED]
+BP,AZ,Extended risk window after 1d,,,days 4-42,4,1.2636385,1.1711075,1.3634803
+BP,AZ,Extended risk window after 1d,add in week,,pre-vacc 14,1,.69788474,.58685172,.8299253
+[REDACTED]
+[REDACTED]
+BP,AZ,Extended risk window after 1d,add in week,,days 4-42,4,1.2375306,1.1236953,1.3628979
+BP,AZ,Extended risk window after 1d,add in 2 week,,pre-vacc 14,1,.69412059,.58385885,.82520527
+[REDACTED]
+[REDACTED]
+BP,AZ,Extended risk window after 1d,add in 2 week,,days 4-42,4,1.236058,1.1227098,1.3608497
+BP,AZ,Post-vacc non-risk period after 1d,,,1,1,.65120959,.55082762,.76988512
+[REDACTED]
+[REDACTED]
+BP,AZ,Post-vacc non-risk period after 1d,,,4,4,1.2616341,1.1424826,1.3932121
+BP,AZ,Post-vacc non-risk period after 1d,,,5,5,.94425619,.88951069,1.0023711
+BP,AZ,Post-vacc non-risk period after 1d,add in week,,1,1,.72748208,.59411424,.89078856
+[REDACTED]
+[REDACTED]
+BP,AZ,Post-vacc non-risk period after 1d,add in week,,4,4,1.3354508,1.1752542,1.5174834
+BP,AZ,Post-vacc non-risk period after 1d,add in week,,5,5,1.0911547,.91132993,1.3064629
+BP,AZ,Post-vacc non-risk period after 1d,add in 2 week,,1,1,.7225095,.59041476,.88415807
+[REDACTED]
+[REDACTED]
+BP,AZ,Post-vacc non-risk period after 1d,add in 2 week,,4,4,1.3305887,1.1714782,1.5113097
+BP,AZ,Post-vacc non-risk period after 1d,add in 2 week,,5,5,1.0884123,.91029692,1.3013791
+TM,AZ,Extended risk window after 1d,,,pre-vacc 28,1,.29951191,.13304129,.67428231
+[REDACTED]
+[REDACTED]
+TM,AZ,Extended risk window after 1d,,,days 4-42,4,1.075784,.73414189,1.5764134
+TM,AZ,Extended risk window after 1d,add in week,,pre-vacc 28,1,.35937217,.1472078,.87732005
+[REDACTED]
+[REDACTED]
+TM,AZ,Extended risk window after 1d,add in week,,days 4-42,4,1.438894,.85072893,2.4336967
+TM,AZ,Extended risk window after 1d,add in 2 week,,pre-vacc 28,1,.36401206,.14925332,.88778442
+[REDACTED]
+[REDACTED]
+TM,AZ,Extended risk window after 1d,add in 2 week,,days 4-42,4,1.4204109,.84350508,2.3918848
+TM,AZ,Post-vacc non-risk period after 1d,,,1,1,.30670312,.1331746,.70634198
+[REDACTED]
+[REDACTED]
+TM,AZ,Post-vacc non-risk period after 1d,,,4,4,1.2593769,.7791701,2.0355377
+TM,AZ,Post-vacc non-risk period after 1d,,,5,5,1.0202175,.76557845,1.3595523
+TM,AZ,Post-vacc non-risk period after 1d,add in week,,1,1,.49116093,.15905312,1.5167202
+[REDACTED]
+[REDACTED]
+TM,AZ,Post-vacc non-risk period after 1d,add in week,,4,4,2.0413795,1.0316581,4.0393519
+TM,AZ,Post-vacc non-risk period after 1d,add in week,,5,5,1.5497384,.4869765,4.931838
+TM,AZ,Post-vacc non-risk period after 1d,add in 2 week,,1,1,.54701233,.17778614,1.6830474
+[REDACTED]
+[REDACTED]
+TM,AZ,Post-vacc non-risk period after 1d,add in 2 week,,4,4,2.1240873,1.0808705,4.1741786
+TM,AZ,Post-vacc non-risk period after 1d,add in 2 week,,5,5,1.8116357,.57297099,5.7280807
+GBS,AZ,Extended risk window after 1d,,,pre-vacc 28,1,.55273783,.36279765,.84211987
+[REDACTED]
+[REDACTED]
+GBS,AZ,Extended risk window after 1d,,,days 4-90,4,1.5906894,1.3398412,1.8885019
+GBS,AZ,Extended risk window after 1d,add in week,,pre-vacc 28,1,.48837715,.3001937,.79452777
+[REDACTED]
+[REDACTED]
+GBS,AZ,Extended risk window after 1d,add in week,,days 4-90,4,1.3847399,.99355996,1.9299333
+GBS,AZ,Extended risk window after 1d,add in 2 week,,pre-vacc 28,1,.49627903,.30536553,.80655104
+[REDACTED]
+[REDACTED]
+GBS,AZ,Extended risk window after 1d,add in 2 week,,days 4-90,4,1.3828001,.99482471,1.9220834
+GBS,AZ,Post-vacc non-risk period after 1d,,,1,1,.55960375,.35949022,.87111229
+[REDACTED]
+[REDACTED]
+GBS,AZ,Post-vacc non-risk period after 1d,,,4,4,2.2777352,1.7889317,2.9000981
+GBS,AZ,Post-vacc non-risk period after 1d,,,5,5,1.0255183,.83592522,1.2581124
+GBS,AZ,Post-vacc non-risk period after 1d,add in week,,1,1,.96610963,.51102877,1.8264487
+[REDACTED]
+[REDACTED]
+GBS,AZ,Post-vacc non-risk period after 1d,add in week,,4,4,2.8705649,1.9727736,4.1769333
+GBS,AZ,Post-vacc non-risk period after 1d,add in week,,5,5,2.2159431,1.0926307,4.4941106
+GBS,AZ,Post-vacc non-risk period after 1d,add in 2 week,,1,1,.97355235,.51739144,1.83189
+[REDACTED]
+[REDACTED]
+GBS,AZ,Post-vacc non-risk period after 1d,add in 2 week,,4,4,2.8742485,1.9810344,4.170197
+GBS,AZ,Post-vacc non-risk period after 1d,add in 2 week,,5,5,2.1920004,1.0890356,4.4120374

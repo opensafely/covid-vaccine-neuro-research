@@ -1,0 +1,73 @@
+outcome,brand,analysis,subanalysis,category,vlab,comparison_period,irr,lc,uc
+BP,PF,Second dose,,,pre-vacc,1,.71901196,.59557313,.86803484
+[REDACTED]
+[REDACTED]
+BP,PF,Second dose,,,days 4-28 or 42,4,.88193274,.77184051,1.0077281
+BP,PF,Second dose,,,pre-vacc dose2,5,.85524249,.69666201,1.0499206
+[REDACTED]
+[REDACTED]
+BP,PF,Second dose,,,days 4-28 or 42 dose,8,.99338025,.86171055,1.1451691
+BP,PF,Second dose,add in week,,pre-vacc,1,.74611437,.61227649,.90920794
+[REDACTED]
+[REDACTED]
+BP,PF,Second dose,add in week,,days 4-28 or 42,4,.86529559,.74701077,1.00231
+BP,PF,Second dose,add in week,,pre-vacc dose2,5,.75489044,.60738075,.93822455
+[REDACTED]
+[REDACTED]
+BP,PF,Second dose,add in week,,days 4-28 or 42 dose,8,.89012039,.75968421,1.0429522
+BP,PF,Second dose,add in 2 week,,pre-vacc,1,.75091511,.61636585,.91483575
+[REDACTED]
+[REDACTED]
+BP,PF,Second dose,add in 2 week,,days 4-28 or 42,4,.86902088,.75050926,1.0062464
+BP,PF,Second dose,add in 2 week,,pre-vacc dose2,5,.75411016,.60695636,.93694079
+[REDACTED]
+[REDACTED]
+BP,PF,Second dose,add in 2 week,,days 4-28 or 42 dose,8,.89431363,.76352549,1.0475051
+TM,PF,Second dose,,,pre-vacc,1,.63240653,.20056178,1.9940889
+[REDACTED]
+[REDACTED]
+TM,PF,Second dose,,,days 4-28 or 42,4,1.4573249,.80029196,2.6537764
+TM,PF,Second dose,,,pre-vacc dose2,5,.84855545,.26771247,2.6896255
+[REDACTED]
+[REDACTED]
+TM,PF,Second dose,,,days 4-28 or 42 dose,8,.93819296,.40866771,2.1538429
+TM,PF,Second dose,add in week,,pre-vacc,1,.6246202,.18534639,2.1049798
+[REDACTED]
+[REDACTED]
+TM,PF,Second dose,add in week,,days 4-28 or 42,4,1.3203281,.65189886,2.6741359
+TM,PF,Second dose,add in week,,pre-vacc dose2,5,.62149805,.18124864,2.1311049
+[REDACTED]
+[REDACTED]
+TM,PF,Second dose,add in week,,days 4-28 or 42 dose,8,.81552017,.31819737,2.0901277
+TM,PF,Second dose,add in 2 week,,pre-vacc,1,.60944617,.18109679,2.0509729
+[REDACTED]
+[REDACTED]
+TM,PF,Second dose,add in 2 week,,days 4-28 or 42,4,1.301283,.64402956,2.6292851
+TM,PF,Second dose,add in 2 week,,pre-vacc dose2,5,.61840236,.18187827,2.1026235
+[REDACTED]
+[REDACTED]
+TM,PF,Second dose,add in 2 week,,days 4-28 or 42 dose,8,.83673823,.32674018,2.1427755
+GBS,PF,Second dose,,,pre-vacc,1,.56008744,.27745888,1.1306105
+[REDACTED]
+[REDACTED]
+GBS,PF,Second dose,,,days 4-28 or 42,4,.88098884,.57110733,1.3590114
+GBS,PF,Second dose,,,pre-vacc dose2,5,.51149362,.22753988,1.1498016
+[REDACTED]
+[REDACTED]
+GBS,PF,Second dose,,,days 4-28 or 42 dose,8,.83957136,.52039653,1.3545058
+GBS,PF,Second dose,add in week,,pre-vacc,1,.64342946,.30123571,1.3743438
+[REDACTED]
+[REDACTED]
+GBS,PF,Second dose,add in week,,days 4-28 or 42,4,.85654372,.51287806,1.4304904
+GBS,PF,Second dose,add in week,,pre-vacc dose2,5,.37484941,.16075206,.87409198
+[REDACTED]
+[REDACTED]
+GBS,PF,Second dose,add in week,,days 4-28 or 42 dose,8,.57577574,.33710986,.98341143
+GBS,PF,Second dose,add in 2 week,,pre-vacc,1,.63520998,.29862252,1.3511764
+[REDACTED]
+[REDACTED]
+GBS,PF,Second dose,add in 2 week,,days 4-28 or 42,4,.87202048,.52428961,1.4503812
+GBS,PF,Second dose,add in 2 week,,pre-vacc dose2,5,.38020632,.16332929,.88506377
+[REDACTED]
+[REDACTED]
+GBS,PF,Second dose,add in 2 week,,days 4-28 or 42 dose,8,.59341806,.34791052,1.012171

@@ -1,0 +1,133 @@
+outcome,brand,analysis,subanalysis,category,vlab,comparison_period,irr,lc,uc
+BP,,AZ vs PF primary risk window,,First = AZ,pre-vacc 14,1,.67747808,.57595253,.79689991
+[REDACTED]
+[REDACTED]
+BP,,AZ vs PF primary risk window,,First = AZ,days 4-28,4,1.3124491,1.1989645,1.4366752
+BP,,AZ vs PF primary risk window,,First = PF,pre-vacc 14,1,.7432434,.6108498,.90433156
+[REDACTED]
+[REDACTED]
+BP,,AZ vs PF primary risk window,,First = PF,days 4-28,4,.8940962,.77751631,1.0281559
+BP,,AZ vs PF primary risk window,,AZ vs PF,pre-vacc 14,1,.91151714,.70660365,1.175855
+[REDACTED]
+[REDACTED]
+BP,,AZ vs PF primary risk window,,AZ vs PF,days 4-28,4,1.467906,1.2428558,1.7337073
+BP,,AZ vs PF primary risk window,add in week,First = AZ,pre-vacc 14,1,.69079733,.58165157,.82042408
+[REDACTED]
+[REDACTED]
+BP,,AZ vs PF primary risk window,add in week,First = AZ,days 4-28,4,1.290386,1.1603795,1.4349581
+BP,,AZ vs PF primary risk window,add in week,First = PF,pre-vacc 14,1,.76340204,.61986536,.94017637
+[REDACTED]
+[REDACTED]
+BP,,AZ vs PF primary risk window,add in week,First = PF,days 4-28,4,.86712605,.74106723,1.0146281
+BP,,AZ vs PF primary risk window,add in week,AZ vs PF,pre-vacc 14,1,.88217062,.68218917,1.1407759
+[REDACTED]
+[REDACTED]
+BP,,AZ vs PF primary risk window,add in week,AZ vs PF,days 4-28,4,1.4117513,1.1917473,1.6723692
+BP,,AZ vs PF primary risk window,add in week interction,AZ vs PF,pre-vacc 14,1,.90489453,.69070506,1.1855048
+[REDACTED]
+[REDACTED]
+BP,,AZ vs PF primary risk window,add in week interction,AZ vs PF,days 4-28,4,1.4881183,1.2310817,1.7988213
+BP,,AZ vs PF primary risk window,add in 2 week,First = AZ,pre-vacc 14,1,.68707013,.57866907,.81577784
+[REDACTED]
+[REDACTED]
+BP,,AZ vs PF primary risk window,add in 2 week,First = AZ,days 4-28,4,1.2867984,1.1575316,1.4305009
+BP,,AZ vs PF primary risk window,add in 2 week,First = PF,pre-vacc 14,1,.76698858,.62300509,.94424826
+[REDACTED]
+[REDACTED]
+BP,,AZ vs PF primary risk window,add in 2 week,First = PF,days 4-28,4,.86986732,.74385846,1.0172219
+BP,,AZ vs PF primary risk window,add in 2 week,AZ vs PF,pre-vacc 14,1,.87871277,.67961252,1.1361417
+[REDACTED]
+[REDACTED]
+BP,,AZ vs PF primary risk window,add in 2 week,AZ vs PF,days 4-28,4,1.4171044,1.1964307,1.6784799
+BP,,AZ vs PF primary risk window,add in 2 week interction,AZ vs PF,pre-vacc 14,1,.89580369,.68407601,1.173063
+[REDACTED]
+[REDACTED]
+BP,,AZ vs PF primary risk window,add in 2 week interction,AZ vs PF,days 4-28,4,1.4793044,1.2246259,1.7869469
+TM,,AZ vs PF primary risk window,,First = AZ,pre-vacc 28,1,.30226564,.13432662,.6801669
+[REDACTED]
+[REDACTED]
+TM,,AZ vs PF primary risk window,,First = AZ,days 4-28,4,1.2413826,.80097723,1.9239382
+TM,,AZ vs PF primary risk window,,First = PF,pre-vacc 28,1,.92420632,.44941702,1.9005897
+[REDACTED]
+[REDACTED]
+TM,,AZ vs PF primary risk window,,First = PF,days 4-28,4,1.5971073,.87644202,2.9103484
+TM,,AZ vs PF primary risk window,,AZ vs PF,pre-vacc 28,1,.32741609,.11064513,.96887505
+[REDACTED]
+[REDACTED]
+TM,,AZ vs PF primary risk window,,AZ vs PF,days 4-28,4,.77774,.36996889,1.6349469
+TM,,AZ vs PF primary risk window,add in week,First = AZ,pre-vacc 28,1,.37773925,.15518579,.91945887
+[REDACTED]
+[REDACTED]
+TM,,AZ vs PF primary risk window,add in week,First = AZ,days 4-28,4,1.7734457,.99924195,3.147496
+TM,,AZ vs PF primary risk window,add in week,First = PF,pre-vacc 28,1,1.1937754,.52062219,2.7373011
+[REDACTED]
+[REDACTED]
+TM,,AZ vs PF primary risk window,add in week,First = PF,days 4-28,4,1.5927466,.77130836,3.2890112
+TM,,AZ vs PF primary risk window,add in week,AZ vs PF,pre-vacc 28,1,.31878698,.10594309,.95924276
+[REDACTED]
+[REDACTED]
+TM,,AZ vs PF primary risk window,add in week,AZ vs PF,days 4-28,4,.76638877,.35855949,1.6380873
+TM,,AZ vs PF primary risk window,add in week interction,AZ vs PF,pre-vacc 28,1,.31650925,.093768999,1.06835
+[REDACTED]
+[REDACTED]
+TM,,AZ vs PF primary risk window,add in week interction,AZ vs PF,days 4-28,4,1.1134075,.44167301,2.8067737
+TM,,AZ vs PF primary risk window,add in 2 week,First = AZ,pre-vacc 28,1,.38312951,.157566,.93159831
+[REDACTED]
+[REDACTED]
+TM,,AZ vs PF primary risk window,add in 2 week,First = AZ,days 4-28,4,1.755749,.99514318,3.0976996
+TM,,AZ vs PF primary risk window,add in 2 week,First = PF,pre-vacc 28,1,1.1545331,.50674045,2.6304333
+[REDACTED]
+[REDACTED]
+TM,,AZ vs PF primary risk window,add in 2 week,First = PF,days 4-28,4,1.5705081,.76240265,3.2351618
+TM,,AZ vs PF primary risk window,add in 2 week,AZ vs PF,pre-vacc 28,1,.32326683,.10761981,.97102427
+[REDACTED]
+[REDACTED]
+TM,,AZ vs PF primary risk window,add in 2 week,AZ vs PF,days 4-28,4,.76598895,.35873741,1.6355669
+TM,,AZ vs PF primary risk window,add in 2 week interction,AZ vs PF,pre-vacc 28,1,.33188397,.098829865,1.1145109
+[REDACTED]
+[REDACTED]
+TM,,AZ vs PF primary risk window,add in 2 week interction,AZ vs PF,days 4-28,4,1.1178583,.44592556,2.8022773
+GBS,,AZ vs PF primary risk window,,First = AZ,pre-vacc 28,1,.54991609,.36165327,.83618134
+[REDACTED]
+[REDACTED]
+GBS,,AZ vs PF primary risk window,,First = AZ,days 4-42,4,2.2383471,1.8410537,2.7213752
+GBS,,AZ vs PF primary risk window,,First = PF,pre-vacc 28,1,.50897717,.29173717,.8879835
+[REDACTED]
+[REDACTED]
+GBS,,AZ vs PF primary risk window,,First = PF,days 4-42,4,1.0735064,.76107246,1.5142002
+GBS,,AZ vs PF primary risk window,,AZ vs PF,pre-vacc 28,1,1.0803881,.53828859,2.1684248
+[REDACTED]
+[REDACTED]
+GBS,,AZ vs PF primary risk window,,AZ vs PF,days 4-42,4,2.0850732,1.4038509,3.0968606
+GBS,,AZ vs PF primary risk window,add in week,First = AZ,pre-vacc 28,1,.60390252,.37431884,.97429836
+[REDACTED]
+[REDACTED]
+GBS,,AZ vs PF primary risk window,add in week,First = AZ,days 4-42,4,2.2403028,1.6619768,3.0198712
+GBS,,AZ vs PF primary risk window,add in week,First = PF,pre-vacc 28,1,.57922357,.29732251,1.1284043
+[REDACTED]
+[REDACTED]
+GBS,,AZ vs PF primary risk window,add in week,First = PF,days 4-42,4,.98113066,.59712279,1.6120927
+GBS,,AZ vs PF primary risk window,add in week,AZ vs PF,pre-vacc 28,1,.96588725,.47817299,1.9510475
+[REDACTED]
+[REDACTED]
+GBS,,AZ vs PF primary risk window,add in week,AZ vs PF,days 4-42,4,1.942872,1.2986327,2.9067121
+GBS,,AZ vs PF primary risk window,add in week interction,AZ vs PF,pre-vacc 28,1,1.042341,.4587698,2.3682351
+[REDACTED]
+[REDACTED]
+GBS,,AZ vs PF primary risk window,add in week interction,AZ vs PF,days 4-42,4,2.2830541,1.2789817,4.0753798
+GBS,,AZ vs PF primary risk window,add in 2 week,First = AZ,pre-vacc 28,1,.6136061,.38074067,.98889464
+[REDACTED]
+[REDACTED]
+GBS,,AZ vs PF primary risk window,add in 2 week,First = AZ,days 4-42,4,2.2512841,1.6733886,3.0287526
+GBS,,AZ vs PF primary risk window,add in 2 week,First = PF,pre-vacc 28,1,.56549805,.29275781,1.0923296
+[REDACTED]
+[REDACTED]
+GBS,,AZ vs PF primary risk window,add in 2 week,First = PF,days 4-42,4,.98826504,.60598207,1.6117107
+GBS,,AZ vs PF primary risk window,add in 2 week,AZ vs PF,pre-vacc 28,1,.98072278,.48573795,1.9801154
+[REDACTED]
+[REDACTED]
+GBS,,AZ vs PF primary risk window,add in 2 week,AZ vs PF,days 4-42,4,1.9445143,1.3001572,2.9082143
+GBS,,AZ vs PF primary risk window,add in 2 week interction,AZ vs PF,pre-vacc 28,1,1.08498,.48114848,2.4466078
+[REDACTED]
+[REDACTED]
+GBS,,AZ vs PF primary risk window,add in 2 week interction,AZ vs PF,days 4-42,4,2.2779047,1.2855947,4.0361476
