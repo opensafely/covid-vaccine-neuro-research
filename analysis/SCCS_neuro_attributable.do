@@ -75,7 +75,11 @@ display attr_AZ_BP[1] * 100
 display "ATTRIBUTABLE RISK AZ GBS  AS % OF DOSES GIVEN"
 display attr_AZ_GBS[1] * 100
 
+display "NUMBER VACCINES GIVEN FOR ONE ATTRIBUTABLE CASE AZ BP "
+display 1/attr_AZ_BP[1]
 
+display "NUMBER VACCINES GIVEN FOR ONE ATTRIBUTABLE CASE AZ GBS"
+display 1/attr_AZ_GBS[1]
 
 
 
