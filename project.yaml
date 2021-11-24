@@ -88,6 +88,14 @@ actions:
         log: output/logs/SCCS_baseline_tables_PF.log
         tables: output/tables/baseline_PF/*
 
+  SCCS_baseline_tables_MOD:
+    run: stata-mp:latest analysis/SCCS_baseline_tables.do MOD
+    needs: [SCCS_first_dose_only_primary_MOD] 
+    outputs:
+      moderately_sensitive: 
+        log: output/logs/SCCS_baseline_tables_MOD.log
+        tables: output/tables/baseline_MOD/*
+
   # check assumptions 
   SCCS_assumption_checking_AZ:
     run: stata-mp:latest analysis/SCCS_assumption_checking.do AZ

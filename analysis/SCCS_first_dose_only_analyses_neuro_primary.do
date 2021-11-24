@@ -603,15 +603,37 @@ tabstat  nevents, s(sum) by(week)format(%9.0f)
  gen outcome="`j'"
 
  display "POST-HOC SENSITIVITY REMOVING WEEK 44 FOR AZ TM"
- * note, not outputting these results for now as post hoc exploratory only  
  
   if vaccine=="AZ" & outcome=="TM"{
   
   display "unadjusted"
   xtpoisson nevents ib0.vacc1_`j' if week!=44, fe i(patient_id) offset(loginterval) eform
   
+  if _rc+(e(converge)==0) == 0 & `eventnum' > 5 {
+  mat b = r(table) 
+ 
+ forvalues v = 1/4 {
+    local k = `v' + 1 
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("remove w 44") ("") ("`vlab'")  (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	}
+ }
+ 
+ else di "DID NOT CONVERGE - `brand' PRIMARY RISK WINDOW AFTER 1ST DOSE - REMOVE W 44"
+  
   display "week adjusted"
- xtpoisson nevents ib0.vacc1_`j' ib0.week if week!=44 , fe i(patient_id) offset(loginterval) eform
+  xtpoisson nevents ib0.vacc1_`j' ib0.two_week if week!=44 , fe i(patient_id) offset(loginterval) eform
+  
+  if _rc+(e(converge)==0) == 0 & `eventnum' > 5 {
+  mat b = r(table) 
+ 
+ forvalues v = 1/4 {
+    local k = `v' + 1 
+	local vlab: label vacc1_`j'1 `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("remove w 44 adjust 2 week") ("") ("`vlab'")  (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	}
+ }
+  
 }
  
  drop vaccine outcome
