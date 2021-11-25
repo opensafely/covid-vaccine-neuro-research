@@ -50,6 +50,61 @@ use "`c(pwd)'/output/temp_data/sccs_cutp_data_`j'_`brand'.dta", clear
 	di "NUMBER OF EVENTS (PEOPLE) IN THE STUDY"
 	di "`eventnum'"
 
+	
+
+ *exclude pre-vacc period
+ display "****************"
+ display "****OUTCOME*****"
+ display "`j'"
+ display "****************"
+ display "`brand' PRIMARY RISK WINDOW AFTER 1ST DOSE"
+ display "EXCLUDE/DON'T REMOVE PRE_VACCINATION PERIOD"
+ ** vacc1_BP_nopre has 4 levels, non-risk (0), day 0 (1) days 1-3 (2), days 4-28 (3) 
+** vacc1_TM_nopre has 4 levels, non-risk (0), day 0 (1) days 1-3 (2), days 4-28 (3)
+** vacc1_GBS_nopre has 4 levels, non-risk (0), day 0 (1) days 1-3 (2), days 4-42 (3)	
+ 
+ xtpoisson nevents ib0.vacc1_`j'_nopre  if first_brand=="`brand'", fe i(patient_id) offset(loginterval) eform
+ 
+  
+   mat b = r(table) 
+ 
+  forvalues v = 1/3 {
+    local k = `v' + 1 
+	local vlab: label vacc1_`j'_nopre `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("") ("don't rm prevac period") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	}
+ 
+
+ display "add in week"
+ 
+ xtpoisson nevents ib0.vacc1_`j'_nopre ib0.week if first_brand=="`brand'", fe i(patient_id) offset(loginterval) eform
+
+    mat b = r(table) 
+ 
+  forvalues v = 1/3 {
+    local k = `v' + 1 
+	local vlab: label vacc1_`j'_nopre `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in week") ("don't rm prevac period") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	}
+ 
+
+ 
+ display "add in 2 week period"
+ 
+ xtpoisson nevents ib0.vacc1_`j'_nopre ib0.two_week if first_brand=="`brand'", fe i(patient_id) offset(loginterval) eform
+ 
+    mat b = r(table) 
+ 
+  forvalues v = 1/3 {
+    local k = `v' + 1 
+	local vlab: label vacc1_`j'_nopre `v'
+	post `results'  ("`j'") ("`brand'") ("Primary risk window after 1d") ("add in 2 week") ("don't rm prevac period") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+	}
+ 
+	
+	
+	
+	
  *extended risk window
  display "****************"
  display "****OUTCOME*****"
