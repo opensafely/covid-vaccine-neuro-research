@@ -48,7 +48,7 @@ display "`brand'"
 
 * open a log file
 cap log close
-log using "`c(pwd)'/output/logs/SSCCS_check_all_outcome_overlaps_and_distn_source_BP_`brand'.log", replace 
+log using "`c(pwd)'/output/logs/SCCS_check_all_outcome_overlaps_and_distn_source_BP_`brand'.log", replace 
 
 
 *runs through for each brand
