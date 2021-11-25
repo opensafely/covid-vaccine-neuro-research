@@ -176,3 +176,24 @@ actions:
         log: output/logs/SCCS_first_dose_only_analyses_sens_AZ_vs_PF.log
         results: output/tables/results_summary_sens_AZ_vs_PF.csv
 
+  ## Check for overlap 
+  SCCS_overlap_check_AZ:
+    run: stata-mp:latest analysis/SCCS_check_all_outcome_overlaps_and_distn_source_BP.do AZ
+    needs: [SCCS_first_dose_only_primary_AZ, apply_exclusion_criteria] 
+    outputs:
+      moderately_sensitive: 
+        log: output/logs/SCCS_check_all_outcome_overlaps_and_distn_source_BP_AZ.log
+
+  SCCS_overlap_check_PF:
+    run: stata-mp:latest analysis/SCCS_check_all_outcome_overlaps_and_distn_source_BP.do PF
+    needs: [SCCS_first_dose_only_primary_PF, apply_exclusion_criteria] 
+    outputs:
+      moderately_sensitive: 
+        log: output/logs/SCCS_check_all_outcome_overlaps_and_distn_source_BP_PF.log
+
+  SCCS_overlap_check_MOD:
+    run: stata-mp:latest analysis/SCCS_check_all_outcome_overlaps_and_distn_source_BP.do MOD
+    needs: [SCCS_first_dose_only_primary_MOD, apply_exclusion_criteria] 
+    outputs:
+      moderately_sensitive: 
+        log: output/logs/SCCS_check_all_outcome_overlaps_and_distn_source_BP_MOD.log
