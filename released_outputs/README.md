@@ -19,6 +19,7 @@
     * output/tables/for-release
       * [output/tables/for-release/denominators.csv](output/tables/for-release/denominators.csv)
       * [output/tables/for-release/hcws.txt](output/tables/for-release/hcws.txt)
+      * [output/tables/for-release/overlap-gbs-bp.txt](output/tables/for-release/overlap-gbs-bp.txt)
       * [output/tables/for-release/primary-risk-windows.txt](output/tables/for-release/primary-risk-windows.txt)
       * [output/tables/for-release/results_summary_primary_AZ.csv](output/tables/for-release/results_summary_primary_AZ.csv)
       * [output/tables/for-release/results_summary_primary_MOD.csv](output/tables/for-release/results_summary_primary_MOD.csv)
