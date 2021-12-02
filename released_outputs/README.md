@@ -34,6 +34,7 @@
       * [output/tables/for-release/table1_AZ_BP.txt](output/tables/for-release/table1_AZ_BP.txt)
       * [output/tables/for-release/table1_AZ_GBS.txt](output/tables/for-release/table1_AZ_GBS.txt)
       * [output/tables/for-release/table1_AZ_TM.txt](output/tables/for-release/table1_AZ_TM.txt)
+      * [output/tables/for-release/table1_MOD_BP.txt](output/tables/for-release/table1_MOD_BP.txt)
       * [output/tables/for-release/table1_PF_BP.txt](output/tables/for-release/table1_PF_BP.txt)
       * [output/tables/for-release/table1_PF_GBS.txt](output/tables/for-release/table1_PF_GBS.txt)
       * [output/tables/for-release/table1_PF_TM.txt](output/tables/for-release/table1_PF_TM.txt)

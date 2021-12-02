@@ -1,0 +1,24 @@
+Table 1: Demographics of individuals in the MOD BP case series
+		BP
+		N (%)
+Total Cases		             88 (100.00)
+
+Age	Median (IQR)	34 (27-45)
+
+Age Group	18-39	             60 (68.18)
+	40-64	             28 (31.82)
+	65-105	              0 (0.00)
+	Missing	              0 (0.00)
+
+Gender	Men	             44 (50.00)
+	Women	             44 (50.00)
+	Missing	              0 (0.00)
+
+Prior Covid		              [REDACTED]
+
+	GP only	             30 (34.09)
+	Hospital only	             12 (13.64)
+	GP and emergency	             21 (23.86)
+	Emergency only	             18 (20.45)
+	All other sources (manual) 	7 (7.95)
+
