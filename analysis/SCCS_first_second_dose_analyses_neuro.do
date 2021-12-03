@@ -201,7 +201,7 @@ foreach j in BP TM GBS {
 
 	preserve
 
-	gen outcome="BP"
+	gen outcome="`j'"
 	display "************ OUTCOME `j'"
 
 	gen cutp3=vacc_date1-29 if outcome=="GBS" | outcome=="TM"
