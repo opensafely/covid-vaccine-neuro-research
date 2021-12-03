@@ -4,8 +4,8 @@ PROJECT:				Vaccine Safety
 DATE: 					19th Aug 2021  
 AUTHOR:					Jemma Walker
 								
-DESCRIPTION OF FILE:	SCCS set up and SCCS primary analysis of neuro events - GBS, TM and BP
-							
+DESCRIPTION OF FILE:	SCCS primary analysis of neuro events - GBS, TM and BP
+						sensitivity analysis- restriction follow up to earliest of 12 weeks after dose1, and date of second dose	
 							
 
 DATASETS USED:			input_AZ_cases.csv, input_PF_cases.csv, input_MOD_cases.csv
@@ -43,14 +43,11 @@ clear
 
 *variable to cycle through each brand (AZ, PF, MOD)
 
-*local brand `1'
-local brand "PF"
-
+local brand `1'
 display "`brand'"
 
-*import delimited using `c(pwd)'/output/input_`brand'_cases.csv
+import delimited using `c(pwd)'/output/input_`brand'_cases.csv
 
-import delimited using H:/Covid-19/Safety_Neuro/GitHub/covid-vaccine-neuro-research/output/input_`brand'_cases.csv
 
 gen first_brand="`brand'"
 
