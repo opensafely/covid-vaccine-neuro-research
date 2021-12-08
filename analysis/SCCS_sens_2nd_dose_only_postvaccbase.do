@@ -1,18 +1,17 @@
 /*==============================================================================
-DO FILE NAME:			SCCS_first_second_dose_only_analyses_neuro.do
+DO FILE NAME:			SCCS_sens_2nd_dose_only_postvaccbase.do
 PROJECT:				Vaccine Safety  
-DATE: 					19th Aug 2021  
+DATE: 					3rd December 2021  
 AUTHOR:					Jemma Walker
 								
-DESCRIPTION OF FILE:	SCCS analysis of first and second doses
-							
+DESCRIPTION OF FILE:	SCCS second dose sensitivity analysis only restricting to post vaccination follow up time
+						To allow for second dose being potentially event dependent (after 1st dose)
 							
 
 DATASETS USED:			input_AZ_cases.csv, input_PF_cases.csv and input_MOD_cases.csv
 DATASETS CREATED: 		csvs as per project.yaml, into /tempdata
-OTHER OUTPUT: 			logfile, `c(pwd)'/output/logs/SCCS_first_second_dose_analyses_`brand' (brand=AZ, PF, MOD)
-						tables, printed to folder `c(pwd)'/output/tables  TO BE ADDED
-						"`c(pwd)'/output/temp_data/sccs_popn_2doses_`j'_`brand'.dta" (j outcome BP, TM, GBS)
+OTHER OUTPUT: 			logfile, `c(pwd)'/output/logs/SCCS_sens_2nd_dose_only_postvaccbase_`brand' (brand=AZ, PF, MOD)
+						tables, printed to folder `c(pwd)'/output/tables  
 							
 ==============================================================================*/
 
@@ -34,13 +33,14 @@ display "`brand'"
 
 * open a log file
 cap log close
-log using "`c(pwd)'/output/logs/SCCS_first_second_dose_analyses_neuro_`brand'.log", replace 
+log using "`c(pwd)'/output/logs/SCCS_sens_2nd_dose_only_postvaccbase_`brand'.log", replace 
 
 * IMPORT DATA=================================================================*/ 
 clear
 import delimited using `c(pwd)'/output/input_`brand'_cases.csv
 
 * ANALYSIS====================================================================*/ 
+
 
 gen first_brand="`brand'"
 
@@ -107,55 +107,40 @@ gen end=study_end-study_start
 gen vacc_date1= `brand'_date - study_start if first_brand=="`brand'"
 
 *SECOND DOSES
-*count and create flag (to censor) for more than one brand given on same date for second dose
-noi di "COUNT IF 2nd DOSE AZ AND PFIZER ON SAME DATE"
-count if second_pfizer_date == second_az_date & second_az_date!=. & (first_brand=="AZ" | first_brand=="PF")
+*create flag (to censor) for more than one brand given on same date for second dose
+*2nd DOSE AZ AND PFIZER ON SAME DATE
+
 gen censor_fu_dose2=1 if second_pfizer_date == second_az_date & second_az_date!=. & (first_brand=="AZ" | first_brand=="PF")
 
-noi di "COUNT IF 2nd DOSE AZ AND MODERNA ON SAME DATE"
-count if second_az_date == second_moderna_date & second_az_date != . & (first_brand=="AZ" | first_brand=="MOD")
+* 2nd DOSE AZ AND MODERNA ON SAME DATE
 replace censor_fu_dose2=1 if second_az_date == second_moderna_date & second_az_date != . & (first_brand=="AZ" | first_brand=="MOD")
 
-noi di "COUNT IF 2nd DOSE PFIZER AND MODERNA ON SAME DATE"
-count if second_pfizer_date == second_moderna_date & second_pfizer_date != .  & (first_brand=="PF" | first_brand=="MOD")
+* 2nd DOSE PFIZER AND MODERNA ON SAME DATE
 replace censor_fu_dose2=1 if second_pfizer_date == second_moderna_date & second_pfizer_date != . & (first_brand=="PF" | first_brand=="MOD")
 
 gen end_date_dose2=min(second_az_date, second_pfizer_date, second_moderna_date) if censor_fu_dose2==1
 
 *also need to censor at second dose brand different to first
-*count and create flags for when second dose brand is different to first
+* create flags for when second dose brand is different to first
 
- noi di "COUNT OF 2ND DOSE BRAND DIFFERENT TO 1ST DOSE BRAND (`brand')"
-
- display "AZ"
- count if ((first_brand=="AZ" & second_pfizer_date!=.) | (first_brand=="AZ" & second_moderna_date!=.)) 
- display "PF"
- count if ((first_brand=="PF" & second_az_date!=.) | (first_brand=="PF" & second_moderna_date!=.)) 
- display "MOD"
- count if ((first_brand=="MOD" & second_pfizer_date!=.) | (first_brand=="MOD" & second_az_date!=.)) 
  
 gen censor_fu_diff_brand2=1 if ((first_brand=="AZ" & second_pfizer_date!=.) | (first_brand=="AZ" & second_moderna_date!=.)) 
 replace censor_fu_diff_brand2=1 if ((first_brand=="PF" & second_az_date!=.) | (first_brand=="PF" & second_moderna_date!=.)) 
 replace censor_fu_diff_brand2=1 if ((first_brand=="MOD" & second_pfizer_date!=.) | (first_brand=="MOD" & second_az_date!=.)) 
 
-*may be some overlap with censor_fu_diff_brand2 and censor_fu_dose2
-noi di "COUNT IF 2nd DOSE DIFFERENT TO 1st AND NOT 2 DIFFERENT ON SAME DAY 2ND DOSE"
-noi di "1st DOSE = `brand'"
-count if censor_fu_diff_brand2==1 & censor_fu_dose2!=1 
 
 *if second dose unspecified- assume the same as first
 gen unspec_second_dose=1 if second_any_vaccine_date!=. & second_az_date==. & second_pfizer_date==. & second_moderna_date==.
-noi di "COUNT IF SECOND DOSE IS UNSPECIFIED"
-count if unspec_second_dose==1
 
+*unspec second dose but AZ first
 replace second_az_date=second_any_vaccine_date if second_az_date==. & unspec_second_dose==1 & first_brand=="AZ"
-display "THIS MANY (ABOVE) UNSPEC SECOND DOSE BUT AZ FIRST"
 
+*unspec second dose but PF first
 replace second_pfizer_date=second_any_vaccine_date if second_pfizer_date==. & unspec_second_dose==1 & first_brand=="PF"
-display "THIS MANY (ABOVE) UNSPEC SECOND DOSE BUT PF FIRST"
 
+*unspec second dose but MOD first
 replace second_moderna_date=second_any_vaccine_date if second_moderna_date==. & unspec_second_dose==1 & first_brand=="MOD"
-display "THIS MANY (ABOVE) UNSPEC SECOND DOSE BUT PF FIRST"
+
 
 *flag to include 2nd dose if not 2 different on same day, not different brand to 1st...
 gen incl_2nd_dose_`brand'=1 if censor_fu_diff_brand2!=1 & censor_fu_dose2!=1 & first_brand=="`brand'"
@@ -174,13 +159,14 @@ rename second_moderna_date second_MOD_date
 gen vacc_date2= second_`brand'_date - study_start if incl_2nd_dose_`brand'==1 & second_`brand'_date!=.
 
 gen vacc2=1 if (vacc_date2!=.) & vacc_date2 <= end 
-di "THIS MANY HAD A VALID SECOND DOSE DURING THE FU"
-tab vacc2, m 
 
-replace vacc_date2=99999999 if vacc_date2==.
-*this is outwith the study period
 
-*generate cut points that event will
+*only want to include those that had a second dose
+
+drop if vacc_date2==.
+
+
+*generate cut points 
 gen cutp1=start
 gen cutp2=end
 
@@ -191,67 +177,43 @@ gen cutp2=end
 *ASSERT >=21 days between doses
 datacheck vacc_date2- vacc_date1 >=21 if vacc_date2!=., nolist
 
+
+*NO LONGER NEED FIRST DOSE
+drop vacc_date1
+
 * Setup file for posting results
   tempname results
 	postfile `results' ///
 		str4(outcome) str10(brand) str50(analysis) str35(subanalysis) str20(category) str20(vlab) comparison_period irr lc uc ///
-		using "`c(pwd)'/output/tables/results_summary_second_doses_`brand'", replace
+		using "`c(pwd)'/output/tables/results_summary_sens_2nd_dose_only_postvaccbase_`brand'", replace
 		
 foreach j in BP TM GBS {
-
 	preserve
+
 
 	gen outcome="`j'"
 	display "************ OUTCOME `j'"
 
-	gen cutp3=vacc_date1-29 if outcome=="GBS" | outcome=="TM"
-	replace cutp3= vacc_date1-15 if outcome=="BP"
-	gen cutp4=vacc_date1-1  
-	gen cutp5=vacc_date1-0
-	gen cutp6=vacc_date1+3
-	gen cutp7=vacc_date1+28 if outcome=="BP" | outcome=="TM"
-	replace cutp7=vacc_date1+42 if outcome=="GBS"
 
 	*risk windows for second dose 4-42 days 
-	gen cutp8=vacc_date2-29 if outcome=="GBS" | outcome=="TM"
-	replace cutp8=vacc_date2-15 if outcome=="BP"
-	gen cutp9=vacc_date2-1
-	gen cutp10=vacc_date2-0
-	gen cutp11=vacc_date2+3
-	gen cutp12=vacc_date2+28 if outcome=="BP" | outcome=="TM"
-	replace cutp12=vacc_date2+42 if outcome=="GBS"
+	gen cutp3=vacc_date2-0
+	gen cutp4=vacc_date2+3
+	gen cutp5=vacc_date2+28 if outcome=="BP" | outcome=="TM"
+	replace cutp5=vacc_date2+42 if outcome=="GBS"
 
-	*need to consider that risk window after dose 1 is censored at vacc date2 +4 days for GBS and TM, larger overlap for BP
 
-	*** for those with risk window after dose 1 overlapping with day 4-42 after dose 2, censor risk window post dose 1 at dose 2 +4 days which is the start of the dose 2 risk window
-	* end dose 1 risk window at start of dose 2 risk window (dose 2 risk trumps dose 1 risk)
-	replace cutp7= min(cutp7, cutp11) if vacc_date2!=.
-	di "THIS MANY (above) HAVE OVERLAPPING FIRST AND SECOND DOSE RISK WINDOWS"
-
-	*if cutp7 >= cutp11 (i.e. risk windows overlap) then don't need cutp8-11 (dose 2 pre-vacc, dose 2 day 0, dose 2 days 1-3) as all trumped by those for 1st dose
-	replace cutp8=999 if cutp7>=cutp11 
-	replace cutp9=9999 if cutp7>=cutp11 
-	replace cutp10=99999 if cutp7>=cutp11 
-	replace cutp11=999999 if cutp7>=cutp11
-
-	*if 2nd risk window doesn't overlap with 1st risk window then other dose 2 windows (prior to main risk window 4-42) are trumped by those for 1st dose
-	*but any non-risk time after first dose risk window may still be part of  dose 2 window (-28 days, day 0, day 1-3)
-	* start dose 2 administrative periods at end of dose 1 risk window (dose 1 risk trumps dose 1 administrative)
-	replace cutp8= max(cutp7, cutp8) if vacc_date2!=. & cutp7<cutp11 
-	replace cutp9=max(cutp7, cutp9) if vacc_date2!=. & cutp7<cutp11 
-	replace cutp10=max(cutp7, cutp10) if vacc_date2!=. & cutp7<cutp11 
 
 	*add in weekly time period in case we need it
 	*put extra bit of week in with last week
 
 	egen test=max(end)
-	gen test2=floor(test/7) +12
+	gen test2=floor(test/7) +5
 	local n=test2[1]
 	display `n'
 	display "weeks"
-	foreach i of numlist 13/`n' {
+	foreach i of numlist 6/`n' {
 		 display `i'
-		 gen cutp`i' = (`i'-12)*7
+		 gen cutp`i' = (`i'-5)*7
 	 }
 
 	local last=`n'+1
@@ -259,6 +221,12 @@ foreach j in BP TM GBS {
 	gen cutp`last'=cutp2
 	*any remaining time up to end of study period (just to double check)
 
+	
+	*REPLACE START OF FOLLOW UP TO BE VACC 2 DATE
+	
+	replace cutp1=cutp3-1
+	
+	
 	*** CENSOR CUT-POINTS AT START OR END OF FOLLOW UP
 	foreach var of varlist cutp*{
 		
@@ -278,15 +246,16 @@ foreach j in BP TM GBS {
 	gen eventday=`j'-study_start
 		
 	*keep those indivs with events within follow up time
-		
-	display "THIS MANY HAVE EVENT PRIOR TO START FU `j'"
-	drop if eventday<=start
+	*CHANGED THIS TO EVENTS AFTER VACC2 DATE	
+	display "THIS MANY HAVE EVENT PRIOR TO DOSE 2 `j'"
+	drop if eventday<cutp1
 	display "THIS MANY HAVE EVENT AFTER END FU `j'"
 	drop if eventday>=end
 		
 	***ALSO DOUBLE CHECK HAVE VACCINE WITHIN FU TIME****
-	drop if vacc_date1<=start
-	drop if vacc_date1>=end
+	*CHANGED TO BE VACCINE 2
+	drop if vacc_date2<cutp1
+	drop if vacc_date2>=end
 
 	*local macro containing event count 
 	count 
@@ -295,10 +264,11 @@ foreach j in BP TM GBS {
 	di "`eventnum'"
 	
 	*summary of length of follow up time
+	*EDIT TO BE LENGTH OF TIME BETWEEN NEW START (CUTP1= VACC2 DATE) &  END (=CUTP2)
 	display "SUMMARY OF FOLLOW UP TIME IN STUDY"
-	summ cutp2, detail
+	gen time_study=cutp2-cutp1
+	summ time_study, detail
 		
-	save "`c(pwd)'/output/temp_data/sccs_popn_2doses_`j'_`brand'.dta", replace
 
 	*** now reshape and collapse
 	compress
@@ -316,7 +286,7 @@ foreach j in BP TM GBS {
 		
 		*vaccine exposure groups
 		
-		generate exgr1 = type-3 if type>=3 & type<=12
+		generate exgr1 = type-2 if type>=3 & type<=5
 			count if exgr1 >=.
 			local nmiss = r(N)
 			local nchange = 1
@@ -330,18 +300,19 @@ foreach j in BP TM GBS {
 		
 		*1. create variable including second dose risk windows for BP, TM and for GBS
 			
-			recode exgr1 (0=0) (1=1) (2=2) (3=3) (4=4) (5=0) (6=5) (7=6) (8=7) (9=8), generate(vacc1_`j'_incl_dose2)
-				** vacc1_`j'_dose2 has 9 levels, non-risk (0), pre-vacc low (1), day 0 (2) days 1-3 (3), days 4-28/42 (4),  pre-vacc low dose 2 (5), day 0 dose2 (6) days 1-3 dose2 (7), days 4-42 dose 2 (8)
-				label define vacc1_`j'_incl_dose21 0 "non-risk" 1 "pre-vacc" 2 "day 0" 3 "days 1-3" 4 "days 4-28 or 42"  5 "pre-vacc dose2" 6 "day 0 dose2" 7 "days 1-3 dose 2" 8 "days 4-28 or 42 dose2"
-				label values vacc1_`j'_incl_dose2 vacc1_`j'_incl_dose21		
+			recode exgr1 (1=1) (2=2) (3=3), generate(vacc2_`j'_sens)
+				** vacc1_`j'_dose2 has 4 levels, non-risk (0), day 0 dose2 (1) days 1-3 dose2 (2), days 4-42 dose 2 (3)
+				label define vacc2_`j'_sens1 0 "non-risk post-vacc"  1 "day 0 dose2" 2 "days 1-3 dose 2" 3 "days 4-28 or 42 dose2"
+				label values vacc2_`j'_sens vacc2_`j'_sens1		
 
+	   *EXPECT FIRST WEEKS FROM STUDY_START TO BE MISSING
 	   *weekly exposure groups
 	   *up to maximum cutp for weeks defined by max length of study_end
 	   
 	   egen test3=max(type)
 	   local w=test3[1]
 	   
-		generate exgr2 = type-13 if type>=13 & type<=`w'
+		generate exgr2 = type-6 if type>=6 & type<=`w'
 			count if exgr2 >=.
 			local nmiss = r(N)
 			local nchange = 1
@@ -367,16 +338,15 @@ foreach j in BP TM GBS {
 
 	 
 	 *count how many outcomes there are on the day of vaccination
-	 display "NUMBER OF OUTCOMES ON DAY OF 1st VACCINATION"
-	 display "`j'"
-	 count if nevents==1 & vacc1_`j'_incl_dose2==2
+
 	 
 	 display "NUMBER OF OUTCOMES ON DAY OF 2nd VACCINATION"
 	 display "`j'"
-	 count if nevents==1 & vacc1_`j'_incl_dose2==6
+	 count if nevents==1 & vacc2_`j'_sens==1
 	 
+	*CHECK ONLY RELEVANT RISK WINDOWS ARE HERE*****
 	display "TABLE OF NUM EVENTS BY RISK WINDOW"
-	tabstat  nevents, s(sum) by(vacc1_`j'_incl_dose2)format(%9.0f)
+	tabstat  nevents, s(sum) by(vacc2_`j'_sens)format(%9.0f)
 
 	display "TABLE OF NUM EVENTS BY WEEK"
 	tabstat  nevents, s(sum) by(week)format(%9.0f)
@@ -385,18 +355,18 @@ foreach j in BP TM GBS {
 	 display "****OUTCOME*****"
 	 display "`j'"
 	 display "****************"
-	 display "`brand' INCLUDING SECOND DOSE"
-	** vacc1_`j'_dose2 has 8 levels, non-risk (0), pre-vacc low (1), day 0 (2) days 1-3 (3), days 4-28/42 (4),  pre-vacc low dose 2 (5), day 0 dose2 (6) days 1-3 dose2 (7), days 4-42 dose 2 (8)
+	 display "`brand' SENSITIVITY RESTRICTED TO SECOND DOSE ONLY- FOLLOW UP FROM 2ND DOSE DATE"
+	** vacc1_`j'_dose2 has 4 levels, non-risk post vacc2 (0), day 0 dose2 (1) days 1-3 dose2 (2), days 4-42 dose 2 (3)
 	 
-	capture noisily xtpoisson nevents ib0.vacc1_`j'_incl_dose2  , fe i(patient_id) offset(loginterval) eform
+	capture noisily xtpoisson nevents ib0.vacc2_`j'_sens  , fe i(patient_id) offset(loginterval) eform
 	 
 	if _rc+(e(converge)==0) == 0 & `eventnum' > 5 {
 		mat b = r(table) 
  
-		forvalues v = 1/8 {
+		forvalues v = 1/4 {
 			local k = `v' + 1 
 			local vlab: label vacc1_`j'_incl_dose21 `v'
-			post `results'  ("`j'") ("`brand'") ("Second dose") ("") ("") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+			post `results'  ("`j'") ("`brand'") ("Second dose sens") ("") ("") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 		}
 	}
 	else di "DID NOT CONVERGE - `brand' SECOND DOSE UNADJUSTED"
@@ -407,10 +377,10 @@ foreach j in BP TM GBS {
 	if _rc+(e(converge)==0) == 0 & `eventnum' > 5 {
 		mat b = r(table) 
  
-		forvalues v = 1/8 {
+		forvalues v = 1/4 {
 			local k = `v' + 1 
 			local vlab: label vacc1_`j'_incl_dose21 `v'
-			post `results'  ("`j'") ("`brand'") ("Second dose") ("add in week") ("") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+			post `results'  ("`j'") ("`brand'") ("Second dose sens") ("add in week") ("") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 		}
 	}
 	else di "DID NOT CONVERGE - `brand' SECOND DOSE 1 WEEK"
@@ -421,10 +391,10 @@ foreach j in BP TM GBS {
 	if _rc+(e(converge)==0) == 0 & `eventnum' > 5 {
 		mat b = r(table) 
  
-		forvalues v = 1/8 {
+		forvalues v = 1/4 {
 			local k = `v' + 1 
 			local vlab: label vacc1_`j'_incl_dose21 `v'
-			post `results'  ("`j'") ("`brand'") ("Second dose") ("add in 2 week") ("") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
+			post `results'  ("`j'") ("`brand'") ("Second dose sens") ("add in 2 week") ("") ("`vlab'") (`v') (b[1,`k']) (b[5,`k']) (b[6,`k'])	
 		}
 	}
 	else di "DID NOT CONVERGE - `brand' SECOND DOSE 2 WEEK"
@@ -437,8 +407,8 @@ foreach j in BP TM GBS {
 postclose `results'
 
 * Clean and export .csv of results
-use "`c(pwd)'/output/tables/results_summary_second_doses_`brand'", clear
-export delimited using "`c(pwd)'/output/tables/results_summary_second_doses_`brand'.csv", replace
+use "`c(pwd)'/output/tables/results_summary_sens_2nd_dose_only_postvaccbase_`brand'", clear
+export delimited using "`c(pwd)'/output/tables/results_summary_sens_2nd_dose_only_postvaccbase_`brand'.csv", replace
 
 
 log close
