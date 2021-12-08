@@ -29,9 +29,15 @@ capture	mkdir "`c(pwd)'/output/temp_data"
 * set ado path
 adopath + "`c(pwd)'/analysis/extra_ados"
 
+
+*variable to cycle through each brand (AZ, PF, MOD)
+
+local brand `1'
+display "`brand'"
+
 * open a log file
 cap log close
-log using "`c(pwd)'/output/logs/SCCS_first_dose_only_sens_censor_at2nd_dose.log", replace 
+log using "`c(pwd)'/output/logs/SCCS_first_dose_only_sens_censor_at2nd_dose_`brand'.log", replace 
 
 
 *runs through for each brand
@@ -41,10 +47,6 @@ log using "`c(pwd)'/output/logs/SCCS_first_dose_only_sens_censor_at2nd_dose.log"
 
 clear
 
-*variable to cycle through each brand (AZ, PF, MOD)
-
-local brand `1'
-display "`brand'"
 
 import delimited using `c(pwd)'/output/input_`brand'_cases.csv
 
@@ -278,7 +280,7 @@ replace `var' = cutp2 if `var' > cutp2
 * Setup file for posting results
   tempname results
 	postfile `results' ///
-		str4(outcome) str10(brand) str50(analysis) str35(subanalysis) str20(category) str20(vlab) comparison_period irr lc uc ///
+		str4(outcome) str10(brand) str50(analysis) str35(subanalysis) str20(category) comparison_period irr lc uc ///
 		using "`c(pwd)'/output/tables/results_summary_sens_censor_at2nd_dose_`brand'", replace
 		
 
