@@ -125,7 +125,7 @@ gen flag_X_before_BP_anyGPdate=. if BP_anyGPdate!=.
 
 *define age group so can explore for effect modification by age (18-39, 40-64, 65-105)
 
-*datacheck age>=18 & age <=105, nolist   
+datacheck age>=18 & age <=105, nolist   
 
 
 *AGE GROUPS FOR STRATIFICATION
@@ -148,9 +148,7 @@ format study_end %td
 gen start=0
 gen end=study_end-study_start
 
-***CHECK END OK HERE****
 
-count if end==.
 
 *days since start of study, indiv had first vaccination date 
 gen vacc_date1= `brand'_date - study_start if first_brand=="`brand'"
@@ -197,15 +195,10 @@ gen incl_2nd_dose_`brand'=1 if censor_fu_diff_brand2!=1 & censor_fu_dose2!=1 & f
 
 *second doses
 *replace end date = censor date if 2 different brands on vaccine 2nd dose on same day, or 2nd dose brand different to first
-replace end= end_date_dose2 - study_start if censor_fu_dose2==1 
+replace end= end_date_dose2 - study_start if (censor_fu_dose2==1 & end_date_dose2<end)
 
-*CHECK END
-count if end==.
+replace end= second_any_vaccine_date - study_start if (censor_fu_diff_brand2==1 & second_any_vaccine_date<end)
 
-replace end= second_any_vaccine_date - study_start if censor_fu_diff_brand2==1
-***ISSUE WITH END HERE??****
-**SHOULD BE 0!***
-count if end==.
 
 ****ISSUE WITH SECOND_ANY_VACCINE_DATE VARIABLE?
 
@@ -232,6 +225,7 @@ replace vacc_date2=99999999 if vacc_date2==.
 
 gen cutp1=start
 gen cutp2=end
+
 
 
 *cutpoints for risk windows
@@ -300,7 +294,9 @@ replace `var' = cutp2 if `var' > cutp2
 
 *loop over each outcome
 
-foreach j of varlist BP TM GBS BP_anyGPdate{
+
+*foreach j of varlist BP TM GBS BP_anyGPdate{
+foreach j of varlist BP{
 
 preserve
 
