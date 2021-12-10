@@ -43,9 +43,7 @@ log using "`c(pwd)'/output/logs/SCCS_first_dose_only_sens_censor_at2nd_dose_`bra
 *runs through for each brand
 
 * IMPORT DATA=================================================================*/ 
-
-
-
+clear
 import delimited using `c(pwd)'/output/input_`brand'_cases.csv
 
 
@@ -296,8 +294,10 @@ replace `var' = cutp2 if `var' > cutp2
 
 *loop over each outcome
 
+
 *foreach j of varlist BP TM GBS BP_anyGPdate{
 foreach j of varlist BP{
+
 preserve
 
 
