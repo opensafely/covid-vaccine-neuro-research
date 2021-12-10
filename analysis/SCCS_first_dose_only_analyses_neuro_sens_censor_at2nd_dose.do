@@ -39,14 +39,18 @@ log using "`c(pwd)'/output/logs/SCCS_first_dose_only_sens_censor_at2nd_dose.log"
 * IMPORT DATA=================================================================*/ 
 
 
+<<<<<<< Updated upstream
 clear
 
 *variable to cycle through each brand (AZ, PF, MOD)
 
 local brand `1'
 display "`brand'"
+=======
+>>>>>>> Stashed changes
 
 import delimited using `c(pwd)'/output/input_`brand'_cases.csv
+
 
 
 gen first_brand="`brand'"
@@ -149,6 +153,10 @@ format study_end %td
 gen start=0
 gen end=study_end-study_start
 
+***CHECK END OK HERE****
+
+count if end==.
+
 *days since start of study, indiv had first vaccination date 
 gen vacc_date1= `brand'_date - study_start if first_brand=="`brand'"
 
@@ -195,7 +203,19 @@ gen incl_2nd_dose_`brand'=1 if censor_fu_diff_brand2!=1 & censor_fu_dose2!=1 & f
 *second doses
 *replace end date = censor date if 2 different brands on vaccine 2nd dose on same day, or 2nd dose brand different to first
 replace end= end_date_dose2 - study_start if censor_fu_dose2==1 
+
+*CHECK END
+count if end==.
+
 replace end= second_any_vaccine_date - study_start if censor_fu_diff_brand2==1
+***ISSUE WITH END HERE??****
+**SHOULD BE 0!***
+count if end==.
+
+****ISSUE WITH SECOND_ANY_VACCINE_DATE VARIABLE?
+
+count if second_any_vaccine_date==. & (second_pfizer_date!=. | second_az_date!=. | second_moderna_date!=.)
+
 
 *there will only be one date in any of the second dose varaibles, i.e. same date in second_az_date and second_any_vaccine_date if second dose is AZ and no other vaccines recieved 
 rename second_az_date second_AZ_date
@@ -286,9 +306,13 @@ replace `var' = cutp2 if `var' > cutp2
 *loop over each outcome
 
 foreach j of varlist BP TM GBS BP_anyGPdate{
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
 preserve
+
 
 	 drop if flag_X_before_`j'==1
 	 noi display "THIS MANY (ABOVE) HAVE X (CIDP for GBS, MS/NO for TM) DURING FU PRIOR TO GBS /TM SO DROPPED"
