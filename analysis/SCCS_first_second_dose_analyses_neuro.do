@@ -162,8 +162,8 @@ gen incl_2nd_dose_`brand'=1 if censor_fu_diff_brand2!=1 & censor_fu_dose2!=1 & f
 
 *second doses
 *replace end date = censor date if 2 different brands on vaccine 2nd dose on same day, or 2nd dose brand different to first
-replace end= end_date_dose2 - study_start if censor_fu_dose2==1 
-replace end= second_any_vaccine_date - study_start if censor_fu_diff_brand2==1
+replace end= end_date_dose2 - study_start if  (censor_fu_dose2==1 & end_date_dose2<end)
+replace end= second_any_vaccine_date - study_start if (censor_fu_diff_brand2==1 & second_any_vaccine_date<end)
 
 *there will only be one date in any of the second dose varaibles, i.e. same date in second_az_date and second_any_vaccine_date if second dose is AZ and no other vaccines recieved 
 rename second_az_date second_AZ_date
