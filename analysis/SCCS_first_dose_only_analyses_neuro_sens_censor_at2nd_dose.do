@@ -296,7 +296,7 @@ replace `var' = cutp2 if `var' > cutp2
 
 
 *foreach j of varlist BP TM GBS BP_anyGPdate{
-foreach j of varlist BP{
+foreach j of varlist BP TM GBS BP_anyGPdate {
 
 preserve
 
