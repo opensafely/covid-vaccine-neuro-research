@@ -29,6 +29,7 @@
       * [output/tables/for-release/results_summary_sens_2nd_dose_only_postvaccbase_AZ.csv](output/tables/for-release/results_summary_sens_2nd_dose_only_postvaccbase_AZ.csv)
       * [output/tables/for-release/results_summary_sens_2nd_dose_only_postvaccbase_PF.csv](output/tables/for-release/results_summary_sens_2nd_dose_only_postvaccbase_PF.csv)
       * [output/tables/for-release/results_summary_sens_AZ_vs_PF.csv](output/tables/for-release/results_summary_sens_AZ_vs_PF.csv)
+      * [output/tables/for-release/results_summary_sens_censor_at2nd_dose_PF.csv](output/tables/for-release/results_summary_sens_censor_at2nd_dose_PF.csv)
       * [output/tables/for-release/results_summary_sens_risk_AZ.csv](output/tables/for-release/results_summary_sens_risk_AZ.csv)
       * [output/tables/for-release/results_summary_sens_risk_PF.csv](output/tables/for-release/results_summary_sens_risk_PF.csv)
       * [output/tables/for-release/results_summary_stratified_AZ.csv](output/tables/for-release/results_summary_stratified_AZ.csv)
