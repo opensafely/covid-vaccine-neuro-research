@@ -73,19 +73,19 @@ def generate_confounding_variables(index_date):
     ## history of outcome events - for exclusion within the individual SCCS cohorts 
     history_bells_palsy_gp=patients.with_these_clinical_events(
         bells_palsy_primary_care_codes,
-        between=["index_date", "index_date - 1 year"],
+        between=["index_date - 1 year", "index_date"],
         returning="binary_flag",
         return_expectations={"incidence": 0.15},
     ),
     history_bells_palsy_hospital=patients.admitted_to_hospital(
         with_these_diagnoses=bells_palsy_secondary_care_codes,
-        between=["index_date", "index_date - 1 year"],
+        between=["index_date - 1 year", "index_date"],
         returning="binary_flag",
         return_expectations={"incidence": 0.10},
     ),
     history_bells_palsy_emergency=patients.attended_emergency_care(
         with_these_diagnoses=bells_palsy_emergency_care_codes,
-        between=["index_date", "index_date - 1 year"],
+        between=["index_date - 1 year", "index_date"],
         returning="binary_flag",
         return_expectations={"incidence": 0.10},
     ), 
@@ -93,13 +93,13 @@ def generate_confounding_variables(index_date):
 
     history_transverse_myelitis_gp=patients.with_these_clinical_events(
         transverse_myelitis_primary_care_codes,
-        between=["index_date", "index_date - 1 year"],
+        between=["index_date - 1 year", "index_date"],
         returning="binary_flag",
         return_expectations={"incidence": 0.15},
     ),
     history_transverse_myelitis_hospital=patients.admitted_to_hospital(
         with_these_diagnoses=transverse_myelitis_secondary_care_codes,
-        between=["index_date", "index_date - 1 year"],
+        between=["index_date - 1 year", "index_date"],
         returning="binary_flag",
         return_expectations={"incidence": 0.10},
     ),
@@ -107,13 +107,13 @@ def generate_confounding_variables(index_date):
 
     history_guillain_barre_gp=patients.with_these_clinical_events(
         guillain_barre_primary_care_codes,
-        between=["index_date", "index_date - 1 year"],
+        between=["index_date - 1 year", "index_date"],
         returning="binary_flag",
         return_expectations={"incidence": 0.15},
     ),
     history_guillain_barre_hospital=patients.admitted_to_hospital(
         with_these_diagnoses=guillain_barre_secondary_care_codes,
-        between=["index_date", "index_date - 1 year"],
+        between=["index_date - 1 year", "index_date"],
         returning="binary_flag",
         return_expectations={"incidence": 0.10},
     ),

@@ -79,8 +79,8 @@ def generate_vaccine_variables(index_date):
         date_format="YYYY-MM-DD",
         return_expectations={
             "date": {
-                "earliest": "2020-12-08",  # first vaccine administered on the 8/12
-                "latest": "2021-05-11",
+                "earliest": "2021-03-01",  # first vaccine administered on the 8/12
+                "latest": "2021-07-11",
             }, 
             "incidence": 0.95
         },
@@ -95,8 +95,8 @@ def generate_vaccine_variables(index_date):
         date_format="YYYY-MM-DD",
         return_expectations={
             "date": {
-                "earliest": "2020-12-08",  # first vaccine administered on the 8/12
-                "latest": "2021-05-11",
+                "earliest": "2021-03-01",  # first vaccine administered on the 8/12
+                "latest": "2021-07-11",
             }, 
             "incidence": 0.95
         },
@@ -111,8 +111,8 @@ def generate_vaccine_variables(index_date):
         date_format="YYYY-MM-DD",
         return_expectations={
             "date": {
-                "earliest": "2020-12-08",  # first vaccine administered on the 8/12
-                "latest": "2021-05-11",
+                "earliest": "2021-03-01",  # first vaccine administered on the 8/12
+                "latest": "2021-07-11",
             }, 
             "incidence": 0.95
         },
@@ -125,8 +125,8 @@ def generate_vaccine_variables(index_date):
         date_format="YYYY-MM-DD",
         return_expectations={
             "date": {
-                "earliest": "2020-12-08",  
-                "latest": "2021-05-11",
+                "earliest": "2021-03-01",  
+                "latest": "2021-07-11",
             },
             "incidence": 0.95
         },

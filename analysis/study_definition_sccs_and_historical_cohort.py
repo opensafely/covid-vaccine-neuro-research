@@ -147,7 +147,7 @@ study = StudyDefinition(
         preg,
         returning="binary_flag",
         find_last_match_in_period=True,
-        between=["index_date", "index_date - 274 days"],
+        between=["index_date - 274 days", "index_date"],
         return_expectations={"incidence": 0.01}
     ),
 
