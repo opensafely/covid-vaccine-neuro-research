@@ -199,21 +199,21 @@ actions:
         log: output/logs/SCCS_check_all_outcome_overlaps_and_distn_source_BP_MOD.log
 
   ## Sensitivity - censoring and second dose 
-  SCCS_censor_2dose_AZ:
-    run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_neuro_sens_censor_at2nd_dose.do AZ
-    needs: [SCCS_first_dose_only_primary_AZ, apply_exclusion_criteria] 
-    outputs:
-      moderately_sensitive: 
-        log: output/logs/SCCS_first_dose_only_sens_censor_at2nd_dose_AZ.log
-        results: output/tables/results_summary_sens_censor_at2nd_dose_AZ.csv
+  #   SCCS_censor_2dose_AZ:
+  #     run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_neuro_sens_censor_at2nd_dose.do AZ
+  #     needs: [SCCS_first_dose_only_primary_AZ, apply_exclusion_criteria] 
+  #     outputs:
+  #    moderately_sensitive: 
+  #     log: output/logs/SCCS_first_dose_only_sens_censor_at2nd_dose_AZ.log
+  #     results: output/tables/results_summary_sens_censor_at2nd_dose_AZ.csv
 
-  SCCS_censor_2dose_PF:
-    run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_neuro_sens_censor_at2nd_dose.do PF
-    needs: [SCCS_first_dose_only_primary_PF, apply_exclusion_criteria] 
-    outputs:
-      moderately_sensitive: 
-        log: output/logs/SCCS_first_dose_only_sens_censor_at2nd_dose_PF.log
-        results: output/tables/results_summary_sens_censor_at2nd_dose_PF.csv
+  # SCCS_censor_2dose_PF:
+  # run: stata-mp:latest analysis/SCCS_first_dose_only_analyses_neuro_sens_censor_at2nd_dose.do PF
+  # needs: [SCCS_first_dose_only_primary_PF, apply_exclusion_criteria] 
+  # outputs:
+  #   moderately_sensitive: 
+  #     log: output/logs/SCCS_first_dose_only_sens_censor_at2nd_dose_PF.log
+  #     results: output/tables/results_summary_sens_censor_at2nd_dose_PF.csv
 
   # SCCS_postvacc2dose_AZ:
   #     run: stata-mp:latest analysis/SCCS_sens_2nd_dose_only_postvaccbase.do AZ
