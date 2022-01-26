@@ -56,7 +56,7 @@ def generate_vaccine_variables(index_date):
 
     # moderna (first dose)
     first_moderna_date=patients.with_tpp_vaccination_record(
-        product_name_matches="COVID-19 mRNA (nucleoside modified) Vaccine Moderna 0.1mg/0.5mL dose dispersion for inj MDV",
+        product_name_matches="COVID-19 mRNA Vaccine Spikevax (nucleoside modified) 0.1mg/0.5mL dose disp for inj MDV (Moderna)",
         on_or_after="2020-12-07",  
         find_first_match_in_period=True,
         returning="date",
@@ -118,7 +118,7 @@ def generate_vaccine_variables(index_date):
         },
     ),
     second_moderna_date=patients.with_tpp_vaccination_record(
-        product_name_matches="COVID-19 mRNA (nucleoside modified) Vaccine Moderna 0.1mg/0.5mL dose dispersion for inj MDV",
+        product_name_matches="COVID-19 mRNA Vaccine Spikevax (nucleoside modified) 0.1mg/0.5mL dose disp for inj MDV (Moderna)",
         on_or_after="first_any_vaccine_date + 21 days",  
         find_first_match_in_period=True,
         returning="date",
