@@ -17,15 +17,15 @@ from codelists import *
 
 ## Demographics, clinical comorbidities and comedications, included as they are potential confounders 
 from confounding_variables import generate_confounding_variables
-confounding_variables = generate_confounding_variables(index_date="index_date")
+confounding_variables = generate_confounding_variables(index_date_variable="index_date")
 
 ## Outcome variables 
 from outcome_variables import generate_outcome_variables
-outcome_variables = generate_outcome_variables(index_date="index_date")
+outcome_variables = generate_outcome_variables(index_date_variable="index_date")
 
 ## Vaccine (exposure) variables 
 from vaccine_variables import generate_vaccine_variables
-vaccine_variables = generate_vaccine_variables(index_date="index_date")
+vaccine_variables = generate_vaccine_variables(index_date_variable="index_date")
 
 # Specify study definition
 
@@ -154,7 +154,7 @@ study = StudyDefinition(
     # CENSORING VARIABLES 
     ## deregistration date
     dereg_date=patients.date_deregistered_from_all_supported_practices(
-        on_or_after="index_date", date_format="YYYY-MM",
+        on_or_after="index_date", date_format="YYYY-MM-DD",
     ),
 
     # all-cause death (ons)
