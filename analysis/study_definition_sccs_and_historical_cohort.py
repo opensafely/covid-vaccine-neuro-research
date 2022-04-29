@@ -154,7 +154,7 @@ study = StudyDefinition(
     # CENSORING VARIABLES 
     ## deregistration date
     dereg_date=patients.date_deregistered_from_all_supported_practices(
-        on_or_after="index_date", date_format="YYYY-MM",
+        on_or_after="index_date", date_format="YYYY-MM-DD",
     ),
 
     # all-cause death (ons)
