@@ -1,0 +1,213 @@
+outcome;brand;analysis;subanalysis;category;vlab;comparison_period;irr;lc;uc
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP;PF;Primary risk window after 1d;;18-39;days 4-28;4;0.63125598;0.44543931;0.89458674
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP;PF;Primary risk window after 1d;;40-64;days 4-28;4;1.2198004;0.97673458;1.5233545
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP;PF;Primary risk window after 1d;;65-105;days 4-28;4;0.87542748;0.71566683;1.070852
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP;PF;Primary risk window after 1d;add in week;18-39;days 4-28;4;0.58070689;0.39656064;0.85036302
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP;PF;Primary risk window after 1d;add in week;40-64;days 4-28;4;1.1907737;0.91202325;1.5547216
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP;PF;Primary risk window after 1d;add in week;65-105;days 4-28;4;0.86044425;0.66700739;1.1099792
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP;PF;Primary risk window after 1d;add in 2 week;18-39;days 4-28;4;0.58383888;0.39890563;0.85450745
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP;PF;Primary risk window after 1d;add in 2 week;40-64;days 4-28;4;1.1780227;0.9035551;1.5358636
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP;PF;Primary risk window after 1d;add in 2 week;65-105;days 4-28;4;0.86329097;0.67043746;1.1116194
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP;PF;Primary risk window after 1d;;exclude hcw;days 4-28;4;0.91428071;0.79390657;1.0529063
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP;PF;Primary risk window after 1d;add in week;exclude hcw;days 4-28;4;0.86992919;0.74517477;1.0155696
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP;PF;Primary risk window after 1d;add in 2 week;exclude hcw;days 4-28;4;0.87338966;0.74842435;1.0192206
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP;PF;Primary risk window after 1d;;prior covid;days 4-28;4;0.60457695;0.29779679;1.2273917
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP;PF;Primary risk window after 1d;;no prior covid;days 4-28;4;0.94149202;0.81879622;1.0825735
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP;PF;Primary risk window after 1d;add in week;prior covid;days 4-28;4;0.57799864;0.27420083;1.2183858
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP;PF;Primary risk window after 1d;add in week;no prior covid;days 4-28;4;0.90464342;0.77543557;1.0553807
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP;PF;Primary risk window after 1d;add in week;prior covid;days 4-28;4;0.57205302;0.27169046;1.2044761
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP;PF;Primary risk window after 1d;add in 2 week;no prior covid;days 4-28;4;0.90975636;0.78012043;1.0609345
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM;PF;Primary risk window after 1d;;18-39;days 4-28;4;1.1466049;0.27029708;4.8639178
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM;PF;Primary risk window after 1d;;40-64;days 4-28;4;2.1701701;0.91270036;5.1601143
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM;PF;Primary risk window after 1d;;65-105;days 4-28;4;1.3249133;0.40276241;4.3583889
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM;PF;Primary risk window after 1d;add in week;18-39;days 4-28;4;0.90235972;0.16380544;4.9708548
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM;PF;Primary risk window after 1d;add in week;40-64;days 4-28;4;2.0367105;0.6907993;6.0049124
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM;PF;Primary risk window after 1d;add in week;65-105;days 4-28;4;0.91583568;0.15833396;5.2973795
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM;PF;Primary risk window after 1d;add in 2 week;18-39;days 4-28;4;0.85315162;0.15264536;4.7683573
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM;PF;Primary risk window after 1d;add in 2 week;40-64;days 4-28;4;1.9676895;0.67331648;5.7503452
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM;PF;Primary risk window after 1d;add in 2 week;65-105;days 4-28;4;0.82453489;0.14585842;4.6610799
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM;PF;Primary risk window after 1d;;exclude hcw;days 4-28;4;1.8349581;0.97513539;3.4529266
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM;PF;Primary risk window after 1d;add in week;exclude hcw;days 4-28;4;1.8001709;0.8479799;3.8215709
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM;PF;Primary risk window after 1d;add in 2 week;exclude hcw;days 4-28;4;1.7396722;0.82305247;3.6771162
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM;PF;Primary risk window after 1d;;prior covid;days 4-28;4;REDACT n<=5;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM;PF;Primary risk window after 1d;;no prior covid;days 4-28;4;1.6903229;0.90094572;3.171325
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM;PF;Primary risk window after 1d;add in week;no prior covid;days 4-28;4;1.6327273;0.77664906;3.4324362
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM;PF;Primary risk window after 1d;add in week;prior covid;days 4-28;4;REDACT n<=5;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM;PF;Primary risk window after 1d;add in 2 week;no prior covid;days 4-28;4;1.5748821;0.75152898;3.300277
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS;PF;Primary risk window after 1d;;18-39;days 4-42;4;1.2944299;0.3835451;4.3685837
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS;PF;Primary risk window after 1d;;40-64;days 4-42;4;0.98046273;0.49024704;1.9608629
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS;PF;Primary risk window after 1d;;65-105;days 4-42;4;1.1148096;0.697267;1.7823882
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS;PF;Primary risk window after 1d;add in week;18-39;days 4-42;4;1.3383181;0.29173732;6.1394105
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS;PF;Primary risk window after 1d;add in week;40-64;days 4-42;4;1.1510489;0.47328934;2.7993731
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS;PF;Primary risk window after 1d;add in week;65-105;days 4-42;4;0.77987909;0.38179275;1.5930408
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS;PF;Primary risk window after 1d;add in 2 week;18-39;days 4-42;4;1.2145501;0.2788102;5.2908111
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS;PF;Primary risk window after 1d;add in 2 week;40-64;days 4-42;4;1.1019711;0.45164534;2.6887035
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS;PF;Primary risk window after 1d;add in 2 week;65-105;days 4-42;4;0.81680548;0.40579921;1.644092
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS;PF;Primary risk window after 1d;;exclude hcw;days 4-42;4;1.1053966;0.75867003;1.6105839
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS;PF;Primary risk window after 1d;add in week;exclude hcw;days 4-42;4;1.013817;0.60608828;1.6958333
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS;PF;Primary risk window after 1d;add in 2 week;exclude hcw;days 4-42;4;1.014176;0.60986292;1.6865312
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS;PF;Primary risk window after 1d;;prior covid;days 4-42;4;0.69310886;0.16330534;2.9417281
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS;PF;Primary risk window after 1d;;no prior covid;days 4-42;4;1.1305115;0.77065444;1.6584038
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS;PF;Primary risk window after 1d;add in week;prior covid;days 4-42;4;0.75193948;0.12234104;4.621613
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS;PF;Primary risk window after 1d;add in week;no prior covid;days 4-42;4;1.1318814;0.66492897;1.9267554
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS;PF;Primary risk window after 1d;add in week;prior covid;days 4-42;4;0.83568943;0.13753462;5.0778255
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS;PF;Primary risk window after 1d;add in 2 week;no prior covid;days 4-42;4;1.1093994;0.65529114;1.8781991

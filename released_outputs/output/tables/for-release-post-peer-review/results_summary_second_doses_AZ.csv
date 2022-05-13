@@ -1,0 +1,73 @@
+outcome,brand,analysis,subanalysis,category,vlab,comparison_period,irr,lc,uc
+BP,AZ,Second dose,,,pre-vacc,1,.71456748,.60499746,.8439815
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP,AZ,Second dose,,,days 4-28 or 42,4,1.3961543,1.2726897,1.5315962
+BP,AZ,Second dose,,,pre-vacc dose2,5,.59872043,.35864308,.99950671
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP,AZ,Second dose,,,days 4-28 or 42 dose,8,1.4333028,1.0883145,1.8876499
+BP,AZ,Second dose,add in week,,pre-vacc,1,.6958195,.58336431,.82995266
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP,AZ,Second dose,add in week,,days 4-28 or 42,4,1.3154013,1.1796956,1.4667181
+BP,AZ,Second dose,add in week,,pre-vacc dose2,5,.54456955,.32542306,.91129369
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP,AZ,Second dose,add in week,,days 4-28 or 42 dose,8,1.3202606,.99719244,1.7479957
+BP,AZ,Second dose,add in 2 week,,pre-vacc,1,.69237381,.58063585,.82561475
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP,AZ,Second dose,add in 2 week,,days 4-28 or 42,4,1.3116198,1.1767043,1.4620041
+BP,AZ,Second dose,add in 2 week,,pre-vacc dose2,5,.54751402,.32719254,.91619325
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP,AZ,Second dose,add in 2 week,,days 4-28 or 42 dose,8,1.3206573,.99756229,1.7483977
+TM,AZ,Second dose,,,pre-vacc,1,.25283626,.093832508,.6812796
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM,AZ,Second dose,,,days 4-28 or 42,4,1.486654,.94508636,2.3385589
+TM,AZ,Second dose,,,pre-vacc dose2,5,.57091856,.07639011,4.2668877
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM,AZ,Second dose,,,days 4-28 or 42 dose,8,5.5466012e-07,0,
+TM,AZ,Second dose,add in week,,pre-vacc,1,.30831847,.10648314,.89272612
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM,AZ,Second dose,add in week,,days 4-28 or 42,4,1.8914095,1.0486413,3.4114907
+TM,AZ,Second dose,add in week,,pre-vacc dose2,5,.47115618,.061482504,3.6105905
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM,AZ,Second dose,add in week,,days 4-28 or 42 dose,8,9.0833502e-08,0,
+TM,AZ,Second dose,add in 2 week,,pre-vacc,1,.31630519,.10953158,.9134258
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM,AZ,Second dose,add in 2 week,,days 4-28 or 42,4,1.89153,1.05387,3.3949976
+TM,AZ,Second dose,add in 2 week,,pre-vacc dose2,5,.47045198,.061451554,3.6016188
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM,AZ,Second dose,add in 2 week,,days 4-28 or 42 dose,8,7.8046759e-07,0,
+GBS,AZ,Second dose,,,pre-vacc,1,.69275606,.45421755,1.0565664
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS,AZ,Second dose,,,days 4-28 or 42,4,2.8702414,2.3485606,3.507802
+GBS,AZ,Second dose,,,pre-vacc dose2,5,.80801004,.19400159,3.3653345
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS,AZ,Second dose,,,days 4-28 or 42 dose,8,2.1315868,.94054055,4.8309054
+GBS,AZ,Second dose,add in week,,pre-vacc,1,.66046959,.40793678,1.0693325
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS,AZ,Second dose,add in week,,days 4-28 or 42,4,2.4712098,1.8209617,3.3536553
+GBS,AZ,Second dose,add in week,,pre-vacc dose2,5,.6437211,.15259466,2.7155397
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS,AZ,Second dose,add in week,,days 4-28 or 42 dose,8,1.7169178,.74264407,3.9693394
+GBS,AZ,Second dose,add in 2 week,,pre-vacc,1,.67303216,.41617432,1.0884197
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS,AZ,Second dose,add in 2 week,,days 4-28 or 42,4,2.4593074,1.816017,3.3304715
+GBS,AZ,Second dose,add in 2 week,,pre-vacc dose2,5,.64019203,.15185152,2.6989906
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS,AZ,Second dose,add in 2 week,,days 4-28 or 42 dose,8,1.7259585,.74668163,3.989562

@@ -1,0 +1,7 @@
+az; bp; 497
+az; tm; 21
+az; gbs; 132
+pf; bp; 219
+pf; tm; 11
+pf; gbs; 32
+mod; bp; [[REDACTED]]

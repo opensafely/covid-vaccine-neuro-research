@@ -1,0 +1,49 @@
+outcome,brand,analysis,subanalysis,category,comparison_period,irr,lc,uc
+BP,AZ,Risk window after 1d censor 2nd dose,,,1,.7234351,.61225754,.854801
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP,AZ,Risk window after 1d censor 2nd dose,,,4,1.4135414,1.2875986,1.551803
+BP,AZ,Risk window after 1d censor 2nd dose,add in week,,1,.70027018,.58694583,.83547461
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP,AZ,Risk window after 1d censor 2nd dose,add in week,,4,1.3301151,1.191902,1.4843552
+BP,AZ,Risk window after 1d censor 2nd dose,add in 2 week,,1,.69675928,.58416611,.83105379
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP,AZ,Risk window after 1d censor 2nd dose,add in 2 week,,4,1.3262545,1.188836,1.4795573
+TM,AZ,Risk window after 1d censor 2nd dose,,,1,.25990185,.096276812,.70161206
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM,AZ,Risk window after 1d censor 2nd dose,,,4,1.5281489,.96742958,2.4138594
+TM,AZ,Risk window after 1d censor 2nd dose,add in week,,1,.31943774,.10964071,.93068057
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM,AZ,Risk window after 1d censor 2nd dose,add in week,,4,2.0331755,1.1034863,3.7461293
+TM,AZ,Risk window after 1d censor 2nd dose,add in 2 week,,1,.32482427,.11179862,.94375765
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM,AZ,Risk window after 1d censor 2nd dose,add in 2 week,,4,2.0027592,1.0964106,3.6583416
+GBS,AZ,Risk window after 1d censor 2nd dose,,,1,.71472043,.46727851,1.0931923
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS,AZ,Risk window after 1d censor 2nd dose,,,4,2.9635687,2.410311,3.64382
+GBS,AZ,Risk window after 1d censor 2nd dose,add in week,,1,.67617273,.4169395,1.0965849
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS,AZ,Risk window after 1d censor 2nd dose,add in week,,4,2.52315,1.851095,3.4391997
+GBS,AZ,Risk window after 1d censor 2nd dose,add in 2 week,,1,.68800539,.42469716,1.1145623
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS,AZ,Risk window after 1d censor 2nd dose,add in 2 week,,4,2.5129428,1.8473533,3.4183397
+BP_a,AZ,Risk window after 1d censor 2nd dose,,,1,.77795106,.63098329,.95915037
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP_a,AZ,Risk window after 1d censor 2nd dose,,,4,1.5197624,1.3516235,1.7088174
+BP_a,AZ,Risk window after 1d censor 2nd dose,add in week,,1,.75322413,.60297424,.94091356
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP_a,AZ,Risk window after 1d censor 2nd dose,add in week,,4,1.4528621,1.2636155,1.6704515
+BP_a,AZ,Risk window after 1d censor 2nd dose,add in 2 week,,1,.75058067,.60105616,.93730235
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP_a,AZ,Risk window after 1d censor 2nd dose,add in 2 week,,4,1.4529626,1.2642262,1.6698755

@@ -1,0 +1,25 @@
+outcome,brand,analysis,subanalysis,category,vlab,comparison_period,irr,lc,uc
+BP,MOD,Primary risk window after 1d,,,pre-vacc 14,1,.65953171,.16192476,2.6863222
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP,MOD,Primary risk window after 1d,,,days 4-28,4,.88071698,.32087943,2.4173019
+BP,MOD,Primary risk window after 1d,add in week,,pre-vacc 14,1,.65096337,.14549783,2.912437
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP,MOD,Primary risk window after 1d,add in week,,days 4-28,4,.82251924,.25224462,2.6820707
+BP,MOD,Primary risk window after 1d,add in 2 week,,pre-vacc 14,1,.58971494,.13202792,2.6340163
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP,MOD,Primary risk window after 1d,add in 2 week,,days 4-28,4,.79896754,.24340619,2.6225674
+BP_a,MOD,Primary risk window after 1d,,,1,1,.4651477,.064320408,3.3638215
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP_a,MOD,Primary risk window after 1d,,,4,4,.30771098,.042444207,2.2308357
+BP_a,MOD,Primary risk window after 1d,add in week,,1,1,.41218662,.051213507,3.3174415
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP_a,MOD,Primary risk window after 1d,add in week,,4,4,.44634801,.051390123,3.8767481
+BP_a,MOD,Primary risk window after 1d,add in 2 week,,1,1,.42249268,.052222189,3.4180887
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP_a,MOD,Primary risk window after 1d,add in 2 week,,4,4,.42117316,.047949862,3.6994233

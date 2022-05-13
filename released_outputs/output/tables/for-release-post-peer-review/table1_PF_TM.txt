@@ -1,0 +1,24 @@
+Table 1: Demographics of individuals in the PF TM case series
+		TM
+		N (%)
+Total Cases		            109 (100.00)
+
+Age	Median (IQR)	54 (40-67)
+
+Age Group	18-39	             26 (23.85)
+	40-64	             49 (44.95)
+	65-105	             34 (31.19)
+	Missing	              0 (0.00)
+
+Gender	Men	             46 (42.20)
+	Women	             63 (57.80)
+	Missing	              0 (0.00)
+
+Prior Covid		             [REDACTED]
+
+	GP only	             43 (39.45)
+	Hospital only	             52 (47.71)
+	Death only	              0 (0.00)
+	more than one source (manual)            14
+
+

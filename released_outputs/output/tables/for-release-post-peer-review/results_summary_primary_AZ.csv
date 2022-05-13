@@ -1,0 +1,57 @@
+outcome,brand,analysis,subanalysis,category,vlab,comparison_period,irr,lc,uc
+BP,AZ,Primary risk window after 1d,,,pre-vacc 14,1,.71272862,.60347039,.84176803
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP,AZ,Primary risk window after 1d,,,days 4-28,4,1.3925489,1.2695166,1.5275047
+BP,AZ,Primary risk window after 1d,add in week,,pre-vacc 14,1,.6963411,.58381909,.8305499
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP,AZ,Primary risk window after 1d,add in week,,days 4-28,4,1.3166529,1.1810021,1.4678845
+BP,AZ,Primary risk window after 1d,add in 2 week,,pre-vacc 14,1,.69287813,.5810768,.82619053
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP,AZ,Primary risk window after 1d,add in 2 week,,days 4-28,4,1.3127031,1.1778617,1.4629812
+TM,AZ,Primary risk window after 1d,,,pre-vacc 28,1,.25645545,.095188186,.6909408
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM,AZ,Primary risk window after 1d,,,days 4-28,4,1.5079136,.95882666,2.3714435
+TM,AZ,Primary risk window after 1d,add in week,,pre-vacc 28,1,.31438386,.10855398,.9104892
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM,AZ,Primary risk window after 1d,add in week,,days 4-28,4,1.9582728,1.0848279,3.5349681
+TM,AZ,Primary risk window after 1d,add in 2 week,,pre-vacc 28,1,.32259536,.1116965,.9317013
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM,AZ,Primary risk window after 1d,add in 2 week,,days 4-28,4,1.9587075,1.0904955,3.5181577
+TM,AZ,Primary risk window after 1d,remove w 44,,pre-vacc 28,1,.25943193,.096261166,.69919086
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM,AZ,Primary risk window after 1d,remove w 44,,days 4-28,4,1.484974,.934057,2.3608277
+TM,AZ,Primary risk window after 1d,remove w 44 adjust 2 week,,pre-vacc 28,1,.32190236,.11126082,.93133545
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM,AZ,Primary risk window after 1d,remove w 44 adjust 2 week,,days 4-28,4,1.9415777,1.0611118,3.5526168
+GBS,AZ,Primary risk window after 1d,,,pre-vacc 28,1,.68735772,.45086712,1.0478933
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS,AZ,Primary risk window after 1d,,,days 4-42,4,2.8450236,2.3297601,3.4742458
+GBS,AZ,Primary risk window after 1d,add in week,,pre-vacc 28,1,.66091287,.40844908,1.0694253
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS,AZ,Primary risk window after 1d,add in week,,days 4-42,4,2.4709134,1.8258451,3.3438833
+GBS,AZ,Primary risk window after 1d,add in 2 week,,pre-vacc 28,1,.67366362,.41680801,1.088805
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS,AZ,Primary risk window after 1d,add in 2 week,,days 4-42,4,2.459991,1.8215634,3.3221767
+BP_a,AZ,Primary risk window after 1d,,,1,1,.78371119,.63597417,.96576756
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP_a,AZ,Primary risk window after 1d,,,4,4,1.5310252,1.3628666,1.719932
+BP_a,AZ,Primary risk window after 1d,add in week,,1,1,.74966544,.60035563,.93610907
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP_a,AZ,Primary risk window after 1d,add in week,,4,4,1.4420438,1.2557075,1.6560307
+BP_a,AZ,Primary risk window after 1d,add in 2 week,,1,1,.74725562,.59862274,.93279278
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP_a,AZ,Primary risk window after 1d,add in 2 week,,4,4,1.4423256,1.2564971,1.6556368

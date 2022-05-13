@@ -1,0 +1,109 @@
+outcome,brand,analysis,subanalysis,category,vlab,comparison_period,irr,lc,uc
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP,PF,Primary risk window after 1d,,don't rm prevac peri,3,3,.93360686,.81421453,1.0705062
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP,PF,Primary risk window after 1d,add in week,don't rm prevac peri,3,3,.91456896,.78789783,1.0616052
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP,PF,Primary risk window after 1d,add in 2 week,don't rm prevac peri,3,3,.91793036,.79104453,1.0651691
+BP,PF,Extended risk window after 1d,,,pre-vacc 14,1,.72161239,.59132206,.88061059
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP,PF,Extended risk window after 1d,,,days 4-42,4,1.0213847,.91600984,1.1388817
+BP,PF,Extended risk window after 1d,add in week,,pre-vacc 14,1,.73875147,.59960753,.91018498
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP,PF,Extended risk window after 1d,add in week,,days 4-42,4,.9831863,.86553133,1.1168345
+BP,PF,Extended risk window after 1d,add in 2 week,,pre-vacc 14,1,.7422269,.60255837,.91426951
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP,PF,Extended risk window after 1d,add in 2 week,,days 4-42,4,.9843533,.86694545,1.1176614
+BP,PF,Post-vacc non-risk period after 1d,,,1,1,.66868204,.54445171,.8212586
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP,PF,Post-vacc non-risk period after 1d,,,4,4,.86279172,.74569392,.9982776
+BP,PF,Post-vacc non-risk period after 1d,,,5,5,.90268099,.83526659,.97553641
+BP,PF,Post-vacc non-risk period after 1d,add in week,,1,1,.74104482,.59000796,.93074584
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP,PF,Post-vacc non-risk period after 1d,add in week,,4,4,.8981685,.76100892,1.0600489
+BP,PF,Post-vacc non-risk period after 1d,add in week,,5,5,1.0390521,.88260835,1.2232257
+BP,PF,Post-vacc non-risk period after 1d,add in 2 week,,1,1,.74719489,.59510189,.93815899
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+BP,PF,Post-vacc non-risk period after 1d,add in 2 week,,4,4,.90430373,.76647574,1.066916
+BP,PF,Post-vacc non-risk period after 1d,add in 2 week,,5,5,1.0442132,.88735312,1.2288018
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM,PF,Primary risk window after 1d,,don't rm prevac peri,3,3,1.5995288,.85677099,2.9862032
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM,PF,Primary risk window after 1d,add in week,don't rm prevac peri,3,3,1.4603699,.7132023,2.990288
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM,PF,Primary risk window after 1d,add in 2 week,don't rm prevac peri,3,3,1.4263556,.69914901,2.9099524
+TM,PF,Extended risk window after 1d,,,pre-vacc 28,1,1.1637057,.58493149,2.3151619
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM,PF,Extended risk window after 1d,,,days 4-42,4,1.4685237,.84634483,2.548089
+TM,PF,Extended risk window after 1d,add in week,,pre-vacc 28,1,1.1923332,.54401082,2.613291
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM,PF,Extended risk window after 1d,add in week,,days 4-42,4,1.3205266,.66888922,2.6069946
+TM,PF,Extended risk window after 1d,add in 2 week,,pre-vacc 28,1,1.1726097,.53568679,2.5668237
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM,PF,Extended risk window after 1d,add in 2 week,,days 4-42,4,1.2806578,.6513837,2.5178468
+TM,PF,Post-vacc non-risk period after 1d,,,1,1,1.3500535,.62370282,2.9222963
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM,PF,Post-vacc non-risk period after 1d,,,4,4,1.8887887,.91998124,3.8778212
+TM,PF,Post-vacc non-risk period after 1d,,,5,5,1.24696,.76258248,2.0390048
+TM,PF,Post-vacc non-risk period after 1d,add in week,,1,1,1.9292364,.73334259,5.0753264
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM,PF,Post-vacc non-risk period after 1d,add in week,,4,4,2.1779957,.91624177,5.1773076
+TM,PF,Post-vacc non-risk period after 1d,add in week,,5,5,2.3597026,.83363324,6.6794319
+TM,PF,Post-vacc non-risk period after 1d,add in 2 week,,1,1,1.9375451,.73781019,5.0881395
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+TM,PF,Post-vacc non-risk period after 1d,add in 2 week,,4,4,2.1519406,.90807045,5.099658
+TM,PF,Post-vacc non-risk period after 1d,add in 2 week,,5,5,2.4402528,.86473173,6.8863368
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS,PF,Primary risk window after 1d,,don't rm prevac peri,3,3,1.1266503,.77910185,1.6292363
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS,PF,Primary risk window after 1d,add in week,don't rm prevac peri,3,3,1.1060882,.69236726,1.7670262
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS,PF,Primary risk window after 1d,add in 2 week,don't rm prevac peri,3,3,1.100271,.69087076,1.7522761
+GBS,PF,Extended risk window after 1d,,,pre-vacc 28,1,.59630316,.34018785,1.0452386
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS,PF,Extended risk window after 1d,,,days 4-90,4,1.0383052,.78442341,1.3743566
+GBS,PF,Extended risk window after 1d,add in week,,pre-vacc 28,1,.62499332,.32194796,1.2132912
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS,PF,Extended risk window after 1d,add in week,,days 4-90,4,.79851025,.51427656,1.239836
+GBS,PF,Extended risk window after 1d,add in 2 week,,pre-vacc 28,1,.61956823,.32107022,1.1955788
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS,PF,Extended risk window after 1d,add in 2 week,,days 4-90,4,.80712259,.51990271,1.2530169
+GBS,PF,Post-vacc non-risk period after 1d,,,1,1,.54219025,.30253315,.9716962
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS,PF,Post-vacc non-risk period after 1d,,,4,4,.98982686,.66004962,1.484369
+GBS,PF,Post-vacc non-risk period after 1d,,,5,5,.8591882,.65372652,1.1292249
+GBS,PF,Post-vacc non-risk period after 1d,add in week,,1,1,.59553874,.26912424,1.3178536
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS,PF,Post-vacc non-risk period after 1d,add in week,,4,4,.90749979,.51292044,1.605621
+GBS,PF,Post-vacc non-risk period after 1d,add in week,,5,5,.72476649,.30857396,1.7023032
+GBS,PF,Post-vacc non-risk period after 1d,add in 2 week,,1,1,.57843095,.26183856,1.2778194
+[REDACTED];;;;;;;;;
+[REDACTED];;;;;;;;;
+GBS,PF,Post-vacc non-risk period after 1d,add in 2 week,,4,4,.89713198,.50942338,1.5799154
+GBS,PF,Post-vacc non-risk period after 1d,add in 2 week,,5,5,.7200312,.30922267,1.6766073

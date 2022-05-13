@@ -1,0 +1,7 @@
+brand; outcome; hcw == 0
+az; bp; 5,284
+az; tm; [REDACTED]
+az; gbs; 511
+pf; bp; 3,430
+pf; tm; 99
+pf; gbs; 269
