@@ -15,6 +15,21 @@
       * [output/plots/for-release/S2_censored_futime_PF_BP.png](output/plots/for-release/S2_censored_futime_PF_BP.png)
       * [output/plots/for-release/S2_censored_futime_PF_GBS.png](output/plots/for-release/S2_censored_futime_PF_GBS.png)
       * [output/plots/for-release/S2_censored_futime_PF_TM.png](output/plots/for-release/S2_censored_futime_PF_TM.png)
+    * output/plots/for-release-post-peer-review
+      * [output/plots/for-release-post-peer-review/S1_exposure_centered_interval_AZ_BP.png](output/plots/for-release-post-peer-review/S1_exposure_centered_interval_AZ_BP.png)
+      * [output/plots/for-release-post-peer-review/S1_exposure_centered_interval_AZ_GBS.png](output/plots/for-release-post-peer-review/S1_exposure_centered_interval_AZ_GBS.png)
+      * [output/plots/for-release-post-peer-review/S1_exposure_centered_interval_AZ_TM.png](output/plots/for-release-post-peer-review/S1_exposure_centered_interval_AZ_TM.png)
+      * [output/plots/for-release-post-peer-review/S1_exposure_centered_interval_MOD_BP.png](output/plots/for-release-post-peer-review/S1_exposure_centered_interval_MOD_BP.png)
+      * [output/plots/for-release-post-peer-review/S1_exposure_centered_interval_PF_BP.png](output/plots/for-release-post-peer-review/S1_exposure_centered_interval_PF_BP.png)
+      * [output/plots/for-release-post-peer-review/S1_exposure_centered_interval_PF_GBS.png](output/plots/for-release-post-peer-review/S1_exposure_centered_interval_PF_GBS.png)
+      * [output/plots/for-release-post-peer-review/S1_exposure_centered_interval_PF_TM.png](output/plots/for-release-post-peer-review/S1_exposure_centered_interval_PF_TM.png)
+      * [output/plots/for-release-post-peer-review/S2_censored_futime_AZ_BP.png](output/plots/for-release-post-peer-review/S2_censored_futime_AZ_BP.png)
+      * [output/plots/for-release-post-peer-review/S2_censored_futime_AZ_GBS.png](output/plots/for-release-post-peer-review/S2_censored_futime_AZ_GBS.png)
+      * [output/plots/for-release-post-peer-review/S2_censored_futime_AZ_TM.png](output/plots/for-release-post-peer-review/S2_censored_futime_AZ_TM.png)
+      * [output/plots/for-release-post-peer-review/S2_censored_futime_MOD_BP.png](output/plots/for-release-post-peer-review/S2_censored_futime_MOD_BP.png)
+      * [output/plots/for-release-post-peer-review/S2_censored_futime_PF_BP.png](output/plots/for-release-post-peer-review/S2_censored_futime_PF_BP.png)
+      * [output/plots/for-release-post-peer-review/S2_censored_futime_PF_GBS.png](output/plots/for-release-post-peer-review/S2_censored_futime_PF_GBS.png)
+      * [output/plots/for-release-post-peer-review/S2_censored_futime_PF_TM.png](output/plots/for-release-post-peer-review/S2_censored_futime_PF_TM.png)
   * output/tables
     * output/tables/for-release
       * [output/tables/for-release/denominators.csv](output/tables/for-release/denominators.csv)
