@@ -4,7 +4,7 @@ This is the code and configuration for our project 'Short-term safety of COVID-1
 
 You can run this project via [Gitpod](https://gitpod.io) in a web browser by clicking on this badge: [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-908a85?logo=gitpod)](https://gitpod.io/#https://github.com/opensafely/covid-vaccine-neuro-research)
 
-* This paper has been accepted for publication, and a link will be posted as soon as available. 
+* This paper has been accepted for publication, is available on line [here](https://doi.org/10.1016/j.vaccine.2022.06.010) and can be cited as Walker et al. Vaccine 2022 doi:10.1016/j.vaccine.2022.06.010
 * Raw model outputs, including charts, crosstabs, etc, are in `released_outputs/` on the release candidates branch 
 * If you are interested in how we defined our variables, take a look at the [study definition](analysis/study_definition.py); this is written in `python`, but non-programmers should be able to understand what is going on there
 * If you are interested in how we defined our code lists, look in the [codelists folder](./codelists/).
